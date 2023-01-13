@@ -1,6 +1,13 @@
 #ifndef _DC_ENGINE_
 #define _DC_ENGINE_
 
+#include "dcMath.h"
+#include "dcCamera.h"
+#include "dcMemory.h"
+#include "dcMisc.h"
+#include "dcCollision.h"
+#include "render.h"
+
 typedef enum
 {
     GS_UNDEFINED,
@@ -12,6 +19,8 @@ typedef enum
 
 typedef struct
 {
+    SDC_Render * RenderPtr;
+
     EGameState CurrentGameState;
     EGameState DesiredGameState;
 } Engine;
