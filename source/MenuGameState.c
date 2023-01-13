@@ -1,43 +1,41 @@
 #include <libetc.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "engine.h"
 #include "MenuGameState.h"
-// #include "GEngine.h"
 // tim files #include ""
 
 
-struct MenuGameState
+void MGS_Init(MenuGameState* MGSPtr)
 {
-    char PressStartText[] = "PRESS START";
-    char TeamName[] = "Demo1 - GameDevChallenge 2023";
-    bool bChangeGameState = false;
-};
-
-void MenuGameState__OnEnter() {
-   printf("MenuGameState::OnEnter");
+    strcpy(MGSPtr->PressStartText, "PRESS START");
+    strcpy(MGSPtr->TeamName, "Demo1 - GameDevChallenge 2023");
 }
 
-void MenuGameState__Update() {
+void MGS_OnEnter(MenuGameState* MGSPtr)
+{
+
+}
+
+
+void MGS_Update(MenuGameState* MGSPtr)
+{
     printf("MenuGameState::Update");
-
-
     int pad = 0;
-    while(GEngine->CurrentGameState != EGameStates::MenuGameState) //GEngine->
+    while(GEngineInstance.CurrentGameState != GS_MAIN_MENU) //GEngine->
     {
         pad = PadRead(0);
 
         if(pad & PADstart)
         {
-            //GEngine->CurrentGameState = GameGameState;
+            printf("[MenuGameState::Update] Enter game loop");
+            GEngineInstance.CurrentGameState = GS_GAME_LOOP;
         }
-
-        Render();
     }
 }
 
-void MenuGameState__OnExit() {
-   printf("MenuGameState::OnExit");
-}
-
-void Render()
+void MGS_OnExit(MenuGameState* MGSPtr)
 {
-    FntPrint("GameDev Challenge Texture Demo\n");
+   printf("MenuGameState::OnExit");
 }
