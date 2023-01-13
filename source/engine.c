@@ -1,5 +1,7 @@
 #include "engine.h"
 
+Engine GEngineInstance;
+
 /* Forward declarations. */
 
 void UpdateGameState(Engine * EnginePtr);

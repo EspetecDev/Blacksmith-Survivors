@@ -10,6 +10,7 @@
 #include <libgpu.h>
 #include <stdio.h>
 #include <types.h>
+#include <string.h>
 
 #include "dcMath.h"
 #include "dcCamera.h"
@@ -36,7 +37,7 @@ typedef struct
 } Engine;
 
 // Global var.
-Engine GEngineInstance;
+extern Engine GEngineInstance;
 
 /* Engine Methods  */
 
