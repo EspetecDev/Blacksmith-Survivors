@@ -36,6 +36,7 @@ void Init(Engine * EnginePtr)
     GLGS_Init(EnginePtr->GameLoopGameState);
     CGS_Init(EnginePtr->ContractGameState);
     GOGS_Init(EnginePtr->GameOverGameState);
+    MGS_Init(EnginePtr->MenuGameState);
     
     //  Start game state.
     ChangeGameState(EnginePtr, GS_MAIN_MENU);
