@@ -1,11 +1,6 @@
-#include <libetc.h>
-#include <stdio.h>
-#include <string.h>
-
 #include "engine.h"
 #include "MenuGameState.h"
 // tim files #include ""
-
 
 void MGS_Init(MenuGameState* MGSPtr)
 {
