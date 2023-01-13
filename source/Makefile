@@ -3,6 +3,7 @@ TYPE = ps-exe
 
 SRCS = main.c \
 		engine.c \
+		MenuGameState.c\
 		../third_party/common/syscalls/printf.s \
 		../third_party/common/crt0/crt0.s \
 		dcLibPsx/src/dcMemory.c\
@@ -12,12 +13,10 @@ SRCS = main.c \
 		dcLibPsx/src/dcRender.c\
 		dcLibPsx/src/dcCollision.c\
 		dcLibPsx/src/dcMisc.c\
-		MenuGameState.c\
-
+		
 CPPFLAGS += -I../third_party/common
 CPPFLAGS += -I../third_party/psyq/include
 CPPFLAGS += -I./dcLibPsx/include
-CPPFLAGS += -I./MenuGameState.h
 LDFLAGS += -L../third_party/psyq/lib
 LDFLAGS += -Wl,--start-group
 LDFLAGS += -lapi
