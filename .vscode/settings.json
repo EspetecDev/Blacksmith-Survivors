@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "game_loop_gamestate.h": "c",
+        "gameover_gamestate.h": "c",
+        "menugamestate.h": "c",
+        "gameloopgamestate.h": "c"
+    }
+}

@@ -3,6 +3,9 @@ TYPE = ps-exe
 
 SRCS = main.c \
 		engine.c \
+		ContractGameState.c \
+		GameLoopGameState.c \
+		GameOverGameState.c \
 		MenuGameState.c\
 		../third_party/common/syscalls/printf.s \
 		../third_party/common/crt0/crt0.s \
