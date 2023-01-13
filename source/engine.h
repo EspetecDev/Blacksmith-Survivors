@@ -3,6 +3,7 @@
 
 typedef enum
 {
+    GS_UNDEFINED,
     GS_MAIN_MENU,
     GS_CONTRACT,
     GS_GAME_LOOP,
@@ -12,6 +13,7 @@ typedef enum
 typedef struct
 {
     EGameState CurrentGameState;
+    EGameState DesiredGameState;
 } Engine;
 
 // Global var.
