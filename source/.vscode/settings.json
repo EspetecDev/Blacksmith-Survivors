@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "MAIN.C": "cpp",
-        "engine.h": "c"
+        "engine.h": "c",
+        "render.h": "c",
+        "dcmisc.h": "c"
     }
 }

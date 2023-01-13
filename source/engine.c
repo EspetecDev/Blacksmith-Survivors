@@ -20,12 +20,9 @@ void Init(Engine * EnginePtr)
 
     InitGeom();
     
-    EnginePtr->RenderPtr = malloc3(sizeof(SDC_Render));
+    EnginePtr->RenderPtr = (SDC_Render*)malloc3(sizeof(SDC_Render));
     CVECTOR BackgroundColor = {RENDER_BG_COLOR_R, RENDER_BG_COLOR_G, RENDER_BG_COLOR_B};
     dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, 8192, RENDER_MODE_PAL);
-
-
-
 
     //  Init game state.
 
@@ -45,7 +42,7 @@ void Update(Engine * EnginePtr)
     // RENDER
     FntPrint("GameDev Challenge Sphere Demo\n");
     
-    dcRender_SwapBuffers(&EnginePtr->RenderPtr);
+    dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }
 
 void Close(Engine * EnginePtr)
