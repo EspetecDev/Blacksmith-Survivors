@@ -1,12 +1,22 @@
 #ifndef _DC_ENGINE_
 #define _DC_ENGINE_
 
+// screw you code formatter, this one needs to stay on top
+#include <stdlib.h>
+// now we need to have libgte.h
+#include <libgte.h>
+// then, these can work; the psyq library is badly written and won't include what it uses
+#include <libetc.h>
+#include <libgpu.h>
+#include <stdio.h>
+#include <types.h>
+
 #include "dcMath.h"
 #include "dcCamera.h"
+#include "render.h"
 #include "dcMemory.h"
 #include "dcMisc.h"
 #include "dcCollision.h"
-#include "render.h"
 
 typedef enum
 {
