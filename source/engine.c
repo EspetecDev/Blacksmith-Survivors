@@ -1,4 +1,5 @@
 #include "engine.h"
+#include <malloc.h>
 
 Engine GEngineInstance;
 
@@ -27,7 +28,15 @@ void Init(Engine * EnginePtr)
     dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, 8192, RENDER_MODE_PAL);
 
     //  Init game state.
+    EnginePtr->GameLoopGameState = (FGameLoopGameState*)malloc3(sizeof(FGameLoopGameState));
+    EnginePtr->ContractGameState = (FContractGameState*)malloc3(sizeof(FContractGameState));
+    EnginePtr->GameOverGameState = (FGameOverGameState*)malloc3(sizeof(FGameOverGameState));
+    EnginePtr->MenuGameState = (MenuGameState*)malloc3(sizeof(MenuGameState));
 
+    GLGS_Init(EnginePtr->GameLoopGameState);
+    CGS_Init(EnginePtr->ContractGameState);
+    GOGS_Init(EnginePtr->GameOverGameState);
+    
     //  Start game state.
     ChangeGameState(EnginePtr, GS_MAIN_MENU);
 }

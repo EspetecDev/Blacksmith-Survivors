@@ -18,6 +18,11 @@
 #include "dcMemory.h"
 #include "dcMisc.h"
 #include "dcCollision.h"
+#include "render.h"
+#include "GameLoopGameState.h"
+#include "ContractGameState.h"
+#include "GameOverGameState.h"
+#include "MenuGameState.h"
 
 typedef enum
 {
@@ -35,7 +40,10 @@ typedef struct
     EGameState CurrentGameState;
     EGameState DesiredGameState;
     FGameLoopGameState* GameLoopGameState;
-
+    FContractGameState* ContractGameState;
+    FGameOverGameState* GameOverGameState;
+    MenuGameState* MenuGameState;
+    
 } Engine;
 
 // Global var.
