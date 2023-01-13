@@ -6,15 +6,12 @@ typedef enum
     GS_MAIN_MENU,
     GS_CONTRACT,
     GS_GAME_LOOP,
-    GS_GAME_OVER
-} GameState;
-
-
+    GS_GAME_OVER,
+} EGameState;
 
 typedef struct
 {
-    EGameState CurrentGameState = EGameState::GS_MAIN_MENU;
-
+    EGameState CurrentGameState;
 } Engine;
 Engine EngineInstance;
 
@@ -26,9 +23,8 @@ void Update(Engine * EnginePtr);
 
 void Close(Engine * EnginePtr);
 
-
 /* Gamestate Change */
 
-v
+void ChangeGameState(Engine * EnginePtr, EGameState NewGameState);
 
 #endif
