@@ -11,8 +11,7 @@ void Init(Engine * EnginePtr)
 {
     // Setup engine start vars.
     EnginePtr->CurrentGameState = GS_UNDEFINED;
-    EnginePtr->CurrentGameState = GS_UNDEFINED;
-
+    EnginePtr->DesiredGameState = GS_UNDEFINED;
 
     //  Init game state.
 
