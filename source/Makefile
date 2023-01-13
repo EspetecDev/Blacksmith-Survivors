@@ -12,10 +12,12 @@ SRCS = main.c \
 		dcLibPsx/src/dcRender.c\
 		dcLibPsx/src/dcCollision.c\
 		dcLibPsx/src/dcMisc.c\
+		MenuGameState.c\
 
 CPPFLAGS += -I../third_party/common
 CPPFLAGS += -I../third_party/psyq/include
 CPPFLAGS += -I./dcLibPsx/include
+CPPFLAGS += -I./MenuGameState.h
 LDFLAGS += -L../third_party/psyq/lib
 LDFLAGS += -Wl,--start-group
 LDFLAGS += -lapi
