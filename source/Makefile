@@ -3,6 +3,7 @@ TYPE = ps-exe
 
 SRCS = main.c \
 		engine.c \
+		GameStates/game_loop_gamestate.c \
 		../third_party/common/syscalls/printf.s \
 		../third_party/common/crt0/crt0.s \
 		dcLibPsx/src/dcMemory.c\

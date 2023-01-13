@@ -1,6 +1,8 @@
 #ifndef _DC_ENGINE_
 #define _DC_ENGINE_
 
+#include "GameStates/game_loop_gamestate.h"
+
 typedef enum
 {
     GS_UNDEFINED,
@@ -14,6 +16,8 @@ typedef struct
 {
     EGameState CurrentGameState;
     EGameState DesiredGameState;
+    FGameLoopGameState* GameLoopGameState;
+
 } Engine;
 
 // Global var.
