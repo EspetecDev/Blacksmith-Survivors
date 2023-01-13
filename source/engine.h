@@ -1,7 +1,12 @@
 #ifndef _DC_ENGINE_
 #define _DC_ENGINE_
 
-#include "GameStates/game_loop_gamestate.h"
+#include "dcMath.h"
+#include "dcCamera.h"
+#include "dcMemory.h"
+#include "dcMisc.h"
+#include "dcCollision.h"
+#include "render.h"
 
 typedef enum
 {
@@ -14,6 +19,8 @@ typedef enum
 
 typedef struct
 {
+    SDC_Render * RenderPtr;
+
     EGameState CurrentGameState;
     EGameState DesiredGameState;
     FGameLoopGameState* GameLoopGameState;
