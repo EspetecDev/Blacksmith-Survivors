@@ -13,7 +13,9 @@ typedef struct
 {
     EGameState CurrentGameState;
 } Engine;
-Engine EngineInstance;
+
+// Global var.
+Engine GEngineInstance;
 
 /* Engine Methods  */
 
