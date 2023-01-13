@@ -1,7 +1,11 @@
 #include "engine.h"
+#include "SpriteTestGameState.h"
 #include <malloc.h>
 
 Engine GEngineInstance;
+
+// REMOVE:
+FSpriteTestGameState SpriteTest;
 
 /* Forward declarations. */
 
@@ -18,9 +22,7 @@ void Init(Engine * EnginePtr)
 
     // Start PSX systems.
     dcMemory_Init();
-
     PadInit(0);
-
     InitGeom();
     
     EnginePtr->RenderPtr = (SDC_Render*)malloc3(sizeof(SDC_Render));
@@ -33,6 +35,7 @@ void Init(Engine * EnginePtr)
     EnginePtr->GameOverGameState = (FGameOverGameState*)malloc3(sizeof(FGameOverGameState));
     EnginePtr->MenuGameState = (MenuGameState*)malloc3(sizeof(MenuGameState));
 
+    STGS_Init(&SpriteTest);
     GLGS_Init(EnginePtr->GameLoopGameState);
     CGS_Init(EnginePtr->ContractGameState);
     GOGS_Init(EnginePtr->GameOverGameState);
@@ -44,15 +47,19 @@ void Init(Engine * EnginePtr)
 
 void Update(Engine * EnginePtr)
 {
+    STGS_Update(&SpriteTest);
+
+    /*
     if(EnginePtr->CurrentGameState != EnginePtr->DesiredGameState)
     {
         OnChangeGameState(EnginePtr);
     }
 
     UpdateGameState(EnginePtr);
+    */
 
     // RENDER
-    FntPrint("GameDev Challenge Sphere Demo\n");
+    FntPrint("Demo1 - The Game\n");
     
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }

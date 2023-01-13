@@ -19,6 +19,7 @@
 #include "dcMisc.h"
 #include "dcCollision.h"
 #include "render.h"
+#include "dcSprite.h"
 #include "GameLoopGameState.h"
 #include "ContractGameState.h"
 #include "GameOverGameState.h"
