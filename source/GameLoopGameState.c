@@ -9,6 +9,7 @@
 void InitScene(FGameLoopGameState *GameState);
 void DrawSceneAssets(FGameLoopGameState *GameState);
 void DrawAsset(FGameLoopGameState *GameState, VECTOR *Translation, TIM_IMAGE *AssetTexture);
+void DrawUI(FGameLoopGameState *GameState);
 
 void GLGS_Init(FGameLoopGameState *GameState)
 {
@@ -41,7 +42,7 @@ void HandlePlayerInput(FGameLoopGameState *GameState)
         }
     }*/
 
-        u_long padState = PadRead(0);
+    u_long padState = PadRead(0);
 
     if (padState & PADselect) // X
     {
@@ -71,7 +72,7 @@ void GLGS_Update(FGameLoopGameState *GameState)
     HandlePlayerInput(GameState);
 
     //  Player input.
-    PlayerInput(&GameState->PlayerInstance, &GameState->PlayerCamera);
+    PlayerInput(&GameState->PlayerInstance, &GameState->PlayerCamera, &GameState->SceneData);
 
     //  Update player logic.
     PlayerUpdate(&GameState->PlayerInstance);
@@ -87,6 +88,9 @@ void GLGS_Update(FGameLoopGameState *GameState)
 
     //  Draw scene assets.
     DrawSceneAssets(GameState);
+
+    // Draw UI.
+    DrawUI(GameState);
 }
 
 void GLGS_Close(FGameLoopGameState *GameState)
@@ -95,7 +99,7 @@ void GLGS_Close(FGameLoopGameState *GameState)
 
 void InitPlayer(FGameLoopGameState *GameState)
 {
-    PlayerInit(&GameState->PlayerInstance, &GameState->PlayerCamera);
+    PlayerInit(&GameState->PlayerInstance, &GameState->PlayerCamera, &GameState->SceneData);
 }
 
 void InitScene(FGameLoopGameState *GameState)
@@ -150,6 +154,11 @@ void DrawSceneAssets(FGameLoopGameState *GameState)
             DrawDebugQuad(GameState, &Translation, &ColorQuad, &Scale);
         }
     }
+}
+
+void DrawUI(FGameLoopGameState *GameState)
+{
+    //dcSprite_RenderUI(GEngineInstance.RenderPtr, &TimVignetting, 0, 0, 256, 256);
 }
 
 char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius)

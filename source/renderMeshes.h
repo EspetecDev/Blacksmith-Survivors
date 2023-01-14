@@ -5,7 +5,6 @@
 
 /* Debug Quad */
 
-#define DEBUG_QUAD_SIZE 100
 static SDC_Vertex QuadDebugVertices[] = {
     {{ -DEBUG_QUAD_SIZE / 2, -DEBUG_QUAD_SIZE / 2, 0, 0}},
     {{ -DEBUG_QUAD_SIZE / 2, DEBUG_QUAD_SIZE / 2, 0, 0}},
