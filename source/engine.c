@@ -53,10 +53,12 @@ void Update(Engine * EnginePtr)
 
     // RENDER
     FntPrint("Demo1 - The Game\n");
-    char debugGS[] = "CurrentGS: ";
-    strcat(debugGS, GetCurrentGSString(EnginePtr));
-    strcat(debugGS, "\n");
-    FntPrint(debugGS);
+    // char debugGS[] = "CurrentGS: ";
+    // char currentGS[] = "";
+    // strcpy(currentGS, GetCurrentGSString(EnginePtr));
+    // strcat(debugGS, currentGS);
+    // strcat(debugGS, "\n");
+    // FntPrint(debugGS);
     
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }
