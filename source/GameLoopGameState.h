@@ -6,11 +6,13 @@
 #include "dcSprite.h"
 #include "scene/scene.h"
 #include "player/player.h"
+#include "Contract.h"
 
 typedef struct
 {
     Player PlayerInstance;
     SceneMap SceneData;
+    ContractData Contract;
 } FGameLoopGameState;
 
 void GLGS_Init(FGameLoopGameState* GameState);

@@ -8,6 +8,7 @@ SRCS = main.c \
 		GameLoopGameState.c \
 		GameOverGameState.c \
 		MenuGameState.c \
+		Contract.c \
 		scene/scene.c \
 		textures/fnt.tim \
 		textures/tile1.tim \

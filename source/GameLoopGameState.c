@@ -3,14 +3,15 @@
 #include "render.h"
 #include "characters/EnemyManager.h"
 #include "dcMisc.h"
+#include "Contract.h"
 
 void InitScene(FGameLoopGameState *GameState);
-void DrawSceneAssets(FGameLoopGameState *GameState);
-void DrawAsset(FGameLoopGameState *GameState, VECTOR *Translation, TIM_IMAGE *AssetTexture);
-void DrawUI(FGameLoopGameState *GameState);
 
 void GLGS_Init(FGameLoopGameState *GameState)
 {
+    // Contract setup.
+    ContractInit(&GameState->Contract);
+
     //  Setup player data.
     InitPlayer(GameState);
 
@@ -69,9 +70,6 @@ void GLGS_Update(FGameLoopGameState *GameState)
 
     //  Draw scene.
     SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.PlayerPosition);
-
-    // Draw UI.
-    //DrawUI(GameState);
 }
 
 void GLGS_Close(FGameLoopGameState *GameState)
@@ -86,24 +84,6 @@ void InitPlayer(FGameLoopGameState *GameState)
 void InitScene(FGameLoopGameState *GameState)
 {
     SceneMap_Init(&GameState->SceneData);
-}
-
-void DrawSceneAssets(FGameLoopGameState *GameState)
-{
-    //Scene
-    SceneMap* MyScene = &GameState->SceneData;
-    //long CellSize = DEBUG_QUAD_SIZE * 2;
-    
-    if (MyScene)
-    {
-        SceneMap_Draw(MyScene);
-        for(int Index = 0; Index < GetGridSize(MyScene); Index++)
-        {
-            //CVECTOR ColorQuad = {RENDER_BG_COLOR_R, RENDER_BG_COLOR_G,RENDER_BG_COLOR_B,255};
-            //VECTOR Translation = {(MyScene->MapCellSizes[Index].vx * CellSize + CellSize / 2), (MyScene->MapCellSizes[Index].vy * CellSize + CellSize / 2), 0, 0};
-            //VECTOR Scale = {ONE * 2, ONE * 2, 0, 0};
-        }
-    }
 }
 
 char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius)

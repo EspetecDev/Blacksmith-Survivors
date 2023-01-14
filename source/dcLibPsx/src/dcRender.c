@@ -7,6 +7,12 @@
 
 int totalPrimitives = 0;
 
+#define FIX_TEXCOORD_U(u, rectX) (u+(rectX%64)) 
+#define FIX_TEXCOORD_V(v, rectY) (v+(rectY%256))
+
+#define SET_UV3_FIX(poly, u0,v0,u1,v1,u2,v2,rectX,rectY) setUV3(poly, FIX_TEXCOORD_U(u0, rectX), FIX_TEXCOORD_V(v0, rectY), FIX_TEXCOORD_U(u1, rectX), FIX_TEXCOORD_V(v1, rectY), FIX_TEXCOORD_U(u2, rectX), FIX_TEXCOORD_V(v2, rectY));
+#define SET_UV0_FIX(sprite, u0,v0,rectX,rectY) setUV0(sprite, FIX_TEXCOORD_U(u0, rectX), FIX_TEXCOORD_V(v0, rectY));
+
 void _dcRender_IncPrimitive(SDC_Render* render, size_t offset)
 {
     u_char* base_ptr = render->primitives[render->doubleBufferIndex];

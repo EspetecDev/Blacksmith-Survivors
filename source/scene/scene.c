@@ -34,7 +34,10 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
             Tile * Data = &MapPtr->MapTiles[i][j];
             int TopLeftX = Data->TopLeft.vx - CameraPosition->vx;
             int TopLefty = Data->TopLeft.vy + CameraPosition->vy;
-            dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, Data->Texture, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
+            if(abs(TopLeftX) < RENDER_WIDTH && abs(TopLefty) < RENDER_HEIGHT)
+            {
+                dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, Data->Texture, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
+            }
         }
     }
 }
