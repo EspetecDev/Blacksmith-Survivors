@@ -1,33 +1,20 @@
 #include "GameLoopGameState.h"
 #include "engine.h"
 #include "render.h"
-
-
+#include "renderMeshes.h"
 #include "dcMisc.h"
 
-#define CUBESIZE 100
-#define QUADUVRES 32
-
-static SDC_VertexTextured quad_vertices[] = {
-    {{ -CUBESIZE / 2, -CUBESIZE / 2, 0, 0}, 0, QUADUVRES},
-    {{ -CUBESIZE / 2, CUBESIZE / 2, 0, 0}, 0, 0},
-    {{ CUBESIZE / 2, CUBESIZE / 2, 0, 0}, QUADUVRES, 0},
-    {{ CUBESIZE / 2, -CUBESIZE / 2, 0, 0}, QUADUVRES, QUADUVRES}
-};
-static u_short quad_indices[] = { 0, 3, 1, 3, 2, 1 };
-static SDC_Mesh3D quadMesh = { quad_vertices, quad_indices, NULL, 6, 4, POLIGON_VERTEX_TEXTURED };
+#define CameraHeightPosition -300
 
 void GLGS_Init(FGameLoopGameState* GameState)
 {
-    VECTOR StartPos =  {0, 0, -300, 0};
-    GameState->Player->PlayerPosition = StartPos;
+    //  Setup player data.
+    InitPlayer(GameState);
 
-    //  Prepare camera in 0.0.0
-    VECTOR Position = {0,0,0,0};
+    //  Setup camera start.
     dcCamera_SetScreenResolution(&GameState->PlayerCamera, RENDER_WIDTH, RENDER_HEIGHT);
-    dcCamera_SetCameraPosition(&GameState->PlayerCamera, 0, GameState->Player->PlayerPosition.vy, GameState->Player->PlayerPosition.vz);
-    dcCamera_LookAt(&GameState->PlayerCamera, &Position);
-    //InitPlayer(GameState);
+    dcCamera_SetCameraPosition(&GameState->PlayerCamera, GameState->Player->PlayerPosition.vx, GameState->Player->PlayerPosition.vy, CameraHeightPosition);
+    dcCamera_LookAt(&GameState->PlayerCamera, &GameState->Player->PlayerPosition);
 }
 
 void HandlePlayerInput(FGameLoopGameState* GameState)
@@ -56,7 +43,6 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
         MovemementSide = 1;
     }
 
-
     if (MovementFront != 0 || MovemementSide != 0)
     {
         if (GameState->Player->CurrentPlayerAction != PLAYER_MOVING)
@@ -78,22 +64,24 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
         GEngineInstance.DesiredGameState = GS_GAME_OVER;
     }
     
+    //  Move player position.
     GameState->Player->PlayerPosition.vy += MovementFront;
     GameState->Player->PlayerPosition.vx += MovemementSide;
 
-    dcCamera_SetCameraPosition(&GameState->PlayerCamera, GameState->Player->PlayerPosition.vx, GameState->Player->PlayerPosition.vy, GameState->Player->PlayerPosition.vz );
-    
-    VECTOR Position = {GameState->Player->PlayerPosition.vx, GameState->Player->PlayerPosition.vy, 0, 0};
-    dcCamera_LookAt(&GameState->PlayerCamera, &Position);    
+    //  Move camera to follow player.
+    dcCamera_SetCameraPosition(&GameState->PlayerCamera, GameState->Player->PlayerPosition.vx, GameState->Player->PlayerPosition.vy, CameraHeightPosition );
+    dcCamera_LookAt(&GameState->PlayerCamera, &GameState->Player->PlayerPosition);    
 }
 
 void GLGS_Update(FGameLoopGameState* GameState)
 {
+    //  Move player.
     HandlePlayerInput(GameState);
 
     SVECTOR rotation = {0};
     VECTOR translation = {0, 0, 0, 0};
     MATRIX transform;
+    CVECTOR ColorSprit = {128, 128, 128, 128};
 
     SDC_DrawParams draw_params;
     draw_params.tim = &tim_smile;
@@ -101,11 +89,11 @@ void GLGS_Update(FGameLoopGameState* GameState)
     RotMatrix(&rotation, &transform);
     TransMatrix(&transform, &translation);
     dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &transform, &transform);
-    dcRender_DrawMesh(GEngineInstance.RenderPtr, &quadMesh, &transform, &draw_params);
+    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadAssetMesh, &transform, &draw_params);
 
     dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera); 
     dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);
-    dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, GameState->Player->PlayerPosition.vx, GameState->Player->PlayerPosition.vy, &Color);
+    dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, GameState->Player->PlayerPosition.vx, GameState->Player->PlayerPosition.vy, &ColorSprit);
 }
 
 void GLGS_Close(FGameLoopGameState* GameState)
@@ -115,19 +103,18 @@ void GLGS_Close(FGameLoopGameState* GameState)
 
 void InitPlayer(FGameLoopGameState* GameState)
 {
-    FAnimationTypes MovingAnimation;
-    FAnimationTypes IdleAnimation;
+    VECTOR StartPos =  {0, 0, 0, 0};
+    GameState->Player->PlayerPosition = StartPos;
 
-    MovingAnimation.Animation = GetHeroRunAnimation();
-    IdleAnimation.Animation = GetHeroIdleAnimation();
+    FAnimationTypes MovingAnimation;
+    //FAnimationTypes IdleAnimation;
+
+    MovingAnimation.Animation = HeroRunAnimation;
 
     GameState->Player->Animations[PLAYER_MOVING] = MovingAnimation;
-    GameState->Player->Animations[PLAYER_IDLE] = IdleAnimation;
+    //GameState->Player->Animations[PLAYER_IDLE] = IdleAnimation;
 
     GameState->Player->CurrentPlayerAction = PLAYER_IDLE;
     GameState->Player->CurrentPlayerAnimation = GameState->Player->Animations[GameState->Player->CurrentPlayerAction];
-
-    //dcSprite_LoadAnimationTex(&GameState->Player->Animations[PLAYER_MOVING].Animation, _binary_sonic_tim_start);
-    //dcSprite_LoadAnimationTex(&GameState->Player->Animations[PLAYER_IDLE].Animation, _binary_sonic_tim_start);
     dcSprite_SetAnimation(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, &GameState->Player->CurrentPlayerAnimation.Animation);
 }
