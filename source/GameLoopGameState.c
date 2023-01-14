@@ -43,6 +43,7 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
         MovemementSide = 1;
     }
 
+    /*
     if (MovementFront != 0 || MovemementSide != 0)
     {
         if (GameState->Player->CurrentPlayerAction != PLAYER_MOVING)
@@ -57,7 +58,7 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
         {
             GameState->Player->CurrentPlayerAction = PLAYER_IDLE;
         }
-    }
+    }*/
 
     if(padState & PADRdown) // X
     {
