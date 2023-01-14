@@ -27,6 +27,7 @@ typedef struct
     FAnimationTypes CurrentPlayerAnimation;
     VECTOR PlayerPosition;
     int Speed;
+    int RadiusColision;
 } FPlayer;
 
 typedef struct
@@ -42,6 +43,8 @@ void GLGS_Update(FGameLoopGameState* GameState);
 void GLGS_Close(FGameLoopGameState* GameState);
 
 void InitPlayer(FGameLoopGameState* GameState);
-void ManageInput(FGameLoopGameState* GameState);
+char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius);
+char CharactersCollide(VECTOR PlayerPosition, VECTOR OtherPosition, long PlayerRadius, long OtherRadius);
+long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition);
 
 #endif
