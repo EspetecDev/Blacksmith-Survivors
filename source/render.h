@@ -11,5 +11,4 @@
 #define RENDER_ORDER_TABLE_SIZE 4096
 #define RENDER_PRIMITIVES_LIST_SIZE 8192
 
-static const CVECTOR FontDefaultColor = {128, 128, 128};
 #endif
