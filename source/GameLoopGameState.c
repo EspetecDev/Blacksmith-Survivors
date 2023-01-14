@@ -41,7 +41,7 @@ void HandlePlayerInput(FGameLoopGameState *GameState)
         }
     }*/
 
-        u_long padState = PadRead(0);
+    u_long padState = PadRead(0);
 
     if (padState & PADselect) // X
     {
@@ -71,7 +71,7 @@ void GLGS_Update(FGameLoopGameState *GameState)
     HandlePlayerInput(GameState);
 
     //  Player input.
-    PlayerInput(&GameState->PlayerInstance, &GameState->PlayerCamera);
+    PlayerInput(&GameState->PlayerInstance, &GameState->PlayerCamera, &GameState->SceneData);
 
     //  Update player logic.
     PlayerUpdate(&GameState->PlayerInstance);
