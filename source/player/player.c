@@ -6,27 +6,22 @@
 
 void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction);
 
-void PlayerInit(Player* Self, SDC_Camera * PlayerCamera, SceneMap* Map)
+void PlayerInit(Player* Self, SceneMap* Map)
 {
     // We want the player to start at the center of the grid.
-    VECTOR GridC = GetGridCenter(Map, DEBUG_QUAD_SIZE * 2);
+    VECTOR GridC = {0,0,0,0};
     VECTOR StartPos = {GridC.vx, GridC.vy, 0};
     Self->PlayerPosition = StartPos;
     Self->RadiusColision = 32;
 
-    Self->Animations[PLAYER_IDLE] = HeroAttackAnimations;
-    Self->Animations[PLAYER_MOVING] = HeroAttackAnimations;
+    Self->Animations[PLAYER_IDLE] = HeroIdleAnimations;
+    Self->Animations[PLAYER_MOVING] = HeroWalkAnimations;
     Self->Animations[PLAYER_ATTACKING] = HeroAttackAnimations;
     Self->CurrentPlayerAction = PLAYER_IDLE;
 
     dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_IDLE], &Self->Animations[PLAYER_IDLE]);
     dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_MOVING], &Self->Animations[PLAYER_MOVING]);
     dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_ATTACKING], &Self->Animations[PLAYER_ATTACKING]);
-
-    //  Setup camera start.
-    dcCamera_SetScreenResolution(PlayerCamera, RENDER_WIDTH, RENDER_HEIGHT);
-    dcCamera_SetCameraPosition(PlayerCamera, Self->PlayerPosition.vx, Self->PlayerPosition.vy, CameraHeightPosition);
-    dcCamera_LookAt(PlayerCamera, &Self->PlayerPosition);
 }
 
 void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction)
@@ -37,7 +32,7 @@ void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction)
     }
 }
 
-void PlayerInput(Player* Self, SDC_Camera * PlayerCamera, SceneMap* Map)
+void PlayerInput(Player* Self, SceneMap* Map)
 {
     // Constants player speed.
     const int PlayerMovementForward = 25;
@@ -73,20 +68,10 @@ void PlayerInput(Player* Self, SDC_Camera * PlayerCamera, SceneMap* Map)
         PlayerChangeAnim(Self, PLAYER_MOVING);
     }
 
-    Self->PlayerPosition.vy += MovementFront;
-    Self->PlayerPosition.vx += MovemementSide;
-
-    // Check if next position is in the grid. If not, we don't want to move.
     if (CanMove(Self, Map))
     {
-        // Move camera to follow player.
-        dcCamera_SetCameraPosition(PlayerCamera, Self->PlayerPosition.vx, Self->PlayerPosition.vy, CameraHeightPosition);
-        dcCamera_LookAt(PlayerCamera, &Self->PlayerPosition);
-    }
-    else
-    {
-        Self->PlayerPosition.vy -= MovementFront;
-        Self->PlayerPosition.vx -= MovemementSide;
+        Self->PlayerPosition.vy += MovementFront;
+        Self->PlayerPosition.vx += MovemementSide;
     }
 }
 
@@ -114,13 +99,7 @@ void PlayerDie(Player* Self)
 
 char CanMove(Player* Self, SceneMap* Map)
 {
-    VECTOR StartPos = GetGridCenter(Map, DEBUG_QUAD_SIZE * 2);
-    VECTOR FirstEdge = {0, 0, 0};
-    VECTOR SecondEdge = {0, StartPos.vy * 2, 0};
-    VECTOR ThirdEdge = {StartPos.vx * 2, StartPos.vy * 2, 0};
-    VECTOR FourthEdge = {StartPos.vx * 2, 0, 0};
-
-    return !LiesOnLeftHand(FirstEdge, SecondEdge, Self->PlayerPosition) && !LiesOnLeftHand(ThirdEdge, FourthEdge, Self->PlayerPosition) && !LiesOnLeftHand(SecondEdge, ThirdEdge, Self->PlayerPosition) && !LiesOnLeftHand(FourthEdge, FirstEdge, Self->PlayerPosition);
+    return 1;
 }
 
 char LiesOnLeftHand(VECTOR EdgePosition1, VECTOR EdgePosition2, VECTOR PlayerPosition)

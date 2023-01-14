@@ -2,8 +2,6 @@
 #include "engine.h"
 #include "render.h"
 #include "characters/EnemyManager.h"
-
-#include "renderMeshes.h"
 #include "dcMisc.h"
 
 void InitScene(FGameLoopGameState *GameState);
@@ -25,23 +23,6 @@ void GLGS_Init(FGameLoopGameState *GameState)
 
 void HandlePlayerInput(FGameLoopGameState *GameState)
 {
-    /*
-    if (MovementFront != 0 || MovemementSide != 0)
-    {
-        if (GameState->Player->CurrentPlayerAction != PLAYER_MOVING)
-        {
-            GameState->Player->CurrentPlayerAction = PLAYER_MOVING;
-            //dcSprite_SetAnimation(&GameState->Player->Animations[PLAYER_MOVING].CurrentSprite, &GameState->Player->Animations[PLAYER_MOVING].Animation);
-        }
-    }
-    else
-    {
-        if (GameState->Player->CurrentPlayerAction != PLAYER_IDLE)
-        {
-            GameState->Player->CurrentPlayerAction = PLAYER_IDLE;
-        }
-    }*/
-
     u_long padState = PadRead(0);
 
     if (padState & PADselect) // X
@@ -72,7 +53,7 @@ void GLGS_Update(FGameLoopGameState *GameState)
     HandlePlayerInput(GameState);
 
     //  Player input.
-    PlayerInput(&GameState->PlayerInstance, &GameState->PlayerCamera, &GameState->SceneData);
+    PlayerInput(&GameState->PlayerInstance, &GameState->SceneData);
 
     //  Update player logic.
     PlayerUpdate(&GameState->PlayerInstance);
@@ -87,10 +68,10 @@ void GLGS_Update(FGameLoopGameState *GameState)
     EM_Draw(&GEnemyManager);
 
     //  Draw scene assets.
-    DrawSceneAssets(GameState);
+    //DrawSceneAssets(GameState);
 
     // Draw UI.
-    DrawUI(GameState);
+    //DrawUI(GameState);
 }
 
 void GLGS_Close(FGameLoopGameState *GameState)
@@ -99,7 +80,7 @@ void GLGS_Close(FGameLoopGameState *GameState)
 
 void InitPlayer(FGameLoopGameState *GameState)
 {
-    PlayerInit(&GameState->PlayerInstance, &GameState->PlayerCamera, &GameState->SceneData);
+    PlayerInit(&GameState->PlayerInstance, &GameState->SceneData);
 }
 
 void InitScene(FGameLoopGameState *GameState)
@@ -107,59 +88,27 @@ void InitScene(FGameLoopGameState *GameState)
     SceneMap_Init(&GameState->SceneData);
 }
 
-void DrawAsset(FGameLoopGameState *GameState, VECTOR *Translation, TIM_IMAGE *AssetTexture)
-{
-    // TODO: Move into GS if possible as optim.
-    SDC_DrawParams DrawParams;
-    MATRIX Transform;
-    SVECTOR Rotation = {0};
-
-    DrawParams.tim = AssetTexture;
-    RotMatrix(&Rotation, &Transform);
-    TransMatrix(&Transform, Translation);
-    dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &Transform, &Transform);
-    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadAssetMesh, &Transform, &DrawParams);
-}
-
-void DrawDebugQuad(FGameLoopGameState *GameState, VECTOR *Translation, CVECTOR *ColorQuad, VECTOR *Scale)
-{
-    // TOOD: Move into GS if possible as optim.
-    SDC_DrawParams DrawParams;
-    MATRIX Transform;
-    SVECTOR Rotation = {0};
-
-    DrawParams.constantColor = *ColorQuad;
-    RotMatrix(&Rotation, &Transform);
-    TransMatrix(&Transform, Translation);
-    ScaleMatrix(&Transform, Scale);
-    dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &Transform, &Transform);
-    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadDebugMesh, &Transform, &DrawParams);
-}
-
 void DrawSceneAssets(FGameLoopGameState *GameState)
 {
-    dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera);
-
     //Scene
     SceneMap* MyScene = &GameState->SceneData;
-    long CellSize = DEBUG_QUAD_SIZE * 2;
+    //long CellSize = DEBUG_QUAD_SIZE * 2;
     
     if (MyScene)
     {
         for(int Index = 0; Index < GetGridSize(MyScene); Index++)
         {
-            CVECTOR ColorQuad = {RENDER_BG_COLOR_R, RENDER_BG_COLOR_G,RENDER_BG_COLOR_B,255};
-            VECTOR Translation = {(MyScene->MapCellSizes[Index].vx * CellSize + CellSize / 2), (MyScene->MapCellSizes[Index].vy * CellSize + CellSize / 2), 0, 0};
-            VECTOR Scale = {ONE * 2, ONE * 2, 0, 0};
-            DrawDebugQuad(GameState, &Translation, &ColorQuad, &Scale);
+            //CVECTOR ColorQuad = {RENDER_BG_COLOR_R, RENDER_BG_COLOR_G,RENDER_BG_COLOR_B,255};
+            //VECTOR Translation = {(MyScene->MapCellSizes[Index].vx * CellSize + CellSize / 2), (MyScene->MapCellSizes[Index].vy * CellSize + CellSize / 2), 0, 0};
+            //VECTOR Scale = {ONE * 2, ONE * 2, 0, 0};
         }
     }
 }
 
-void DrawUI(FGameLoopGameState *GameState)
-{
-    //dcSprite_RenderUI(GEngineInstance.RenderPtr, &TimVignetting, 0, 0, 256, 256);
-}
+
+
+
+
 
 char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius)
 {

@@ -1,43 +1,42 @@
 #include "scene.h"
+#include "../engine.h"
 
 void SceneMap_Init(SceneMap* MapPtr)
 {
     //  Constants scene.
-    MapPtr->TotalCells = 100;
-    MapPtr->GridWidth = SquareRoot0(MapPtr->TotalCells);
-    MapPtr->GridHeight = SquareRoot0(MapPtr->TotalCells);
+    MapPtr->TotalCells = SceneTileWidth * SceneTileHeight;
 
-    //int SceneCellSize = ONE;
-    int AccumulatedWidth = 0;
-    int AccumulatedHeight = 0;
-
-    for(int Index = 0; Index < MapPtr->TotalCells; Index++)
+    for(int i = 0; i <  SceneTileWidth; i++)
     {
-        VECTOR MapOrigin;
-        MapOrigin.vx = AccumulatedWidth;
-        MapOrigin.vy = AccumulatedHeight;
-        AccumulatedWidth +=  1;
-        
-        if (AccumulatedWidth >= MapPtr->GridWidth)
+        for(int j = 0; j <  SceneTileHeight; j++)
         {
-            AccumulatedWidth = 0;
-            AccumulatedHeight += 1;
+            Tile Data;
+            Data.Coordinates.vx = i;
+            Data.Coordinates.vy = j;
+            Data.TopLeft.vx = i * SceneTileDim;
+            Data.TopLeft.vy = j * SceneTileDim;
+            Data.Texture = NULL;
+            MapPtr->MapTiles[i][j] = Data;
         }
+    }
+}
 
-        MapPtr->MapCellSizes[Index] = MapOrigin;
+void SceneMap_Draw(SceneMap * MapPtr)
+{
+    const DVECTOR UV = {SceneTileDim, SceneTileDim};
+    const CVECTOR Color = {255, 255, 255, 255};
+
+    for(int i = 0; i <  SceneTileWidth; i++)
+    {
+        for(int j = 0; j <  SceneTileHeight; j++)
+        {
+            Tile * Data = &MapPtr->MapTiles[i][j];
+            dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, Data->Texture, Data->TopLeft.vx, Data->TopLeft.vy, SceneTileDim, SceneTileDim, &UV, &Color);
+        }
     }
 }
 
 int GetGridSize(SceneMap * MapPtr)
 {
     return MapPtr->TotalCells;
-}
-
-VECTOR GetGridCenter(SceneMap * MapPtr, long QuadSize)
-{
-    long TotalWidth = MapPtr->GridWidth * QuadSize;
-    long TotalHeight = MapPtr->GridHeight * QuadSize;
-
-    VECTOR GridCenter = {TotalWidth / 2, TotalHeight / 2};
-    return GridCenter;
 }

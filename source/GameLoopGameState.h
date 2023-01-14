@@ -10,7 +10,6 @@
 typedef struct
 {
     Player PlayerInstance;
-    SDC_Camera PlayerCamera;
     SceneMap SceneData;
 } FGameLoopGameState;
 

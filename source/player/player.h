@@ -29,8 +29,8 @@ typedef struct
 
 /* Player Methods  */
 
-void PlayerInit(Player* Self, SDC_Camera * PlayerCamera, SceneMap* Map);
-void PlayerInput(Player* Self, SDC_Camera * PlayerCamera, SceneMap* Map);
+void PlayerInit(Player* Self, SceneMap* Map);
+void PlayerInput(Player* Self, SceneMap* Map);
 void PlayerUpdate(Player* Self);
 void PlayerDraw(Player* Self);
 void PlayerDie(Player* Self);

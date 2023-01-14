@@ -11,6 +11,7 @@
         "spritetestgamestate.h": "c",
         "rendermeshes.h": "c",
         "player.h": "c",
-        "dcfont.h": "c"
+        "dcfont.h": "c",
+        "scene.h": "c"
     }
 }
