@@ -43,7 +43,7 @@ void Init(Engine * EnginePtr)
     MGS_Init(EnginePtr->MenuGameState);
     
     //  Start game state.
-    ChangeGameState(EnginePtr, GS_MAIN_MENU);
+    ChangeGameState(EnginePtr, GS_GAME_LOOP);
 }
 
 void Update(Engine * EnginePtr)
@@ -59,8 +59,6 @@ void Update(Engine * EnginePtr)
     char currentGS[15] = "";
     strcpy(currentGS, GetCurrentGSString(EnginePtr));
     strcat(debugGS, currentGS);
-    FntLoad(960, 256);                // Load font to vram at FONTX,FONTY
-    FntOpen(16, 16, RENDER_WIDTH, RENDER_HEIGHT, 0, 512 );    // FntOpen(x, y, width, height,  black_bg, max. nbr. chars)
     FntPrint(debugGS);
 
 

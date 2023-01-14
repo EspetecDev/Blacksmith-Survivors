@@ -4,7 +4,8 @@
 
 void MGS_Init(MenuGameState* MGSPtr)
 {
-    strcpy(MGSPtr->PressStartText, "PRESS START");
+    // strcpy(MGSPtr->PressStartText, "PRESS START");
+    strcpy(MGSPtr->PressStartText, "\n012345678\n\nABCDEFGHIJKLMNOPQRSTUVWXYZ");
     strcpy(MGSPtr->TeamName, "Demo1 - GameDevChallenge 2023");
     MGSPtr->bActivatePressStartEffet = 0;
     MGSPtr->PressAnimationFrames = 100;
@@ -23,7 +24,7 @@ void MGS_Update(MenuGameState* MGSPtr)
             MGSPtr->bActivatePressStartEffet = 1;
             GEngineInstance.DesiredGameState = GS_CONTRACT;
         }
-
+        FntPrint(MGSPtr->PressStartText);
         // if(MGSPtr->bActivatePressStartEffet && MGSPtr->PressAnimationFrames > 0)
         // {
         //     // Set text

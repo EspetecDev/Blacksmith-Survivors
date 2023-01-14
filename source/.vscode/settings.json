@@ -8,6 +8,7 @@
         "dcmath.h": "c",
         "dccamera.h": "c",
         "enemymanager.h": "c",
-        "spritetestgamestate.h": "c"
+        "spritetestgamestate.h": "c",
+        "rendermeshes.h": "c"
     }
 }

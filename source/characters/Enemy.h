@@ -7,15 +7,6 @@
 #define ENEMY_YELLOW_VELOCITY   30
 #define ENEMY_GREEN_VELOCITY    40
 
-#define ENEMY_CUBESIZE 196
-
-static SDC_Vertex enemy_quad_vertices[] = {
-    { -ENEMY_CUBESIZE / 2, 0,  -ENEMY_CUBESIZE / 2, 0 },
-    { -ENEMY_CUBESIZE / 2, 0, ENEMY_CUBESIZE / 2, 0  },
-    { ENEMY_CUBESIZE / 2, 0, ENEMY_CUBESIZE / 2, 0  },
-    { ENEMY_CUBESIZE / 2, 0, -ENEMY_CUBESIZE / 2, 0 }
-};
-static u_short enemy_quad_indices[] = { 0, 1, 3, 3, 1, 2 };
 
 typedef enum
 {
@@ -30,9 +21,16 @@ typedef struct
     int Velocity;
     EEnemyType Type;
     char Id;
-    char Position[2];
-    SDC_Mesh3D EnemyMesh;
+    VECTOR Position;
+    // debug
+    CVECTOR Color;
+    
 } Enemy;
+
+static const CVECTOR EnemyRedColor = {255, 0, 0, 255};
+static const CVECTOR EnemyBlueColor = {0, 0, 255, 255};
+static const CVECTOR EnemyYellowColor = {0, 255, 255, 255};
+static const CVECTOR EnemyGreenColor = {0, 255, 0, 255};
 
 void EnemyInit(Enemy* Self);
 void EnemyUpdate(Enemy* Self);

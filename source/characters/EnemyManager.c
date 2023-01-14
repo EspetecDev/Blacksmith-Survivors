@@ -27,15 +27,27 @@ void EM_SpawnEnemy(EnemyManager* EM, EEnemyType EnemyType)
     {
         case ENEMY_RED:
             NewEnemy->Velocity = ENEMY_RED_VELOCITY;
+            NewEnemy->Color = EnemyRedColor;
+            NewEnemy->Position.vx = 50;
+            NewEnemy->Position.vy = 0;
         break;
         case ENEMY_BLUE:
             NewEnemy->Velocity = ENEMY_BLUE_VELOCITY;
+            NewEnemy->Color = EnemyBlueColor;
+            NewEnemy->Position.vx = 0;
+            NewEnemy->Position.vy = -50;
         break;
         case ENEMY_YELLOW:
             NewEnemy->Velocity = ENEMY_YELLOW_VELOCITY;
+            NewEnemy->Color = EnemyYellowColor;
+            NewEnemy->Position.vx = -50;
+            NewEnemy->Position.vy = 0;
         break;
         case ENEMY_GREEN:
             NewEnemy->Velocity = ENEMY_GREEN_VELOCITY;
+            NewEnemy->Color = EnemyGreenColor;
+            NewEnemy->Position.vx = 0;
+            NewEnemy->Position.vy = 50;
         break;
     default:
         break;
