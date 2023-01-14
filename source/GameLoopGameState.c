@@ -134,10 +134,28 @@ void DrawAsset(FGameLoopGameState* GameState, VECTOR * Translation, TIM_IMAGE * 
     dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadAssetMesh, &Transform, &DrawParams);
 }
 
+void DrawDebugQuad(FGameLoopGameState* GameState, VECTOR * Translation, CVECTOR * ColorQuad)
+{
+    // TOOD: Move into GS if possible as optim.
+    SDC_DrawParams DrawParams;
+    MATRIX Transform;
+    SVECTOR Rotation = {0};
+
+    DrawParams.constantColor = *ColorQuad;
+    RotMatrix(&Rotation, &Transform);
+    TransMatrix(&Transform, Translation);
+    dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &Transform, &Transform);
+    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadDebugMesh, &Transform, &DrawParams);
+}
+
 void DrawSceneAssets(FGameLoopGameState* GameState)
 {
     dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera);
 
-    VECTOR translation = {0, 0, 0, 0};
-    DrawAsset(GameState, &translation, &tim_smile); 
+    VECTOR Translation = {0, 0, 0, 0};
+    CVECTOR ColorQuad = {255, 0,0,255};
+    DrawDebugQuad(GameState, &Translation, &ColorQuad);
+
+    //VECTOR translation = {0, 0, 0, 0};
+    //DrawAsset(GameState, &translation, &tim_smile);
 }
