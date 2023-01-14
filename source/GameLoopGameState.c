@@ -19,7 +19,12 @@ void GLGS_Init(FGameLoopGameState *GameState)
     InitScene(GameState);
 
     // Init enemy manager
-    EM_Init(&GEnemyManager);
+    EM_Init(&GameState->MyEnemyManager, &GameState->SceneData, &GameState->PlayerInstance);
+
+    for (int i = 0; i < MAX_ENEMIES; i++)
+    {
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
+    }
 }
 
 void HandlePlayerInput(FGameLoopGameState *GameState)
@@ -32,19 +37,19 @@ void HandlePlayerInput(FGameLoopGameState *GameState)
     }
     if (padState & PADRdown) // X
     {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_BLUE);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
     }
     if (padState & PADRright) // O
     {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_RED);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_RED, &GameState->PlayerInstance);
     }
     if (padState & PADRup) // triangle
     {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_GREEN);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_GREEN, &GameState->PlayerInstance);
     }
     if (padState & PADRleft) // |_|
     {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_YELLOW);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_YELLOW, &GameState->PlayerInstance);
     }
 }
 
@@ -60,13 +65,13 @@ void GLGS_Update(FGameLoopGameState *GameState)
     PlayerUpdate(&GameState->PlayerInstance);
 
     //  Update enemy manager.
-    EM_Update(&GEnemyManager);
+    EM_Update(&GameState->MyEnemyManager, &GameState->PlayerInstance);
 
     //  Draw hero.
     PlayerDraw(&GameState->PlayerInstance);
 
     //  Draw enemy.
-    EM_Draw(&GEnemyManager);
+    EM_Draw(&GameState->MyEnemyManager, &GameState->PlayerInstance);
 
     //  Draw scene.
     SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.CameraPosition);
