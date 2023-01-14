@@ -15,7 +15,7 @@ void SceneMap_Init(SceneMap* MapPtr)
             Data.Coordinates.vy = j;
             Data.TopLeft.vx = i * SceneTileDim;
             Data.TopLeft.vy = j * SceneTileDim;
-            Data.Texture = &TimTile2;
+            Data.RealImage = TimTile2;
             MapPtr->MapTiles[i][j] = Data;
         }
     }
@@ -34,7 +34,7 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
             Tile * Data = &MapPtr->MapTiles[i][j];
             int TopLeftX = Data->TopLeft.vx - CameraPosition->vx;
             int TopLefty = Data->TopLeft.vy + CameraPosition->vy;
-            dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, Data->Texture, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
+            dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &Data->RealImage, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
         }
     }
 }

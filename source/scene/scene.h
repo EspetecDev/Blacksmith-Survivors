@@ -12,7 +12,8 @@ typedef struct
 {
     VECTOR Coordinates;
     VECTOR TopLeft;
-    TIM_IMAGE * Texture;
+    RealTIMImage RealImage;
+    TIM_IMAGE Texture;
 } Tile;
 
 typedef struct

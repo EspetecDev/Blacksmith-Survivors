@@ -145,9 +145,31 @@ void dcRender_LoadTexture(TIM_IMAGE* tim, u_long* texture) {
     DrawSync(0);                                // Wait for drawing to end
 }
 
-void dcRender_DrawSpriteRect(SDC_Render* render, const TIM_IMAGE *tim, short x, short y, short w, short h, const DVECTOR *uv, const CVECTOR *color) {
+void dcRender_DrawSpriteRect(SDC_Render* render, const RealTIMImage* tim, short x, short y, short w, short h, const DVECTOR *uv, const CVECTOR *color) {
     SPRT *sprt = (SPRT*)render->nextPrimitive;
 
+    setSprt(sprt);
+    setXY0(sprt, x, y);
+    setWH(sprt, w, h);
+    setRGB0(sprt, color->r, color->g, color->b);
+    setUV0(sprt, uv->vx, uv->vy);
+    setClut(sprt, tim->crect.x, tim->crect.y);
+
+    addPrim(render->orderingTable[render->doubleBufferIndex], sprt);
+
+    _dcRender_IncPrimitive(render, sizeof(SPRT));
+
+    DR_TPAGE *tpri = (DR_TPAGE*)render->nextPrimitive;
+    u_short tpage = getTPage(tim->mode, 0, tim->prect.x, tim->prect.y);
+    setDrawTPage(tpri, 0, 0, tpage);
+    addPrim(render->orderingTable[render->doubleBufferIndex], tpri);
+    _dcRender_IncPrimitive(render, sizeof(DR_TPAGE));
+}
+
+void dcRender_DrawSpriteRectNotReal(SDC_Render* render, const TIM_IMAGE *tim, short x, short y, short w, short h, const DVECTOR *uv, const CVECTOR *color)
+{
+    SPRT *sprt = (SPRT*)render->nextPrimitive;
+    
     setSprt(sprt);
     setXY0(sprt, x, y);
     setWH(sprt, w, h);
@@ -165,7 +187,6 @@ void dcRender_DrawSpriteRect(SDC_Render* render, const TIM_IMAGE *tim, short x, 
     addPrim(render->orderingTable[render->doubleBufferIndex], tpri);
     _dcRender_IncPrimitive(render, sizeof(DR_TPAGE));
 }
-
 // #pragma GCC push_options
 // #pragma GCC optimize ("O0")
 
