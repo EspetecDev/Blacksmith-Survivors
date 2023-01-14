@@ -26,6 +26,10 @@ void Init(Engine * EnginePtr)
     EnginePtr->RenderPtr = (SDC_Render*)malloc3(sizeof(SDC_Render));
     CVECTOR BackgroundColor = {RENDER_BG_COLOR_R, RENDER_BG_COLOR_G, RENDER_BG_COLOR_B};
     dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, 8192, RENDER_MODE_PAL);
+    
+    //  Resources.
+    Resources_LoadTextureResources();
+    Resources_LoadSpriteResources();
 
     //  Init game state.
     EnginePtr->GameLoopGameState = (FGameLoopGameState*)malloc3(sizeof(FGameLoopGameState));

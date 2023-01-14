@@ -1,6 +1,16 @@
 #include "SpriteTestGameState.h"
 #include "engine.h"
 
+/*  Texture Animations Resources */
+
+extern unsigned long _binary_smile_tim_start[];
+TIM_IMAGE tim_smile;
+
+void Resources_LoadTextureResources()
+{
+    dcRender_LoadTexture(&tim_smile, _binary_smile_tim_start);
+}
+
 /* Sprite Animations Header. */
 
 //extern unsigned long _binary_hero_tim_start[];

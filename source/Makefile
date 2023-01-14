@@ -8,6 +8,7 @@ SRCS = main.c \
 		GameLoopGameState.c \
 		GameOverGameState.c \
 		MenuGameState.c\
+		smile.tim \
 		../third_party/common/syscalls/printf.s \
 		../third_party/common/crt0/crt0.s \
 		dcLibPsx/src/dcMemory.c\

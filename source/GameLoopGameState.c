@@ -7,20 +7,20 @@
 
 #include "dcMisc.h"
 
-#define CUBESIZE 196
+#define CUBESIZE 100
 
-static SDC_Vertex quad_vertices[] = {
-    { -CUBESIZE / 2, 0,  -CUBESIZE / 2, 0 },
-    { -CUBESIZE / 2, 0, CUBESIZE / 2, 0  },
-    { CUBESIZE / 2, 0, CUBESIZE / 2, 0  },
-    { CUBESIZE / 2, 0, -CUBESIZE / 2, 0 }
+static SDC_VertexTextured quad_vertices[] = {
+    { -CUBESIZE / 2, -CUBESIZE / 2, 0, 0 },
+    { -CUBESIZE / 2, CUBESIZE / 2, 0, 0  },
+    { CUBESIZE / 2, CUBESIZE / 2, 0, 0  },
+    { CUBESIZE / 2, -CUBESIZE / 2, 0, 0 }
 };
-static u_short quad_indices[] = { 0, 1, 3, 3, 1, 2 };
+static u_short quad_indices[] = { 0, 3, 1, 3, 2, 1 };
 static SDC_Mesh3D cubeMesh = { quad_vertices, quad_indices, NULL, 6, 4, POLIGON_VERTEX };
 
 void GLGS_Init(FGameLoopGameState* GameState)
 {
-    VECTOR StartPos =  {0, 0, 300, 0};
+    VECTOR StartPos =  {0, 0, -300, 0};
     GameState->PlayerPosition = StartPos;
 
     //  Prepare camera in 0.0.0
@@ -67,7 +67,7 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
 
     dcCamera_SetCameraPosition(&GameState->PlayerCamera, GameState->PlayerPosition.vx, GameState->PlayerPosition.vy, GameState->PlayerPosition.vz );
     
-    VECTOR Position = {GameState->PlayerPosition.vx, GameState->PlayerPosition.vy, GameState->PlayerPosition.vz - 300,0};
+    VECTOR Position = {GameState->PlayerPosition.vx, GameState->PlayerPosition.vy, 0, 0};
     dcCamera_LookAt(&GameState->PlayerCamera, &Position);    
 }
 

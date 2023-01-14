@@ -9,10 +9,11 @@
 
 /*  Texture Animations Resources */
 
-void LoadTextureResources();
+extern TIM_IMAGE tim_smile;
+void Resources_LoadTextureResources();
 
 /* Sprite Animations Resources */
 
-void LoadSpriteResources();
+void Resources_LoadSpriteResources();
 
 #endif
