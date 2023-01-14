@@ -3,12 +3,13 @@
 
 /*  Texture Animations Resources */
 
-extern TIM_IMAGE tim_smile;
 void Resources_LoadTextureResources();
 
 /* Sprite Animations Resources */
 
-extern SDC_SpriteAnimation HeroRunAnimation;
+extern SDC_SpriteAnimation HeroIdleAnimations;
+extern SDC_SpriteAnimation HeroWalkAnimations;
+//extern SDC_SpriteAnimation HeroAttackAnimations;
 void Resources_LoadSpriteResources();
 
 #endif

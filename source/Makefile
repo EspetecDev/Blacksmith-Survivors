@@ -9,8 +9,8 @@ SRCS = main.c \
 		GameOverGameState.c \
 		MenuGameState.c \
 		scene/scene.c \
-		textures/Hero.tim \
-		textures/Enemy_Blue.tim \
+		textures/HeroIdle.tim \
+		textures/HeroWalk.tim \
 		characters/Enemy.c\
 		characters/EnemyManager.c\
 		player/player.c\

@@ -2,26 +2,41 @@
 
 /*  Texture Animations Resources */
 
-extern unsigned long _binary_textures_Enemy_Blue_tim_start[];
-TIM_IMAGE tim_smile;
+//extern unsigned long _binary_textures_TitleLogo_tim_start[];
+//TIM_IMAGE TimTitleLogo;
 
 void Resources_LoadTextureResources()
 {
-    dcRender_LoadTexture(&tim_smile, _binary_textures_Enemy_Blue_tim_start);
+   //dcRender_LoadTexture(&TimTitleLogo, _binary_textures_TitleLogo_tim_start);
+   //dcRender_LoadTexture(&TimVignetting, _binary_textures_Vignette_tim_start);
 }
 
 /* Sprite Animations Header. */
 
-extern unsigned long _binary_textures_Hero_tim_start[];
+extern unsigned long _binary_textures_HeroIdle_tim_start[];
+extern unsigned long _binary_textures_HeroWalk_tim_start[];
+extern unsigned long _binary_textures_HeroAttack_tim_start[];
 
 // Hero Run Animation.
-SDC_SpriteFrame HeroRunFrames[] =
+SDC_SpriteFrame HeroIdleWalkFrames[] =
 {
-    {0,0,64,32}
+    {5,0,18,64}, {26,0,18,64}, {47,0,18,64}, {67,0,18,64}, {87,0,18,64}, {107, 0, 18, 64}
 };
-SDC_SpriteAnimation HeroRunAnimation = {HeroRunFrames, NULL, 1, 1, 0, 0};
+
+/*
+SDC_SpriteFrame HeroAttackFrames[] =
+{
+    {5,0,19,64}, {26,0,20,64},  {48,0,29,64}, {79,0,27,64}, {107,0,18,64}
+};
+*/
+
+SDC_SpriteAnimation HeroIdleAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
+SDC_SpriteAnimation HeroWalkAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
+//SDC_SpriteAnimation HeroAttackAnimations = {HeroAttackFrames, NULL, 3, 6, 0, 0};
 
 void Resources_LoadSpriteResources()
 {
-    dcSprite_LoadAnimationTex(&HeroRunAnimation, _binary_textures_Hero_tim_start);
+    dcSprite_LoadAnimationTex(&HeroIdleAnimations, _binary_textures_HeroIdle_tim_start);
+    dcSprite_LoadAnimationTex(&HeroWalkAnimations, _binary_textures_HeroWalk_tim_start);
+    //dcSprite_LoadAnimationTex(&HeroAttackAnimations, _binary_textures_HeroAttack_tim_start);
 }

@@ -38,3 +38,10 @@ void dcSprite_Render(SDC_Render* render, SDC_Sprite* sprite, u_short x, u_short 
     DVECTOR UVs = {currFrame->x,currFrame->y};
     dcRender_DrawSpriteRect(render, sprite->currAnimation->timImage, x, y, currFrame->w, currFrame->h, &UVs, Color);
 }
+
+void dcSprite_RenderUI(SDC_Render* render, TIM_IMAGE * timImage, u_short x, u_short y, u_short Width, u_short Height)
+{
+    CVECTOR Color = {255,255,255,255};
+    DVECTOR UVs = {x,y};
+    dcRender_DrawSpriteRect(render, timImage, x, y, Width, Height, &UVs, &Color);
+}

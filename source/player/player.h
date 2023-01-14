@@ -5,14 +5,9 @@
 #include "dcCamera.h"
 #include "dcSprite.h"
 
-typedef struct 
-{
-    SDC_SpriteAnimation Animation;
-    SDC_Sprite CurrentSprite;
-} FAnimationTypes;
-
 typedef enum
 {
+    PLAYER_UNKNOWN,
     PLAYER_IDLE,
     PLAYER_MOVING,
     PLAYER_ATTACKING,
@@ -26,9 +21,9 @@ typedef struct
     int Speed;
     int RadiusColision;
 
-    FAnimationTypes Animations[PLAYER_NUM_ANIMATIONS];
+    SDC_Sprite CurrentSprite[PLAYER_NUM_ANIMATIONS];
+    SDC_SpriteAnimation Animations[PLAYER_NUM_ANIMATIONS];
     PLAYER_ACTION CurrentPlayerAction;
-    FAnimationTypes CurrentPlayerAnimation;
 } Player;
 
 /* Player Methods  */

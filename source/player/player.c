@@ -4,28 +4,35 @@
 
 #define CameraHeightPosition 300
 
+void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction);
+
 void PlayerInit(Player* Self, SDC_Camera * PlayerCamera)
 {
     VECTOR StartPos = {0, 0, 0, 0};
     Self->PlayerPosition = StartPos;
     Self->RadiusColision = 32;
 
-    FAnimationTypes MovingAnimation;
-    // FAnimationTypes IdleAnimation;
+    Self->Animations[PLAYER_IDLE] = HeroIdleAnimations;
+    Self->Animations[PLAYER_MOVING] = HeroWalkAnimations;
+    //Self->Animations[PLAYER_ATTACKING] = HeroAttackAnimations;
+    Self->CurrentPlayerAction = PLAYER_IDLE;
 
-    MovingAnimation.Animation = HeroRunAnimation;
+    dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_IDLE], &Self->Animations[PLAYER_IDLE]);
+    dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_MOVING], &Self->Animations[PLAYER_MOVING]);
+    //dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_ATTACKING], &Self->Animations[PLAYER_ATTACKING]);
 
-    Self->Animations[PLAYER_MOVING] = MovingAnimation;
-    // GameState->Player->Animations[PLAYER_IDLE] = IdleAnimation;
-
-    Self->CurrentPlayerAction = PLAYER_MOVING;
-    Self->CurrentPlayerAnimation =Self->Animations[Self->CurrentPlayerAction];
-    dcSprite_SetAnimation(&Self->Animations[Self->CurrentPlayerAction].CurrentSprite, &Self->CurrentPlayerAnimation.Animation);
-    
     //  Setup camera start.
     dcCamera_SetScreenResolution(PlayerCamera, RENDER_WIDTH, RENDER_HEIGHT);
     dcCamera_SetCameraPosition(PlayerCamera, Self->PlayerPosition.vx, Self->PlayerPosition.vy, CameraHeightPosition);
     dcCamera_LookAt(PlayerCamera, &Self->PlayerPosition);
+}
+
+void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction)
+{
+    if(Self->CurrentPlayerAction != NewAction)
+    {
+        Self->CurrentPlayerAction = NewAction;
+    }
 }
 
 void PlayerInput(Player* Self, SDC_Camera * PlayerCamera)
@@ -38,24 +45,30 @@ void PlayerInput(Player* Self, SDC_Camera * PlayerCamera)
     long MovementFront = 0;
     long MovemementSide = 0;
     
+    PlayerChangeAnim(Self, PLAYER_IDLE);
+    
     // Y AXIS
     if (_PAD(0, PADLup) & padState)
     {
         MovementFront = PlayerMovementForward;
+        PlayerChangeAnim(Self, PLAYER_MOVING);
     }
     if (_PAD(0, PADLdown) & padState)
     {
         MovementFront = -PlayerMovementForward;
+        PlayerChangeAnim(Self, PLAYER_MOVING);
     }
 
     // X AXIS
     if (_PAD(0, PADLright) & padState)
     {
         MovemementSide = PlayerMovementSide;
+        PlayerChangeAnim(Self, PLAYER_MOVING);
     }
     if (_PAD(0, PADLleft) & padState)
     {
         MovemementSide = -PlayerMovementSide;
+        PlayerChangeAnim(Self, PLAYER_MOVING);
     }
 
     Self->PlayerPosition.vy += MovementFront;
@@ -71,7 +84,7 @@ void PlayerUpdate(Player* Self)
     //  Check which animation to play.
 
     // Update animation.
-    dcSprite_Update(&Self->Animations[Self->CurrentPlayerAction].CurrentSprite);
+    dcSprite_Update(&Self->CurrentSprite[Self->CurrentPlayerAction]);
 }
 
 void PlayerDraw(Player* Self)
@@ -82,7 +95,7 @@ void PlayerDraw(Player* Self)
 
     // Translate Hero position into screen space.
     CVECTOR ColorSprit = {128, 128, 128, 128};
-    dcSprite_Render(GEngineInstance.RenderPtr, &Self->Animations[Self->CurrentPlayerAction].CurrentSprite, SpriteXPos, SpriteYPos, &ColorSprit);
+    dcSprite_Render(GEngineInstance.RenderPtr, &Self->CurrentSprite[Self->CurrentPlayerAction], SpriteXPos, SpriteYPos, &ColorSprit);
 }
 
 void PlayerDie(Player* Self)

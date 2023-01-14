@@ -1,6 +1,9 @@
 #ifndef _DC_GAME_LOOP_GAMESTATE_
 #define _DC_GAME_LOOP_GAMESTATE_
 
+#include "dcMath.h"
+#include "dcCamera.h"
+#include "dcSprite.h"
 #include "scene/scene.h"
 #include "player/player.h"
 
