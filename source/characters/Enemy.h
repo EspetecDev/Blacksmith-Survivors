@@ -7,7 +7,6 @@
 #define ENEMY_YELLOW_VELOCITY   30
 #define ENEMY_GREEN_VELOCITY    40
 
-
 typedef enum
 {
     ENEMY_RED,
@@ -20,11 +19,9 @@ typedef struct
 {
     int Velocity;
     EEnemyType Type;
-    char Id;
     VECTOR Position;
     // debug
     CVECTOR Color;
-    
 } Enemy;
 
 static const CVECTOR EnemyRedColor = {255, 0, 0, 255};
@@ -34,6 +31,7 @@ static const CVECTOR EnemyGreenColor = {0, 255, 0, 255};
 
 void EnemyInit(Enemy* Self);
 void EnemyUpdate(Enemy* Self);
+void EnemyDraw(Enemy* Self);
 void EnemyDie(Enemy* Self);
 
 #endif

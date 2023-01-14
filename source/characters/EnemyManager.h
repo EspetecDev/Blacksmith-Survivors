@@ -7,20 +7,27 @@
 
 typedef struct 
 {
-    // Order assumed is:  ENEMY_RED, ENEMY_BLUE, ENEMY_YELLOW, ENEMY_GREEN
-    // 20 enemies cap, 4 enemy types
-    Enemy* EnemyArray[MAX_ENEMIES][NUM_TYPE_ENEMIES];
-    // Here we will store how many enemies per type
-    char NumEnemies[4];
+    Enemy RedEnemies[MAX_ENEMIES];
+    u_short NumberRedEnemy;
+
+    Enemy BlueEnemies[MAX_ENEMIES];
+    u_short NumberBlueEnemy;
+
+    Enemy YellowEnemies[MAX_ENEMIES];
+    u_short NumberYellowEnemy;
+
+    Enemy GreenEnemies[MAX_ENEMIES];
+    u_short NumberGreenEnemy;
 
 } EnemyManager;
 
 // Global var.
-extern EnemyManager GEenemyManager;
+extern EnemyManager GEnemyManager;
 
 void EM_Init(EnemyManager* EM);
 void EM_SpawnEnemy(EnemyManager* EM, EEnemyType EnemyType);
 void EM_Update(EnemyManager* EM);
+void EM_Draw(EnemyManager* EM);
 void EM_ClearEnemies(EnemyManager* EM);
 
 #endif
