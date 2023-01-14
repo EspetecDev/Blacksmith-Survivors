@@ -9,6 +9,7 @@ SRCS = main.c \
 		GameOverGameState.c \
 		MenuGameState.c \
 		scene/scene.c \
+		textures/fnt.tim \
 		textures/Hero.tim \
 		textures/Enemy_Blue.tim \
 		characters/Enemy.c\
@@ -20,6 +21,7 @@ SRCS = main.c \
 		dcLibPsx/src/dcMesh.c\
 		dcLibPsx/src/dcCamera.c\
 		dcLibPsx/src/dcMath.c\
+		dcLibPsx/src/dcFont.c\
 		dcLibPsx/src/dcRender.c\
 		dcLibPsx/src/dcCollision.c\
 		dcLibPsx/src/dcMisc.c\
