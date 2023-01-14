@@ -93,8 +93,10 @@ void GLGS_Update(FGameLoopGameState* GameState)
     
     DrawSceneAssets(GameState);
 
-    //dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);
-    //dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, RENDER_WIDTH/2, RENDER_HEIGHT/2, &ColorSprit);
+    CVECTOR ColorSprit = {128,128,128,128};
+
+    dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);
+    dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, RENDER_WIDTH/2, RENDER_HEIGHT/2, &ColorSprit);
 }
 
 void GLGS_Close(FGameLoopGameState* GameState)
@@ -170,10 +172,14 @@ void DrawSceneAssets(FGameLoopGameState* GameState)
     CVECTOR ColorQuad = {255, 0,0,255};
     DrawDebugQuad(GameState, &Translation, &ColorQuad, &Scale);
 
-    //VECTOR TranslationT = {0, 50, 1, 0};
-    //VECTOR ScaleT = {ONE, ONE, 0, 0};
-    //CVECTOR ColorQuadT = {0, 255, 0,255};
-    //DrawDebugQuad(GameState, &TranslationT, &ColorQuadT, &ScaleT);
+    VECTOR TranslationT = {0, 50, 1, 0};
+    VECTOR ScaleT = {ONE, ONE, 0, 0};
+    CVECTOR ColorQuadT = {0, 255, 0,255};
+    DrawDebugQuad(GameState, &TranslationT, &ColorQuadT, &ScaleT);
+
+    VECTOR TranslationTa = {0, 100, 1, 0};
+    CVECTOR ColorQuadTa = {0, 255, 255,255};
+    DrawDebugQuad(GameState, &TranslationTa, &ColorQuadTa, &ScaleT);
 
     //VECTOR translation = {0, 0, 0, 0};
     //DrawAsset(GameState, &translation, &tim_smile);
