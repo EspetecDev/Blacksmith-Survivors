@@ -1,7 +1,5 @@
 #include "scene.h"
 
-//#define MAXVIEWPORTSIZEUNITS ONE * 7
-
 void SceneMap_Init(SceneMap* MapPtr)
 {
     //  Constants scene.
@@ -28,10 +26,6 @@ void SceneMap_Init(SceneMap* MapPtr)
 
         MapPtr->MapCellSizes[Index] = MapOrigin;
     }
-
-
-    //VECTOR Origin = {0, 0, ONE * 4, ONE * 4};
-    //MapPtr->MapAssetOriginAndDim = Origin;
 }
 
 int GetGridSize(SceneMap * MapPtr)
