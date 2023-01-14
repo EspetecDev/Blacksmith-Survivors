@@ -6,9 +6,11 @@
 
 void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction);
 
-void PlayerInit(Player* Self, SDC_Camera * PlayerCamera)
+void PlayerInit(Player* Self, SDC_Camera * PlayerCamera, SceneMap* Map)
 {
-    VECTOR StartPos = {0, 0, 0, 0};
+    // We want the player to start at the center of the grid.
+    VECTOR GridC = GetGridCenter(Map, DEBUG_QUAD_SIZE * 2);
+    VECTOR StartPos = {GridC.vx, GridC.vy, 0};
     Self->PlayerPosition = StartPos;
     Self->RadiusColision = 32;
 
@@ -35,11 +37,11 @@ void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction)
     }
 }
 
-void PlayerInput(Player* Self, SDC_Camera * PlayerCamera)
+void PlayerInput(Player* Self, SDC_Camera * PlayerCamera, SceneMap* Map)
 {
     // Constants player speed.
-    const int PlayerMovementForward = 100;
-    const int PlayerMovementSide = 100;
+    const int PlayerMovementForward = 25;
+    const int PlayerMovementSide = 25;
 
     u_long padState = PadRead(0);
     long MovementFront = 0;
@@ -74,9 +76,18 @@ void PlayerInput(Player* Self, SDC_Camera * PlayerCamera)
     Self->PlayerPosition.vy += MovementFront;
     Self->PlayerPosition.vx += MovemementSide;
 
-    //  Move camera to follow player.
-    dcCamera_SetCameraPosition(PlayerCamera, Self->PlayerPosition.vx, Self->PlayerPosition.vy, CameraHeightPosition);
-    dcCamera_LookAt(PlayerCamera, &Self->PlayerPosition);
+    // Check if next position is in the grid. If not, we don't want to move.
+    if (CanMove(Self, Map))
+    {
+        // Move camera to follow player.
+        dcCamera_SetCameraPosition(PlayerCamera, Self->PlayerPosition.vx, Self->PlayerPosition.vy, CameraHeightPosition);
+        dcCamera_LookAt(PlayerCamera, &Self->PlayerPosition);
+    }
+    else
+    {
+        Self->PlayerPosition.vy -= MovementFront;
+        Self->PlayerPosition.vx -= MovemementSide;
+    }
 }
 
 void PlayerUpdate(Player* Self)
@@ -101,4 +112,21 @@ void PlayerDraw(Player* Self)
 void PlayerDie(Player* Self)
 {
 
+}
+
+char CanMove(Player* Self, SceneMap* Map)
+{
+    VECTOR StartPos = GetGridCenter(Map, DEBUG_QUAD_SIZE * 2);
+    VECTOR FirstEdge = {0, 0, 0};
+    VECTOR SecondEdge = {0, StartPos.vy * 2, 0};
+    VECTOR ThirdEdge = {StartPos.vx * 2, StartPos.vy * 2, 0};
+    VECTOR FourthEdge = {StartPos.vx * 2, 0, 0};
+
+    return !LiesOnLeftHand(FirstEdge, SecondEdge, Self->PlayerPosition) && !LiesOnLeftHand(ThirdEdge, FourthEdge, Self->PlayerPosition) && !LiesOnLeftHand(SecondEdge, ThirdEdge, Self->PlayerPosition) && !LiesOnLeftHand(FourthEdge, FirstEdge, Self->PlayerPosition);
+}
+
+char LiesOnLeftHand(VECTOR EdgePosition1, VECTOR EdgePosition2, VECTOR PlayerPosition)
+{
+    long D = (EdgePosition2.vx - EdgePosition1.vx) * (PlayerPosition.vy - EdgePosition1.vy) - (PlayerPosition.vx - EdgePosition1.vx) * (EdgePosition2.vy - EdgePosition1.vy);
+    return D > 0;
 }

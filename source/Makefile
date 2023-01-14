@@ -3,6 +3,7 @@ TYPE = ps-exe
 
 SRCS = main.c \
 		Resources.c \
+		configuration/GlobalVars.c \
 		engine.c \
 		ContractGameState.c \
 		GameLoopGameState.c \
