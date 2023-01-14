@@ -7,7 +7,9 @@ SRCS = main.c \
 		ContractGameState.c \
 		GameLoopGameState.c \
 		GameOverGameState.c \
-		MenuGameState.c\
+		MenuGameState.c \
+		textures/Hero.tim \
+		textures/Enemy_Blue.tim \
 		characters/Enemy.c\
 		characters/EnemyManager.c\
 		../third_party/common/syscalls/printf.s \
