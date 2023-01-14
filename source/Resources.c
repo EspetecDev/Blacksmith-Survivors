@@ -12,16 +12,16 @@ void Resources_LoadTextureResources()
 
 /* Sprite Animations Header. */
 
-extern unsigned long _binary_textures_hero_tim_start[];
+extern unsigned long _binary_textures_Hero_tim_start[];
 
 // Hero Run Animation.
 SDC_SpriteFrame HeroRunFrames[] =
 {
-    {0,0,32,32}
+    {0,0,64,32}
 };
 SDC_SpriteAnimation HeroRunAnimation = {HeroRunFrames, NULL, 1, 1, 0, 0};
 
 void Resources_LoadSpriteResources()
 {
-    dcSprite_LoadAnimationTex(&HeroRunAnimation, _binary_textures_hero_tim_start);
+    dcSprite_LoadAnimationTex(&HeroRunAnimation, _binary_textures_Hero_tim_start);
 }
