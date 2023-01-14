@@ -9,8 +9,7 @@ typedef struct
 } MenuGameState; 
 
 void MGS_Init(MenuGameState* MGSPtr);
-void MGS_OnEnter(MenuGameState* MGSPtr);
 void MGS_Update(MenuGameState* MGSPtr);
-void MGS_OnExit(MenuGameState* MGSPtr);
+void MGS_Close(MenuGameState* MGSPtr);
 
 #endif

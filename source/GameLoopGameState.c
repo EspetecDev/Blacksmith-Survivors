@@ -1,4 +1,5 @@
 #include "GameLoopGameState.h"
+#include "engine.h"
 
 #include "engine.h"
 #include "render.h"
@@ -64,12 +65,27 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
 
 void GLGS_Update(FGameLoopGameState* GameState)
 {
+<<<<<<< HEAD
     HandlePlayerInput(GameState);
 
     SVECTOR rotation = {0};
     VECTOR translation = {0, 0, 0, 0};
     MATRIX transform;
 
+=======
+    printf("[GLGS_Update::Update] Enter game loop");
+    int pad = 0;
+    while (GEngineInstance.CurrentGameState == GS_GAME_LOOP)
+    {
+        // Input
+        pad = PadRead(0);
+        if(pad & PADRdown) // X
+        {
+            GEngineInstance.DesiredGameState = GS_GAME_OVER;
+        }
+    }
+    
+>>>>>>> 7825b4944c6d9f92efd1904c58f0b647f0b334fd
     RotMatrix(&rotation, &transform);
     TransMatrix(&transform, &translation);
     dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &transform, &transform);

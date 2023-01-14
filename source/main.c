@@ -2,6 +2,7 @@
 
 int main(void) 
 {   
+    printf("hello wawa");
     Init(&GEngineInstance);
 
     while (1)
