@@ -1,43 +1,14 @@
 #ifndef _DC_GAME_LOOP_GAMESTATE_
 #define _DC_GAME_LOOP_GAMESTATE_
 
-#include "dcMath.h"
-#include "dcCamera.h"
-#include "dcSprite.h"
 #include "scene/scene.h"
-
-typedef enum
-{
-    PLAYER_IDLE,
-    PLAYER_MOVING,
-    PLAYER_ATTACKING,
-
-    PLAYER_NUM_ANIMATIONS
-} PLAYER_ACTION;
-
-typedef struct 
-{
-    SDC_SpriteAnimation Animation;
-    SDC_Sprite CurrentSprite;
-} FAnimationTypes;
-
-typedef struct 
-{
-    FAnimationTypes Animations[PLAYER_NUM_ANIMATIONS];
-    PLAYER_ACTION CurrentPlayerAction;
-    FAnimationTypes CurrentPlayerAnimation;
-    VECTOR PlayerPosition;
-    int Speed;
-    int RadiusColision;
-} FPlayer;
+#include "player/player.h"
 
 typedef struct
 {
+    Player PlayerInstance;
     SDC_Camera PlayerCamera;
-    VECTOR PlayerPosition;
     SceneMap SceneData;
-
-    FPlayer* Player;
 } FGameLoopGameState;
 
 void GLGS_Init(FGameLoopGameState* GameState);

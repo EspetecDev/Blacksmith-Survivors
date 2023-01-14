@@ -1,78 +1,160 @@
 #include "EnemyManager.h"
 #include "../engine.h"
 
-EnemyManager GEenemyManager;
+EnemyManager GEnemyManager;
+
+void EM_CreateEnemy(EnemyManager* EM, Enemy * EnemyToFill, EEnemyType EnemyType);
 
 void EM_Init(EnemyManager* EM)
 {
-    // for(int i=0;i<NUM_TYPE_ENEMIES;i++)
-    // {
-    //     for(int j=0;j<NUM_TYPE_ENEMIES;j++)
-    //     {
-    //         EM->EnemyArray[i][j]; 
-    //     }
-    // }
+    for(int i=0;i<NUM_TYPE_ENEMIES;i++)
+    {
+        EM_CreateEnemy(EM, &EM->RedEnemies[i], ENEMY_RED);
+    }
+    
+    for(int i=0;i<NUM_TYPE_ENEMIES;i++)
+    {
+        EM_CreateEnemy(EM, &EM->BlueEnemies[i], ENEMY_BLUE);
+    }
 
     for(int i=0;i<NUM_TYPE_ENEMIES;i++)
-        EM->NumEnemies[i] = 0;
+    {
+        EM_CreateEnemy(EM, &EM->YellowEnemies[i], ENEMY_YELLOW);
+    }
 
+    for(int i=0;i<NUM_TYPE_ENEMIES;i++)
+    {
+        EM_CreateEnemy(EM, &EM->GreenEnemies[i], ENEMY_GREEN);
+    }
+
+     EM->NumberRedEnemy = 0;
+     EM->NumberBlueEnemy = 0;
+     EM->NumberGreenEnemy = 0;
+     EM->NumberYellowEnemy = 0;
 }
 
-void EM_SpawnEnemy(EnemyManager* EM, EEnemyType EnemyType)
+void EM_CreateEnemy(EnemyManager* EM, Enemy * EnemyToFill, EEnemyType EnemyType)
 {
-    Enemy* NewEnemy = (Enemy*)malloc3(sizeof(Enemy));
-    NewEnemy->Id = EM->NumEnemies[EnemyType]++;
-    NewEnemy->Type = EnemyType;
+    EnemyToFill->Type = EnemyType;
     switch (EnemyType)
     {
         case ENEMY_RED:
-            NewEnemy->Velocity = ENEMY_RED_VELOCITY;
-            NewEnemy->Color = EnemyRedColor;
-            NewEnemy->Position.vx = 50;
-            NewEnemy->Position.vy = 0;
+            EnemyToFill->Velocity = ENEMY_RED_VELOCITY;
+            EnemyToFill->Color = EnemyRedColor;
+            EnemyToFill->Position.vx = 50;
+            EnemyToFill->Position.vy = 0;
+            EnemyToFill->Position.vz = -10;
         break;
         case ENEMY_BLUE:
-            NewEnemy->Velocity = ENEMY_BLUE_VELOCITY;
-            NewEnemy->Color = EnemyBlueColor;
-            NewEnemy->Position.vx = 0;
-            NewEnemy->Position.vy = -50;
+            EnemyToFill->Velocity = ENEMY_BLUE_VELOCITY;
+            EnemyToFill->Color = EnemyBlueColor;
+            EnemyToFill->Position.vx = 0;
+            EnemyToFill->Position.vy = 50;
+            EnemyToFill->Position.vz = -12;
         break;
         case ENEMY_YELLOW:
-            NewEnemy->Velocity = ENEMY_YELLOW_VELOCITY;
-            NewEnemy->Color = EnemyYellowColor;
-            NewEnemy->Position.vx = -50;
-            NewEnemy->Position.vy = 0;
+            EnemyToFill->Velocity = ENEMY_YELLOW_VELOCITY;
+            EnemyToFill->Color = EnemyYellowColor;
+            EnemyToFill->Position.vx = 50;
+            EnemyToFill->Position.vy = 0;
+            EnemyToFill->Position.vz = -14;
         break;
         case ENEMY_GREEN:
-            NewEnemy->Velocity = ENEMY_GREEN_VELOCITY;
-            NewEnemy->Color = EnemyGreenColor;
-            NewEnemy->Position.vx = 0;
-            NewEnemy->Position.vy = 50;
+            EnemyToFill->Velocity = ENEMY_GREEN_VELOCITY;
+            EnemyToFill->Color = EnemyGreenColor;
+            EnemyToFill->Position.vx = 0;
+            EnemyToFill->Position.vy = 150;
+            EnemyToFill->Position.vz = -16;
         break;
     default:
         break;
     }
-    EM->EnemyArray[(int)NewEnemy->Id][EnemyType] = NewEnemy;
+}
+
+void EM_SpawnEnemy(EnemyManager* EM, EEnemyType EnemyType)
+{
+    switch (EnemyType)
+    {
+        case ENEMY_RED:
+            if(EM->NumberRedEnemy < MAX_ENEMIES)
+            {
+                EM_CreateEnemy(EM, &EM->RedEnemies[EM->NumberRedEnemy], ENEMY_RED);
+                EM->NumberRedEnemy++;
+            }
+        break;
+        case ENEMY_BLUE:
+            if(EM->NumberBlueEnemy < MAX_ENEMIES)
+            {
+                EM_CreateEnemy(EM, &EM->RedEnemies[EM->NumberBlueEnemy], ENEMY_RED);
+                EM->NumberBlueEnemy++;
+            }
+        break;
+        case ENEMY_YELLOW:
+            if(EM->NumberYellowEnemy < MAX_ENEMIES)
+            {
+                EM_CreateEnemy(EM, &EM->RedEnemies[EM->NumberYellowEnemy], ENEMY_RED);
+                EM->NumberYellowEnemy++;
+            }
+        break;
+        case ENEMY_GREEN:
+            if(EM->NumberGreenEnemy < MAX_ENEMIES)
+            {
+                EM_CreateEnemy(EM, &EM->RedEnemies[EM->NumberGreenEnemy], ENEMY_RED);
+                EM->NumberGreenEnemy++;
+            }
+        break;
+    default:
+        break;
+    }
 }
 
 void EM_Update(EnemyManager* EM)
 {
-    for(int i=0; i<MAX_ENEMIES; i++)
+    for(int i=0;i<EM->NumberRedEnemy;i++)
     {
-        for(int j=0; j<NUM_TYPE_ENEMIES; j++)
-        {
-            EnemyUpdate(EM->EnemyArray[i][j]);
-        }
+        EnemyUpdate(&EM->RedEnemies[i]);
+    }
+    
+    for(int i=0;i<EM->NumberBlueEnemy;i++)
+    {
+        EnemyUpdate(&EM->BlueEnemies[i]);
+    }
+
+    for(int i=0;i<EM->NumberYellowEnemy;i++)
+    {
+        EnemyUpdate(&EM->YellowEnemies[i]);
+    }
+
+    for(int i=0;i<EM->NumberGreenEnemy;i++)
+    {
+        EnemyUpdate(&EM->GreenEnemies[i]);
+    }
+}
+
+void EM_Draw(EnemyManager* EM)
+{
+    for(int i=0;i<EM->NumberRedEnemy;i++)
+    {
+        EnemyDraw(&EM->RedEnemies[i]);
+    }
+    
+    for(int i=0;i<EM->NumberBlueEnemy;i++)
+    {
+        EnemyDraw(&EM->BlueEnemies[i]);
+    }
+
+    for(int i=0;i<EM->NumberYellowEnemy;i++)
+    {
+        EnemyDraw(&EM->YellowEnemies[i]);
+    }
+
+    for(int i=0;i<EM->NumberGreenEnemy;i++)
+    {
+        EnemyDraw(&EM->GreenEnemies[i]);
     }
 }
 
 void EM_ClearEnemies(EnemyManager* EM)
 {
-    for(int i=0; i<MAX_ENEMIES; i++)
-    {
-        for(int j=0; j<NUM_TYPE_ENEMIES; j++)
-        {
-            free(EM->EnemyArray[i][j]);
-        }
-    }
+
 }

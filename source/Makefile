@@ -13,6 +13,7 @@ SRCS = main.c \
 		textures/Enemy_Blue.tim \
 		characters/Enemy.c\
 		characters/EnemyManager.c\
+		player/player.c\
 		../third_party/common/syscalls/printf.s \
 		../third_party/common/crt0/crt0.s \
 		dcLibPsx/src/dcMemory.c\
