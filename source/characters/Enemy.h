@@ -1,5 +1,12 @@
 #ifndef _DC_ENEMY_
 #define _DC_ENEMY_
+#include "../engine.h"
+
+#define ENEMY_RED_VELOCITY      10
+#define ENEMY_BLUE_VELOCITY     20
+#define ENEMY_YELLOW_VELOCITY   30
+#define ENEMY_GREEN_VELOCITY    40
+
 
 typedef enum
 {
@@ -13,10 +20,20 @@ typedef struct
 {
     int Velocity;
     EEnemyType Type;
+    char Id;
+    VECTOR Position;
+    // debug
+    CVECTOR Color;
+    
 } Enemy;
 
-void Spawn(Enemy* Self);
-void RunToEnemy(Enemy* Self);
-void Die(Enemy* Self);
+static const CVECTOR EnemyRedColor = {255, 0, 0, 255};
+static const CVECTOR EnemyBlueColor = {0, 0, 255, 255};
+static const CVECTOR EnemyYellowColor = {0, 255, 255, 255};
+static const CVECTOR EnemyGreenColor = {0, 255, 0, 255};
+
+void EnemyInit(Enemy* Self);
+void EnemyUpdate(Enemy* Self);
+void EnemyDie(Enemy* Self);
 
 #endif

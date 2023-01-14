@@ -1,10 +1,13 @@
 #include "GameLoopGameState.h"
 #include "engine.h"
 #include "render.h"
+#include "characters/EnemyManager.h"
+
+
 #include "renderMeshes.h"
 #include "dcMisc.h"
 
-#define CameraHeightPosition -300
+#define CameraHeightPosition 300
 
 void InitScene(FGameLoopGameState* GameState);
 void DrawSceneAssets(FGameLoopGameState* GameState);
@@ -22,6 +25,9 @@ void GLGS_Init(FGameLoopGameState* GameState)
     dcCamera_SetScreenResolution(&GameState->PlayerCamera, RENDER_WIDTH, RENDER_HEIGHT);
     dcCamera_SetCameraPosition(&GameState->PlayerCamera, GameState->Player->PlayerPosition.vx, GameState->Player->PlayerPosition.vy, CameraHeightPosition);
     dcCamera_LookAt(&GameState->PlayerCamera, &GameState->Player->PlayerPosition);
+
+    // Init enemy manager
+    EM_Init(&GEenemyManager);
 }
 
 void HandlePlayerInput(FGameLoopGameState* GameState)
@@ -48,11 +54,11 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
     // X AXIS
     if( _PAD(0,PADLright ) & padState )
     {
-        MovemementSide = -PlayerMovementSide;
+        MovemementSide = PlayerMovementSide;
     }
     if( _PAD(0,PADLleft ) & padState )
     {
-        MovemementSide = PlayerMovementSide;
+        MovemementSide = -PlayerMovementSide;
     }
 
     /*
@@ -72,10 +78,27 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
         }
     }*/
 
-    if(padState & PADRdown) // X
+    if(padState & PADselect) // X
     {
         GEngineInstance.DesiredGameState = GS_GAME_OVER;
     }
+    if(padState & PADRdown) // X
+    {
+        EM_SpawnEnemy(&GEenemyManager, ENEMY_BLUE);
+    }
+    if(padState & PADRright) // O
+    {
+        EM_SpawnEnemy(&GEenemyManager, ENEMY_RED);
+    }
+    if(padState & PADRup) // triangle
+    {
+        EM_SpawnEnemy(&GEenemyManager, ENEMY_GREEN);
+    }
+    if(padState & PADRleft) // |_|
+    {
+        EM_SpawnEnemy(&GEenemyManager, ENEMY_YELLOW);
+    }
+    
     
     //  Move player position.
     GameState->Player->PlayerPosition.vy += MovementFront;
@@ -90,7 +113,7 @@ void GLGS_Update(FGameLoopGameState* GameState)
 {
     //  Move player.
     HandlePlayerInput(GameState);
-    
+    EM_Update(&GEenemyManager);
     DrawSceneAssets(GameState);
 
     CVECTOR ColorSprit = {128,128,128,128};
@@ -161,13 +184,7 @@ void DrawSceneAssets(FGameLoopGameState* GameState)
 {
     dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera);
 
-    //  Scene
-    //VECTOR SceneTranslation = {GameState->SceneData.MapAssetOriginAndDim.vx, GameState->SceneData.MapAssetOriginAndDim.vy, 20, 0};
-    //CVECTOR SceneColorQuad = {0, 0, 0, 255};
-    //VECTOR SceneScale = {GameState->SceneData.MapAssetOriginAndDim.vz, GameState->SceneData.MapAssetOriginAndDim.pad, 0, 0};
-    //DrawDebugQuad(GameState, &SceneTranslation, &SceneColorQuad, &SceneScale);
-
-    VECTOR Translation = {0, 0, 0, 0};
+    VECTOR Translation = {50, 0, 0, 0};
     VECTOR Scale = {ONE, ONE, 0, 0};
     CVECTOR ColorQuad = {255, 0,0,255};
     DrawDebugQuad(GameState, &Translation, &ColorQuad, &Scale);

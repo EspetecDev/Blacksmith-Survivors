@@ -6,6 +6,9 @@
         "dcmisc.h": "c",
         "gameovergamestate.h": "c",
         "dcmath.h": "c",
-        "spritetestgamestate.h": "c"
+        "dccamera.h": "c",
+        "enemymanager.h": "c",
+        "spritetestgamestate.h": "c",
+        "rendermeshes.h": "c"
     }
 }

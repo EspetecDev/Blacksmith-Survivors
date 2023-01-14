@@ -53,15 +53,18 @@ void Update(Engine * EnginePtr)
         OnChangeGameState(EnginePtr);
     }
 
-    UpdateGameState(EnginePtr);
-
-    // RENDER
+     // RENDER
     FntPrint("Demo1 - The Game\n");
     char debugGS[50] = "CurrentGS: ";
     char currentGS[15] = "";
     strcpy(currentGS, GetCurrentGSString(EnginePtr));
     strcat(debugGS, currentGS);
     FntPrint(debugGS);
+
+
+    UpdateGameState(EnginePtr);
+
+   
     
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }
@@ -164,6 +167,5 @@ char* GetCurrentGSString(Engine * EnginePtr)
             CurrentGSString = "";
         break;
     }
-    printf("GetCurrentGSString: %s\n", CurrentGSString);
     return CurrentGSString;
 }

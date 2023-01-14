@@ -5,6 +5,8 @@ typedef struct
 {
     char PressStartText[12];
     char TeamName[30];
+    char bActivatePressStartEffet;
+    char PressAnimationFrames;
 
 } MenuGameState; 
 
