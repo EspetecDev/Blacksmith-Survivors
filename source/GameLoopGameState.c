@@ -188,10 +188,27 @@ void DrawSceneAssets(FGameLoopGameState* GameState)
 {
     dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera);
 
-    VECTOR Translation = {50, 0, 0, 0};
-    VECTOR Scale = {ONE, ONE, 0, 0};
-    CVECTOR ColorQuad = {255, 0,0,255};
-    DrawDebugQuad(GameState, &Translation, &ColorQuad, &Scale);
+    //  Scene
+    //VECTOR SceneTranslation = {GameState->SceneData.MapAssetOriginAndDim.vx, GameState->SceneData.MapAssetOriginAndDim.vy, 20, 0};
+    //CVECTOR SceneColorQuad = {0, 0, 0, 255};
+    //VECTOR SceneScale = {GameState->SceneData.MapAssetOriginAndDim.vz, GameState->SceneData.MapAssetOriginAndDim.pad, 0, 0};
+    //DrawDebugQuad(GameState, &SceneTranslation, &SceneColorQuad, &SceneScale);
+
+    SceneMap* MyScene = &GameState->SceneData;
+    long CellSize = DEBUG_QUAD_SIZE * 2;
+    
+    if (MyScene)
+    {
+        for(int Index = 0; Index < GetGridSize(MyScene); Index++)
+        {
+            CVECTOR ColorQuad = {RENDER_BG_COLOR_R, RENDER_BG_COLOR_G,RENDER_BG_COLOR_B,255};
+            VECTOR Translation = {(MyScene->MapCellSizes[Index].vx * CellSize + CellSize / 2), (MyScene->MapCellSizes[Index].vy * CellSize + CellSize / 2), 0, 0};
+            VECTOR Scale = {ONE * 2, ONE * 2, 0, 0};
+            DrawDebugQuad(GameState, &Translation, &ColorQuad, &Scale);
+        }
+    }
+    
+
 
     //VECTOR TranslationT = {0, 50, 1, 0};
     //VECTOR ScaleT = {ONE, ONE, 0, 0};
