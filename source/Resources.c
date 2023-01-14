@@ -19,39 +19,45 @@ extern unsigned long _binary_textures_HeroIdle_tim_start[];
 extern unsigned long _binary_textures_HeroWalk_tim_start[];
 extern unsigned long _binary_textures_HeroAttack_tim_start[];
 
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
+
 void Resources_LoadTextureResources()
 {
     TIM_IMAGE Image;
-   dcRender_LoadTexture(&Image, _binary_textures_tile1_tim_start);
-   TimTile1.crect = *Image.crect;
-   TimTile1.mode = Image.mode;
-   TimTile1.prect = *Image.prect;
+    dcRender_LoadTexture(&Image, _binary_textures_tile1_tim_start);
+    TimTile1.crect = *Image.crect;
+    TimTile1.mode = Image.mode;
+    TimTile1.prect = *Image.prect;
 
-   dcRender_LoadTexture(&Image, _binary_textures_tile2_tim_start);
-   TimTile2.crect = *Image.crect;
-   TimTile2.mode = Image.mode;
-   TimTile2.prect = *Image.prect;
+    dcRender_LoadTexture(&Image, _binary_textures_tile2_tim_start);
+    TimTile2.crect = *Image.crect;
+    TimTile2.mode = Image.mode;
+    TimTile2.prect = *Image.prect;
 
-   dcRender_LoadTexture(&Image, _binary_textures_tile3_tim_start);
-   TimTile3.crect = *Image.crect;
-   TimTile3.mode = Image.mode;
-   TimTile3.prect = *Image.prect;
+    dcRender_LoadTexture(&Image, _binary_textures_tile3_tim_start);
+    TimTile3.crect = *Image.crect;
+    TimTile3.mode = Image.mode;
+    TimTile3.prect = *Image.prect;
 
-   dcRender_LoadTexture(&Image, _binary_textures_tile4_tim_start);
-   TimTile4.crect = *Image.crect;
-   TimTile4.mode = Image.mode;
-   TimTile4.prect = *Image.prect;
+    dcRender_LoadTexture(&Image, _binary_textures_tile4_tim_start);
+    TimTile4.crect = *Image.crect;
+    TimTile4.mode = Image.mode;
+    TimTile4.prect = *Image.prect;
 
-   dcRender_LoadTexture(&Image, _binary_textures_tile5_tim_start);
-   TimTile5.crect = *Image.crect;
-   TimTile5.mode = Image.mode;
-   TimTile5.prect = *Image.prect;
+    dcRender_LoadTexture(&Image, _binary_textures_tile5_tim_start);
+    TimTile5.crect = *Image.crect;
+    TimTile5.mode = Image.mode;
+    TimTile5.prect = *Image.prect;
 
-   dcRender_LoadTexture(&Image, _binary_textures_tile6_tim_start);
-   TimTile6.crect = *Image.crect;
-   TimTile6.mode = Image.mode;
-   TimTile6.prect = *Image.prect;
+    dcRender_LoadTexture(&Image, _binary_textures_tile6_tim_start);
+    TimTile6.crect = *Image.crect;
+    TimTile6.mode = Image.mode;
+    TimTile6.prect = *Image.prect;
 }
+
+#pragma GCC pop_options
+
 
 /* Sprite Animations Header. */
 

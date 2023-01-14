@@ -2,6 +2,7 @@
 #define _DC_SCENEMAP_
 
 #include "dcMath.h"
+#include "dcRender.h"
 #include "dcSprite.h"
 
 #define SceneTileWidth 20
@@ -13,7 +14,6 @@ typedef struct
     VECTOR Coordinates;
     VECTOR TopLeft;
     RealTIMImage RealImage;
-    TIM_IMAGE Texture;
 } Tile;
 
 typedef struct

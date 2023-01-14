@@ -158,7 +158,7 @@ void dcRender_DrawSpriteRect(SDC_Render* render, const RealTIMImage* tim, short 
     setXY0(sprt, x, y);
     setWH(sprt, w, h);
     setRGB0(sprt, color->r, color->g, color->b);
-    setUV0(sprt, uv->vx, uv->vy);
+    SET_UV0_FIX(sprt, uv->vx, uv->vy, tim->prect.x, tim->prect.y);
     setClut(sprt, tim->crect.x, tim->crect.y);
 
     addPrim(render->orderingTable[render->doubleBufferIndex], sprt);

@@ -69,7 +69,7 @@ void GLGS_Update(FGameLoopGameState *GameState)
     EM_Draw(&GEnemyManager);
 
     //  Draw scene.
-    SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.PlayerPosition);
+    SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.CameraPosition);
 }
 
 void GLGS_Close(FGameLoopGameState *GameState)

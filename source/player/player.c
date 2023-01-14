@@ -10,6 +10,8 @@ void PlayerInit(Player* Self, SceneMap* Map)
 {
     VECTOR StartPos = {0,0,0,0};//Scene_GetMapCenter();
     Self->PlayerPosition = StartPos;
+    Self->CameraPosition.vx = Self->PlayerPosition.vx - RENDER_WIDTH/2;
+    Self->CameraPosition.vy = Self->PlayerPosition.vy - RENDER_HEIGHT/2; 
     Self->RadiusColision = 32;
 
     Self->Animations[PLAYER_IDLE] = HeroIdleAnimations;
@@ -68,6 +70,8 @@ void PlayerInput(Player* Self, SceneMap* Map)
 
         Self->PlayerPosition.vy += MovementFront;
         Self->PlayerPosition.vx += MovemementSide;
+        Self->CameraPosition.vx = Self->PlayerPosition.vx - RENDER_WIDTH/2;
+        Self->CameraPosition.vy = Self->PlayerPosition.vy - RENDER_HEIGHT/2; 
 
         /*
     if (CanMove(Self, Map))
