@@ -8,7 +8,7 @@ void Resources_LoadTextureResources();
 
 extern SDC_SpriteAnimation HeroIdleAnimations;
 extern SDC_SpriteAnimation HeroWalkAnimations;
-//extern SDC_SpriteAnimation HeroAttackAnimations;
+extern SDC_SpriteAnimation HeroAttackAnimations;
 void Resources_LoadSpriteResources();
 
 void Resources_LoadFont();

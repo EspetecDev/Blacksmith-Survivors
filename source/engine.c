@@ -55,15 +55,13 @@ void Update(Engine * EnginePtr)
     }
 
      // RENDER
-     CVECTOR test = {1, 1, 1};
-     dcFont_Print(EnginePtr->RenderPtr, 50, 50, &test, "OLA K ASE");
-    // FntPrint("Demo1 - The Game\n");
-    // char debugGS[50] = "CurrentGS: ";
-    // char currentGS[15] = "";
-    // strcpy(currentGS, GetCurrentGSString(EnginePtr));
-    // strcat(debugGS, currentGS);
-    // FntPrint(debugGS);
-
+    CVECTOR FontDefaultColor = {255, 255, 255}; 
+    dcFont_Print(EnginePtr->RenderPtr, 10, 10, &FontDefaultColor, "DEMO 1 - THE GAME");
+    char debugGS[50] = "CURRENT GS: ";
+    char currentGS[15] = "";
+    strcpy(currentGS, GetCurrentGSString(EnginePtr));
+    strcat(debugGS, currentGS);
+    dcFont_Print(EnginePtr->RenderPtr, 10, 20, &FontDefaultColor, debugGS);
 
     UpdateGameState(EnginePtr);
 
