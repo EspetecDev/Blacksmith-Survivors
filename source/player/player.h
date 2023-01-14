@@ -4,6 +4,7 @@
 #include "dcMath.h"
 #include "dcCamera.h"
 #include "dcSprite.h"
+#include "../scene/scene.h"
 
 typedef struct 
 {
@@ -33,7 +34,7 @@ typedef struct
 
 /* Player Methods  */
 
-void PlayerInit(Player* Self, SDC_Camera * PlayerCamera);
+void PlayerInit(Player* Self, SDC_Camera * PlayerCamera, SceneMap* Map);
 void PlayerInput(Player* Self, SDC_Camera * PlayerCamera);
 void PlayerUpdate(Player* Self);
 void PlayerDraw(Player* Self);

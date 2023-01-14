@@ -95,7 +95,7 @@ void GLGS_Close(FGameLoopGameState *GameState)
 
 void InitPlayer(FGameLoopGameState *GameState)
 {
-    PlayerInit(&GameState->PlayerInstance, &GameState->PlayerCamera);
+    PlayerInit(&GameState->PlayerInstance, &GameState->PlayerCamera, &GameState->SceneData);
 }
 
 void InitScene(FGameLoopGameState *GameState)
