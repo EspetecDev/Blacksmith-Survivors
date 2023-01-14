@@ -2,7 +2,9 @@ TARGET = MAIN
 TYPE = ps-exe
 
 SRCS = main.c \
+		sonic.tim \
 		engine.c \
+		SpriteTestGameState.c \
 		ContractGameState.c \
 		GameLoopGameState.c \
 		GameOverGameState.c \
@@ -16,6 +18,7 @@ SRCS = main.c \
 		dcLibPsx/src/dcRender.c\
 		dcLibPsx/src/dcCollision.c\
 		dcLibPsx/src/dcMisc.c\
+		dcLibPsx/src/dcSprite.c\
 		
 CPPFLAGS += -I../third_party/common
 CPPFLAGS += -I../third_party/psyq/include

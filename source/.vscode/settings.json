@@ -3,6 +3,7 @@
         "MAIN.C": "cpp",
         "engine.h": "c",
         "render.h": "c",
-        "dcmisc.h": "c"
+        "dcmisc.h": "c",
+        "gameovergamestate.h": "c"
     }
 }
