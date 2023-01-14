@@ -22,7 +22,7 @@ void MGS_Update(MenuGameState* MGSPtr)
         }
 
         // Draw texts
-        FntPrint(MGSPtr->PressStartText);
+        // FntPrint(MGSPtr->PressStartText);
     }
 }
 
