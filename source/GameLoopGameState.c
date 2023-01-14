@@ -79,22 +79,24 @@ void GLGS_Update(FGameLoopGameState* GameState)
     //  Move player.
     HandlePlayerInput(GameState);
 
-    SVECTOR rotation = {0};
-    VECTOR translation = {0, 0, 0, 0};
-    MATRIX transform;
+    //SVECTOR rotation = {0};
+    //VECTOR translation = {0, 0, 0, 0};
+    //MATRIX transform;
     CVECTOR ColorSprit = {128, 128, 128, 128};
 
-    SDC_DrawParams draw_params;
-    draw_params.tim = &tim_smile;
-
+    //SDC_DrawParams draw_params;
+    //draw_params.tim = &tim_smile;
+    
+    /*
     RotMatrix(&rotation, &transform);
     TransMatrix(&transform, &translation);
     dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &transform, &transform);
     dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadAssetMesh, &transform, &draw_params);
+    */
 
     dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera); 
     dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);
-    dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, GameState->Player->PlayerPosition.vx, GameState->Player->PlayerPosition.vy, &ColorSprit);
+    dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, RENDER_WIDTH/2, RENDER_HEIGHT/2, &ColorSprit);
 }
 
 void GLGS_Close(FGameLoopGameState* GameState)
@@ -115,7 +117,7 @@ void InitPlayer(FGameLoopGameState* GameState)
     GameState->Player->Animations[PLAYER_MOVING] = MovingAnimation;
     //GameState->Player->Animations[PLAYER_IDLE] = IdleAnimation;
 
-    GameState->Player->CurrentPlayerAction = PLAYER_IDLE;
+    GameState->Player->CurrentPlayerAction = PLAYER_MOVING;
     GameState->Player->CurrentPlayerAnimation = GameState->Player->Animations[GameState->Player->CurrentPlayerAction];
     dcSprite_SetAnimation(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, &GameState->Player->CurrentPlayerAnimation.Animation);
 }
