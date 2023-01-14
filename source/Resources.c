@@ -3,18 +3,35 @@
 /*  Texture Animations Resources */
 
 extern unsigned long _binary_textures_tile1_tim_start[];
+extern unsigned long _binary_textures_tile2_tim_start[];
+extern unsigned long _binary_textures_tile3_tim_start[];
+extern unsigned long _binary_textures_tile4_tim_start[];
+extern unsigned long _binary_textures_tile5_tim_start[];
+extern unsigned long _binary_textures_tile6_tim_start[];
+
 TIM_IMAGE TimTile1;
+TIM_IMAGE TimTile2;
+TIM_IMAGE TimTile3;
+TIM_IMAGE TimTile4;
+TIM_IMAGE TimTile5;
+TIM_IMAGE TimTile6;
+extern unsigned long _binary_textures_HeroIdle_tim_start[];
+extern unsigned long _binary_textures_HeroWalk_tim_start[];
+extern unsigned long _binary_textures_HeroAttack_tim_start[];
 
 void Resources_LoadTextureResources()
 {
    dcRender_LoadTexture(&TimTile1, _binary_textures_tile1_tim_start);
+   dcRender_LoadTexture(&TimTile2, _binary_textures_tile2_tim_start);
+   dcRender_LoadTexture(&TimTile3, _binary_textures_tile3_tim_start);
+   dcRender_LoadTexture(&TimTile4, _binary_textures_tile4_tim_start);
+   dcRender_LoadTexture(&TimTile5, _binary_textures_tile5_tim_start);
+   dcRender_LoadTexture(&TimTile6, _binary_textures_tile6_tim_start);
 }
 
 /* Sprite Animations Header. */
 
-extern unsigned long _binary_textures_HeroIdle_tim_start[];
-extern unsigned long _binary_textures_HeroWalk_tim_start[];
-extern unsigned long _binary_textures_HeroAttack_tim_start[];
+
 
 // Hero Run Animation.
 SDC_SpriteFrame HeroIdleWalkFrames[] =

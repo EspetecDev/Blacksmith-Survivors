@@ -96,6 +96,7 @@ void DrawSceneAssets(FGameLoopGameState *GameState)
     
     if (MyScene)
     {
+        SceneMap_Draw(MyScene);
         for(int Index = 0; Index < GetGridSize(MyScene); Index++)
         {
             //CVECTOR ColorQuad = {RENDER_BG_COLOR_R, RENDER_BG_COLOR_G,RENDER_BG_COLOR_B,255};
@@ -104,11 +105,6 @@ void DrawSceneAssets(FGameLoopGameState *GameState)
         }
     }
 }
-
-
-
-
-
 
 char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius)
 {
