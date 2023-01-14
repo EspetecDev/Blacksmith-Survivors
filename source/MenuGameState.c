@@ -8,11 +8,6 @@ void MGS_Init(MenuGameState* MGSPtr)
     strcpy(MGSPtr->TeamName, "Demo1 - GameDevChallenge 2023");
 }
 
-void MGS_OnEnter(MenuGameState* MGSPtr)
-{
-
-}
-
 void MGS_Update(MenuGameState* MGSPtr)
 {
     printf("MenuGameState::Update");
@@ -53,7 +48,7 @@ void MGS_Update(MenuGameState* MGSPtr)
     }
 }
 
-void MGS_OnExit(MenuGameState* MGSPtr)
+void MGS_Close(MenuGameState* MGSPtr)
 {
    printf("MenuGameState::OnExit");
 }

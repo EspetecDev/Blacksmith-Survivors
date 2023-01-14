@@ -6,12 +6,12 @@
 
 #define CUBESIZE 196
 
-static SDC_Vertex quad_vertices[] = {
-    { -CUBESIZE / 2, -CUBESIZE / 2, -CUBESIZE / 2, 0 },
-    { CUBESIZE / 2, CUBESIZE / 2, -CUBESIZE / 2, 0  },
-    {-CUBESIZE / 2, CUBESIZE / 2, -CUBESIZE / 2, 0  },
-    {-CUBESIZE / 2, -CUBESIZE / 2, CUBESIZE / 2, 0 }
-};
+// static SDC_Vertex quad_vertices[] = {
+//     { -CUBESIZE / 2, -CUBESIZE / 2, -CUBESIZE / 2, 0 },
+//     { CUBESIZE / 2, CUBESIZE / 2, -CUBESIZE / 2, 0  },
+//     {-CUBESIZE / 2, CUBESIZE / 2, -CUBESIZE / 2, 0  },
+//     {-CUBESIZE / 2, -CUBESIZE / 2, CUBESIZE / 2, 0 }
+// };
 
 static SDC_Vertex cube_vertices[] = {
     { {-CUBESIZE / 2, -CUBESIZE / 2, -CUBESIZE / 2, 0} }, { {CUBESIZE / 2, -CUBESIZE / 2, -CUBESIZE / 2, 0} },
