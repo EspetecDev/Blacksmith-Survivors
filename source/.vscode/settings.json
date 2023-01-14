@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "MAIN.C": "cpp"
+        "MAIN.C": "cpp",
+        "engine.h": "c",
+        "render.h": "c",
+        "dcmisc.h": "c",
+        "gameovergamestate.h": "c",
+        "dcmath.h": "c"
     }
 }
