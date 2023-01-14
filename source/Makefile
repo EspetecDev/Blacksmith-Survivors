@@ -2,9 +2,8 @@ TARGET = MAIN
 TYPE = ps-exe
 
 SRCS = main.c \
-		sonic.tim \
+		Resources.c \
 		engine.c \
-		SpriteTestGameState.c \
 		ContractGameState.c \
 		GameLoopGameState.c \
 		GameOverGameState.c \

@@ -1,9 +1,14 @@
 #ifndef _DC_GAME_LOOP_GAMESTATE
 #define _DC_GAME_LOOP_GAMESTATE
 
+#include "dcMath.h"
+#include "dcCamera.h"
+
 typedef struct
 {
-    int Manel;
+    SDC_Camera PlayerCamera;
+
+
 } FGameLoopGameState;
 
 void GLGS_Init(FGameLoopGameState* GameState);
