@@ -67,8 +67,8 @@ void GLGS_Update(FGameLoopGameState *GameState)
     //  Draw enemy.
     EM_Draw(&GEnemyManager);
 
-    //  Draw scene assets.
-    //DrawSceneAssets(GameState);
+    //  Draw scene.
+    SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.PlayerPosition);
 
     // Draw UI.
     //DrawUI(GameState);

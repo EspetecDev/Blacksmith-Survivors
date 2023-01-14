@@ -24,9 +24,9 @@ typedef struct
 /* Scena Map Methods  */
 
 void SceneMap_Init(SceneMap * MapPtr);
-void SceneMap_Draw(SceneMap * MapPtr);
+void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition);
+VECTOR Scene_GetMapCenter();
 
 int GetGridSize(SceneMap * MapPtr);
-VECTOR GetGridCenter(SceneMap * MapPtr, long QuadSize);
 
 #endif

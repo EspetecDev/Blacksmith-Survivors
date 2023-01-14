@@ -21,19 +21,28 @@ void SceneMap_Init(SceneMap* MapPtr)
     }
 }
 
-void SceneMap_Draw(SceneMap * MapPtr)
+void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
 {
     const DVECTOR UV = {SceneTileDim, SceneTileDim};
     const CVECTOR Color = {255, 255, 255, 255};
-
+    
     for(int i = 0; i <  SceneTileWidth; i++)
     {
         for(int j = 0; j <  SceneTileHeight; j++)
         {
+
             Tile * Data = &MapPtr->MapTiles[i][j];
-            dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, Data->Texture, Data->TopLeft.vx, Data->TopLeft.vy, SceneTileDim, SceneTileDim, &UV, &Color);
+            int TopLeftX = Data->TopLeft.vx - CameraPosition->vx;
+            int TopLefty = Data->TopLeft.vy + CameraPosition->vy;
+            dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, Data->Texture, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
         }
     }
+}
+
+VECTOR Scene_GetMapCenter()
+{
+    VECTOR Result = { (SceneTileWidth * SceneTileDim)/2, (SceneTileWidth * SceneTileDim)/2, 0, 0};
+    return Result;
 }
 
 int GetGridSize(SceneMap * MapPtr)

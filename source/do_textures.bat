@@ -5,4 +5,4 @@
 ..\tools\BMP2TIM\BMP2TIM.exe textures\MainCharacter_Attack.bmp textures\HeroAttack.tim 8 -org=320,128 -clut=512,32 -mpink
 ..\tools\BMP2TIM\BMP2TIM.exe textures\BlackSmith_title_screen_8bit.bmp textures\TitleScreen.tim 8 -org=320,240 -clut=512,64 -mpink
 
-..\tools\BMP2TIM\BMP2TIM.exe textures\TILE1.bmp textures\tile1.tim 4 -org=384,0 -clut=512,128
+..\tools\BMP2TIM\BMP2TIM.exe textures\TILE2.bmp textures\tile1.tim 4 -org=384,0 -clut=512,128
