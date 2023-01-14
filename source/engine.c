@@ -25,7 +25,7 @@ void Init(Engine * EnginePtr)
     
     EnginePtr->RenderPtr = (SDC_Render*)malloc3(sizeof(SDC_Render));
     CVECTOR BackgroundColor = {0, 0, 0};
-    dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, 8192, RENDER_MODE_PAL);
+    dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, RENDER_PRIMITIVES_LIST_SIZE, RENDER_MODE_PAL);
     
     //  Resources.
     Resources_LoadFont();
@@ -44,7 +44,7 @@ void Init(Engine * EnginePtr)
     MGS_Init(EnginePtr->MenuGameState);
     
     //  Start game state.
-    ChangeGameState(EnginePtr, GS_GAME_LOOP);
+    ChangeGameState(EnginePtr, GS_MAIN_MENU);
 }
 
 void Update(Engine * EnginePtr)
