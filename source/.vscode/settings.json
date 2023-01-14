@@ -5,6 +5,7 @@
         "render.h": "c",
         "dcmisc.h": "c",
         "gameovergamestate.h": "c",
-        "dcmath.h": "c"
+        "dcmath.h": "c",
+        "spritetestgamestate.h": "c"
     }
 }

@@ -9,10 +9,14 @@
 
 /*  Texture Animations Resources */
 
-void LoadTextureResources();
+extern TIM_IMAGE tim_smile;
+void Resources_LoadTextureResources();
 
 /* Sprite Animations Resources */
+// extern unsigned long _binary_sonic_tim_start[];
 
-void LoadSpriteResources();
+void Resources_LoadSpriteResources();
 
+SDC_SpriteAnimation GetHeroRunAnimation();
+SDC_SpriteAnimation GetHeroIdleAnimation();
 #endif

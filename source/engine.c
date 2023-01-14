@@ -26,6 +26,10 @@ void Init(Engine * EnginePtr)
     EnginePtr->RenderPtr = (SDC_Render*)malloc3(sizeof(SDC_Render));
     CVECTOR BackgroundColor = {RENDER_BG_COLOR_R, RENDER_BG_COLOR_G, RENDER_BG_COLOR_B};
     dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, 8192, RENDER_MODE_PAL);
+    
+    //  Resources.
+    Resources_LoadTextureResources();
+    Resources_LoadSpriteResources();
 
     //  Init game state.
     EnginePtr->GameLoopGameState = (FGameLoopGameState*)malloc3(sizeof(FGameLoopGameState));
@@ -39,7 +43,7 @@ void Init(Engine * EnginePtr)
     MGS_Init(EnginePtr->MenuGameState);
     
     //  Start game state.
-    ChangeGameState(EnginePtr, GS_MAIN_MENU);
+    ChangeGameState(EnginePtr, GS_GAME_LOOP);
 }
 
 void Update(Engine * EnginePtr)
@@ -53,9 +57,10 @@ void Update(Engine * EnginePtr)
 
     // RENDER
     FntPrint("Demo1 - The Game\n");
-    char debugGS[] = "CurrentGS: ";
-    strcat(debugGS, GetCurrentGSString(EnginePtr));
-    strcat(debugGS, "\n");
+    char debugGS[50] = "CurrentGS: ";
+    char currentGS[15] = "";
+    strcpy(currentGS, GetCurrentGSString(EnginePtr));
+    strcat(debugGS, currentGS);
     FntPrint(debugGS);
     
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
