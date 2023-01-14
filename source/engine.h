@@ -12,6 +12,7 @@
 #include <types.h>
 #include <string.h>
 
+#include "configuration/GlobalVars.h"
 #include "dcMath.h"
 #include "dcCamera.h"
 #include "render.h"

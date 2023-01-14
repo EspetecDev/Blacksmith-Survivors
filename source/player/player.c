@@ -4,9 +4,10 @@
 
 #define CameraHeightPosition 300
 
-void PlayerInit(Player* Self, SDC_Camera * PlayerCamera)
+void PlayerInit(Player* Self, SDC_Camera * PlayerCamera, SceneMap* Map)
 {
-    VECTOR StartPos = {0, 0, 0, 0};
+    // We want the player to start at the center of the grid.
+    VECTOR StartPos = GetGridCenter(Map, DEBUG_QUAD_SIZE * 2);
     Self->PlayerPosition = StartPos;
     Self->RadiusColision = 32;
 
@@ -31,9 +32,6 @@ void PlayerInit(Player* Self, SDC_Camera * PlayerCamera)
 void PlayerInput(Player* Self, SDC_Camera * PlayerCamera)
 {
     // Constants player speed.
-    const int PlayerMovementForward = 100;
-    const int PlayerMovementSide = 100;
-
     u_long padState = PadRead(0);
     long MovementFront = 0;
     long MovemementSide = 0;
@@ -41,21 +39,21 @@ void PlayerInput(Player* Self, SDC_Camera * PlayerCamera)
     // Y AXIS
     if (_PAD(0, PADLup) & padState)
     {
-        MovementFront = PlayerMovementForward;
+        MovementFront = PlayerSpeed;
     }
     if (_PAD(0, PADLdown) & padState)
     {
-        MovementFront = -PlayerMovementForward;
+        MovementFront = -PlayerSpeed;
     }
 
     // X AXIS
     if (_PAD(0, PADLright) & padState)
     {
-        MovemementSide = PlayerMovementSide;
+        MovemementSide = PlayerSpeed;
     }
     if (_PAD(0, PADLleft) & padState)
     {
-        MovemementSide = -PlayerMovementSide;
+        MovemementSide = -PlayerSpeed;
     }
 
     Self->PlayerPosition.vy += MovementFront;
