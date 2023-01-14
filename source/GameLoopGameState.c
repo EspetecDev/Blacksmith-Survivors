@@ -10,7 +10,16 @@ void InitScene(FGameLoopGameState *GameState);
 void DrawSceneAssets(FGameLoopGameState *GameState);
 void DrawAsset(FGameLoopGameState *GameState, VECTOR *Translation, TIM_IMAGE *AssetTexture);
 
+<<<<<<< HEAD
 void GLGS_Init(FGameLoopGameState *GameState)
+=======
+void InitScene(FGameLoopGameState* GameState);
+void DrawSceneAssets(FGameLoopGameState* GameState);
+void DrawAsset(FGameLoopGameState* GameState, VECTOR * Translation, TIM_IMAGE * AssetTexture);
+void DrawDebugQuad(FGameLoopGameState* GameState, VECTOR * Translation, CVECTOR * ColorQuad, VECTOR * Scale);
+
+void GLGS_Init(FGameLoopGameState* GameState)
+>>>>>>> c652b0ee0488c65ba95f325c18af861749515638
 {
     //  Setup player data.
     InitPlayer(GameState);
