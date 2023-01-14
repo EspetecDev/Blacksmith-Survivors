@@ -3,7 +3,7 @@
 
 #include "dcRender.h"
 
-#define RENDER_WIDTH 320
+#define RENDER_WIDTH 640
 #define RENDER_HEIGHT 240
 #define RENDER_BG_COLOR_R 0
 #define RENDER_BG_COLOR_G 0

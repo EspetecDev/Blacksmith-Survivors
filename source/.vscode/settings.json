@@ -4,6 +4,7 @@
         "engine.h": "c",
         "render.h": "c",
         "dcmisc.h": "c",
-        "gameovergamestate.h": "c"
+        "gameovergamestate.h": "c",
+        "dcmath.h": "c"
     }
 }

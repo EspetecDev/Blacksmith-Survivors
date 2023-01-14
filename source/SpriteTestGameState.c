@@ -21,7 +21,7 @@ void STGS_Init(FSpriteTestGameState* GameState)
 void STGS_Update(FSpriteTestGameState* GameState)
 {
     dcSprite_Update(&sonic_sprite);
-    dcSprite_Render(GEngineInstance.RenderPtr, &sonic_sprite, 0, 0, &Color);
+    dcSprite_Render(GEngineInstance.RenderPtr, &sonic_sprite, 64, 64, &Color);
 }
 
 void STGS_Close(FSpriteTestGameState* GameState)

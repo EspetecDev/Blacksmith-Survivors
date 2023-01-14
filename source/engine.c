@@ -1,11 +1,7 @@
 #include "engine.h"
-#include "SpriteTestGameState.h"
 #include <malloc.h>
 
 Engine GEngineInstance;
-
-// REMOVE:
-FSpriteTestGameState SpriteTest;
 
 /* Forward declarations. */
 
@@ -35,28 +31,23 @@ void Init(Engine * EnginePtr)
     EnginePtr->GameOverGameState = (FGameOverGameState*)malloc3(sizeof(FGameOverGameState));
     EnginePtr->MenuGameState = (MenuGameState*)malloc3(sizeof(MenuGameState));
 
-    STGS_Init(&SpriteTest);
     GLGS_Init(EnginePtr->GameLoopGameState);
     CGS_Init(EnginePtr->ContractGameState);
     GOGS_Init(EnginePtr->GameOverGameState);
     MGS_Init(EnginePtr->MenuGameState);
     
     //  Start game state.
-    ChangeGameState(EnginePtr, GS_MAIN_MENU);
+    ChangeGameState(EnginePtr, GS_GAME_LOOP);
 }
 
 void Update(Engine * EnginePtr)
 {
-    STGS_Update(&SpriteTest);
-
-    /*
     if(EnginePtr->CurrentGameState != EnginePtr->DesiredGameState)
     {
         OnChangeGameState(EnginePtr);
     }
 
     UpdateGameState(EnginePtr);
-    */
 
     // RENDER
     FntPrint("Demo1 - The Game\n");
@@ -80,6 +71,7 @@ void UpdateGameState(Engine * EnginePtr)
         case GS_CONTRACT:
         break;
         case GS_GAME_LOOP:
+        GLGS_Update(EnginePtr->GameLoopGameState);
         break;
         case GS_GAME_OVER:
         break;
