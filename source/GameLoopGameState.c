@@ -73,8 +73,6 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
 
 void GLGS_Update(FGameLoopGameState* GameState)
 {
-    printf("[GLGS_Update::Update] Enter game loop\n");
-    
     HandlePlayerInput(GameState);
 
     SVECTOR rotation = {0};
