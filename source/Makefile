@@ -3,7 +3,6 @@ TYPE = ps-exe
 
 SRCS = main.c \
 		Resources.c \
-		configuration/GlobalVars.c \
 		engine.c \
 		ContractGameState.c \
 		GameLoopGameState.c \
@@ -12,6 +11,7 @@ SRCS = main.c \
 		scene/scene.c \
 		textures/HeroIdle.tim \
 		textures/HeroWalk.tim \
+		textures/HeroAttack.tim \
 		characters/Enemy.c\
 		characters/EnemyManager.c\
 		player/player.c\
