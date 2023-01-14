@@ -13,7 +13,10 @@ extern TIM_IMAGE tim_smile;
 void Resources_LoadTextureResources();
 
 /* Sprite Animations Resources */
+// extern unsigned long _binary_sonic_tim_start[];
 
 void Resources_LoadSpriteResources();
 
+SDC_SpriteAnimation GetHeroRunAnimation();
+SDC_SpriteAnimation GetHeroIdleAnimation();
 #endif
