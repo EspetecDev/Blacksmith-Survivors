@@ -6,10 +6,17 @@
 
 #define CameraHeightPosition -300
 
+void InitScene(FGameLoopGameState* GameState);
+void DrawSceneAssets(FGameLoopGameState* GameState);
+void DrawAsset(FGameLoopGameState* GameState, VECTOR * Translation, TIM_IMAGE * AssetTexture);
+
 void GLGS_Init(FGameLoopGameState* GameState)
 {
     //  Setup player data.
     InitPlayer(GameState);
+
+    //  Setup scene data.
+    InitScene(GameState);
 
     //  Setup camera start.
     dcCamera_SetScreenResolution(&GameState->PlayerCamera, RENDER_WIDTH, RENDER_HEIGHT);
@@ -19,6 +26,11 @@ void GLGS_Init(FGameLoopGameState* GameState)
 
 void HandlePlayerInput(FGameLoopGameState* GameState)
 {
+    // Constants player speed.
+    const int PlayerMovementForward = 100;
+    const int PlayerMovementSide = 100;
+
+
     u_long padState = PadRead(0);
     long MovementFront = 0;
     long MovemementSide = 0;
@@ -26,21 +38,21 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
     // Y AXIS
     if( _PAD(0,PADLup ) & padState )
     {
-        MovementFront = 1;
+        MovementFront = PlayerMovementForward;
     }
     if( _PAD(0,PADLdown ) & padState )
     {
-        MovementFront = -1;
+        MovementFront = -PlayerMovementForward;
     }
 
     // X AXIS
     if( _PAD(0,PADLright ) & padState )
     {
-        MovemementSide = -1;
+        MovemementSide = -PlayerMovementSide;
     }
     if( _PAD(0,PADLleft ) & padState )
     {
-        MovemementSide = 1;
+        MovemementSide = PlayerMovementSide;
     }
 
     /*
@@ -78,25 +90,11 @@ void GLGS_Update(FGameLoopGameState* GameState)
 {
     //  Move player.
     HandlePlayerInput(GameState);
-
-    //SVECTOR rotation = {0};
-    //VECTOR translation = {0, 0, 0, 0};
-    //MATRIX transform;
-    CVECTOR ColorSprit = {128, 128, 128, 128};
-
-    //SDC_DrawParams draw_params;
-    //draw_params.tim = &tim_smile;
     
-    /*
-    RotMatrix(&rotation, &transform);
-    TransMatrix(&transform, &translation);
-    dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &transform, &transform);
-    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadAssetMesh, &transform, &draw_params);
-    */
+    DrawSceneAssets(GameState);
 
-    dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera); 
-    dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);
-    dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, RENDER_WIDTH/2, RENDER_HEIGHT/2, &ColorSprit);
+    //dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);
+    //dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, RENDER_WIDTH/2, RENDER_HEIGHT/2, &ColorSprit);
 }
 
 void GLGS_Close(FGameLoopGameState* GameState)
@@ -108,6 +106,7 @@ void InitPlayer(FGameLoopGameState* GameState)
 {
     VECTOR StartPos =  {0, 0, 0, 0};
     GameState->Player->PlayerPosition = StartPos;
+    GameState->Player->RadiusColision = 32;
 
     FAnimationTypes MovingAnimation;
     //FAnimationTypes IdleAnimation;
@@ -120,4 +119,94 @@ void InitPlayer(FGameLoopGameState* GameState)
     GameState->Player->CurrentPlayerAction = PLAYER_MOVING;
     GameState->Player->CurrentPlayerAnimation = GameState->Player->Animations[GameState->Player->CurrentPlayerAction];
     dcSprite_SetAnimation(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, &GameState->Player->CurrentPlayerAnimation.Animation);
+}
+
+void InitScene(FGameLoopGameState* GameState)
+{
+    SceneMap_Init(&GameState->SceneData);
+}
+
+void DrawAsset(FGameLoopGameState* GameState, VECTOR * Translation, TIM_IMAGE * AssetTexture)
+{
+    // TOOD: Move into GS if possible as optim.
+    SDC_DrawParams DrawParams;
+    MATRIX Transform;
+    SVECTOR Rotation = {0};
+
+    DrawParams.tim = AssetTexture;
+    RotMatrix(&Rotation, &Transform);
+    TransMatrix(&Transform, Translation);
+    dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &Transform, &Transform);
+    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadAssetMesh, &Transform, &DrawParams);
+}
+
+void DrawDebugQuad(FGameLoopGameState* GameState, VECTOR * Translation, CVECTOR * ColorQuad, VECTOR * Scale)
+{
+    // TOOD: Move into GS if possible as optim.
+    SDC_DrawParams DrawParams;
+    MATRIX Transform;
+    SVECTOR Rotation = {0};
+
+    DrawParams.constantColor = *ColorQuad;
+    RotMatrix(&Rotation, &Transform);
+    TransMatrix(&Transform, Translation);
+    ScaleMatrix(&Transform, Scale);
+    dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &Transform, &Transform);
+    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadDebugMesh, &Transform, &DrawParams);
+}
+
+void DrawSceneAssets(FGameLoopGameState* GameState)
+{
+    dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera);
+
+    //  Scene
+    //VECTOR SceneTranslation = {GameState->SceneData.MapAssetOriginAndDim.vx, GameState->SceneData.MapAssetOriginAndDim.vy, 20, 0};
+    //CVECTOR SceneColorQuad = {0, 0, 0, 255};
+    //VECTOR SceneScale = {GameState->SceneData.MapAssetOriginAndDim.vz, GameState->SceneData.MapAssetOriginAndDim.pad, 0, 0};
+    //DrawDebugQuad(GameState, &SceneTranslation, &SceneColorQuad, &SceneScale);
+
+    VECTOR Translation = {0, 0, 0, 0};
+    VECTOR Scale = {ONE, ONE, 0, 0};
+    CVECTOR ColorQuad = {255, 0,0,255};
+    DrawDebugQuad(GameState, &Translation, &ColorQuad, &Scale);
+
+    //VECTOR TranslationT = {0, 50, 1, 0};
+    //VECTOR ScaleT = {ONE, ONE, 0, 0};
+    //CVECTOR ColorQuadT = {0, 255, 0,255};
+    //DrawDebugQuad(GameState, &TranslationT, &ColorQuadT, &ScaleT);
+
+    //VECTOR translation = {0, 0, 0, 0};
+    //DrawAsset(GameState, &translation, &tim_smile);
+}
+
+char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius)
+{
+    // Calculate the distance^2 between FirstPosition and SecondPosition
+    long Distance = GetDistanceBetweenTwoPoints(FirstPosition, SecondPosition);
+    long FinalRadius = DC_MUL(Radius, Radius);
+    // Position is in radius if Distance^2 < Radius^2
+    return (Distance < FinalRadius);
+}
+
+char CharactersCollide(VECTOR PlayerPosition, VECTOR OtherPosition, long PlayerRadius, long OtherRadius)
+{
+    // Two "entities" will collide if their colliders intersect or are inside each other.
+    // The two "colliders" will intersect when ((r1 - r2)^2 < d^2) || ((r1 + r2)^2) > d^2.
+    // The two "colliders" will be conentric if d = 0.
+
+    long SumRadi = DC_MUL((PlayerRadius + OtherRadius), (PlayerRadius + OtherRadius));
+    long DiffRadi = DC_MUL((PlayerRadius - OtherRadius), (PlayerRadius - OtherRadius));
+    long Distance = GetDistanceBetweenTwoPoints(PlayerPosition, OtherPosition);
+
+    return (Distance > DiffRadi) || (Distance < SumRadi) || Distance == 0 || Distance == PlayerRadius || Distance == OtherRadius;
+
+}
+
+long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition)
+{
+    long XDistance = (FirstPosition.vx - SecondPosition.vx);
+    long YDistance = (FirstPosition.vy - SecondPosition.vy);
+
+    long Distance = DC_MUL(XDistance, XDistance) + DC_MUL(YDistance, YDistance);
+    return Distance;
 }

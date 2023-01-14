@@ -8,6 +8,7 @@ SRCS = main.c \
 		GameLoopGameState.c \
 		GameOverGameState.c \
 		MenuGameState.c \
+		scene/scene.c \
 		textures/Hero.tim \
 		textures/Enemy_Blue.tim \
 		characters/Enemy.c\
