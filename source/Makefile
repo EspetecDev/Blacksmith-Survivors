@@ -11,6 +11,11 @@ SRCS = main.c \
 		scene/scene.c \
 		textures/fnt.tim \
 		textures/tile1.tim \
+		textures/tile2.tim \
+		textures/tile3.tim \
+		textures/tile4.tim \
+		textures/tile5.tim \
+		textures/tile6.tim \
 		textures/Hero.tim \
 		textures/Enemy_Blue.tim \
 		textures/HeroIdle.tim \
