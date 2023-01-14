@@ -4,6 +4,7 @@
 #include "dcMath.h"
 #include "dcCamera.h"
 #include "dcSprite.h"
+#include "scene/scene.h"
 
 typedef enum
 {
@@ -34,6 +35,7 @@ typedef struct
 {
     SDC_Camera PlayerCamera;
     VECTOR PlayerPosition;
+    SceneMap SceneData;
 
     FPlayer* Player;
 } FGameLoopGameState;

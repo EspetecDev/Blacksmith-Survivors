@@ -32,6 +32,11 @@ void GLGS_Init(FGameLoopGameState* GameState)
 
 void HandlePlayerInput(FGameLoopGameState* GameState)
 {
+    // Constants player speed.
+    const int PlayerMovementForward = 100;
+    const int PlayerMovementSide = 100;
+
+
     u_long padState = PadRead(0);
     long MovementFront = 0;
     long MovemementSide = 0;
@@ -39,21 +44,21 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
     // Y AXIS
     if( _PAD(0,PADLup ) & padState )
     {
-        MovementFront = 1;
+        MovementFront = PlayerMovementForward;
     }
     if( _PAD(0,PADLdown ) & padState )
     {
-        MovementFront = -1;
+        MovementFront = -PlayerMovementForward;
     }
 
     // X AXIS
     if( _PAD(0,PADLright ) & padState )
     {
-        MovemementSide = 1;
+        MovemementSide = PlayerMovementSide;
     }
     if( _PAD(0,PADLleft ) & padState )
     {
-        MovemementSide = -1;
+        MovemementSide = -PlayerMovementSide;
     }
 
     /*
@@ -141,7 +146,7 @@ void InitPlayer(FGameLoopGameState* GameState)
 
 void InitScene(FGameLoopGameState* GameState)
 {
-
+    SceneMap_Init(&GameState->SceneData);
 }
 
 void DrawAsset(FGameLoopGameState* GameState, VECTOR * Translation, TIM_IMAGE * AssetTexture)
@@ -180,7 +185,12 @@ void DrawSceneAssets(FGameLoopGameState* GameState)
     VECTOR Translation = {50, 0, 0, 0};
     VECTOR Scale = {ONE, ONE, 0, 0};
     CVECTOR ColorQuad = {255, 0,0,255};
-    DrawDebugQuad(GameState, &Translation,&ColorQuad, &Scale);
+    DrawDebugQuad(GameState, &Translation, &ColorQuad, &Scale);
+
+    //VECTOR TranslationT = {0, 50, 1, 0};
+    //VECTOR ScaleT = {ONE, ONE, 0, 0};
+    //CVECTOR ColorQuadT = {0, 255, 0,255};
+    //DrawDebugQuad(GameState, &TranslationT, &ColorQuadT, &ScaleT);
 
     //VECTOR translation = {0, 0, 0, 0};
     //DrawAsset(GameState, &translation, &tim_smile);
