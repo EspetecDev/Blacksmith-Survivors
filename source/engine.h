@@ -15,6 +15,7 @@
 #include "configuration/GlobalVars.h"
 #include "dcMath.h"
 #include "dcCamera.h"
+#include "dcFont.h"
 #include "render.h"
 #include "dcMemory.h"
 #include "dcMisc.h"

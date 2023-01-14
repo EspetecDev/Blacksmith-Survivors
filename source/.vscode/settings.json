@@ -10,6 +10,7 @@
         "enemymanager.h": "c",
         "spritetestgamestate.h": "c",
         "rendermeshes.h": "c",
-        "player.h": "c"
+        "player.h": "c",
+        "dcfont.h": "c"
     }
 }

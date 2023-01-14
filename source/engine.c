@@ -28,6 +28,7 @@ void Init(Engine * EnginePtr)
     dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, 8192, RENDER_MODE_PAL);
     
     //  Resources.
+    Resources_LoadFont();
     Resources_LoadTextureResources();
     Resources_LoadSpriteResources();
 
@@ -54,12 +55,14 @@ void Update(Engine * EnginePtr)
     }
 
      // RENDER
-    FntPrint("Demo1 - The Game\n");
-    char debugGS[50] = "CurrentGS: ";
-    char currentGS[15] = "";
-    strcpy(currentGS, GetCurrentGSString(EnginePtr));
-    strcat(debugGS, currentGS);
-    FntPrint(debugGS);
+     CVECTOR test = {1, 1, 1};
+     dcFont_Print(EnginePtr->RenderPtr, 50, 50, &test, "OLA K ASE");
+    // FntPrint("Demo1 - The Game\n");
+    // char debugGS[50] = "CurrentGS: ";
+    // char currentGS[15] = "";
+    // strcpy(currentGS, GetCurrentGSString(EnginePtr));
+    // strcat(debugGS, currentGS);
+    // FntPrint(debugGS);
 
 
     UpdateGameState(EnginePtr);

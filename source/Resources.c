@@ -38,3 +38,9 @@ void Resources_LoadSpriteResources()
     dcSprite_LoadAnimationTex(&HeroWalkAnimations, _binary_textures_HeroWalk_tim_start);
     dcSprite_LoadAnimationTex(&HeroAttackAnimations, _binary_textures_HeroAttack_tim_start);
 }
+
+extern unsigned long _binary_textures_fnt_tim_start[];
+void Resources_LoadFont()
+{
+    dcFont_Load(_binary_textures_fnt_tim_start);
+}
