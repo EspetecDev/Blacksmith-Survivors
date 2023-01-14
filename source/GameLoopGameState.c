@@ -7,12 +7,19 @@
 #include "renderMeshes.h"
 #include "dcMisc.h"
 
-#define CameraHeightPosition -300
+#define CameraHeightPosition 300
+
+void InitScene(FGameLoopGameState* GameState);
+void DrawSceneAssets(FGameLoopGameState* GameState);
+void DrawAsset(FGameLoopGameState* GameState, VECTOR * Translation, TIM_IMAGE * AssetTexture);
 
 void GLGS_Init(FGameLoopGameState* GameState)
 {
     //  Setup player data.
     InitPlayer(GameState);
+
+    //  Setup scene data.
+    InitScene(GameState);
 
     //  Setup camera start.
     dcCamera_SetScreenResolution(&GameState->PlayerCamera, RENDER_WIDTH, RENDER_HEIGHT);
@@ -42,11 +49,11 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
     // X AXIS
     if( _PAD(0,PADLright ) & padState )
     {
-        MovemementSide = -1;
+        MovemementSide = 1;
     }
     if( _PAD(0,PADLleft ) & padState )
     {
-        MovemementSide = 1;
+        MovemementSide = -1;
     }
 
     /*
@@ -102,25 +109,10 @@ void GLGS_Update(FGameLoopGameState* GameState)
     //  Move player.
     HandlePlayerInput(GameState);
     EM_Update(&GEenemyManager);
+    DrawSceneAssets(GameState);
 
-    //SVECTOR rotation = {0};
-    //VECTOR translation = {0, 0, 0, 0};
-    //MATRIX transform;
-    CVECTOR ColorSprit = {128, 128, 128, 128};
-
-    //SDC_DrawParams draw_params;
-    //draw_params.tim = &tim_smile;
-    
-    /*
-    RotMatrix(&rotation, &transform);
-    TransMatrix(&transform, &translation);
-    dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &transform, &transform);
-    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadAssetMesh, &transform, &draw_params);
-    */
-
-    dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera); 
-    dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);
-    dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, RENDER_WIDTH/2, RENDER_HEIGHT/2, &ColorSprit);
+    //dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);
+    //dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, RENDER_WIDTH/2, RENDER_HEIGHT/2, &ColorSprit);
 }
 
 void GLGS_Close(FGameLoopGameState* GameState)
@@ -144,4 +136,51 @@ void InitPlayer(FGameLoopGameState* GameState)
     GameState->Player->CurrentPlayerAction = PLAYER_MOVING;
     GameState->Player->CurrentPlayerAnimation = GameState->Player->Animations[GameState->Player->CurrentPlayerAction];
     dcSprite_SetAnimation(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, &GameState->Player->CurrentPlayerAnimation.Animation);
+}
+
+void InitScene(FGameLoopGameState* GameState)
+{
+
+}
+
+void DrawAsset(FGameLoopGameState* GameState, VECTOR * Translation, TIM_IMAGE * AssetTexture)
+{
+    // TOOD: Move into GS if possible as optim.
+    SDC_DrawParams DrawParams;
+    MATRIX Transform;
+    SVECTOR Rotation = {0};
+
+    DrawParams.tim = AssetTexture;
+    RotMatrix(&Rotation, &Transform);
+    TransMatrix(&Transform, Translation);
+    dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &Transform, &Transform);
+    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadAssetMesh, &Transform, &DrawParams);
+}
+
+void DrawDebugQuad(FGameLoopGameState* GameState, VECTOR * Translation, CVECTOR * ColorQuad, VECTOR * Scale)
+{
+    // TOOD: Move into GS if possible as optim.
+    SDC_DrawParams DrawParams;
+    MATRIX Transform;
+    SVECTOR Rotation = {0};
+
+    DrawParams.constantColor = *ColorQuad;
+    RotMatrix(&Rotation, &Transform);
+    TransMatrix(&Transform, Translation);
+    ScaleMatrix(&Transform, Scale);
+    dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &Transform, &Transform);
+    dcRender_DrawMesh(GEngineInstance.RenderPtr, &QuadDebugMesh, &Transform, &DrawParams);
+}
+
+void DrawSceneAssets(FGameLoopGameState* GameState)
+{
+    dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera);
+
+    VECTOR Translation = {50, 0, 0, 0};
+    VECTOR Scale = {ONE, ONE, 0, 0};
+    CVECTOR ColorQuad = {255, 0,0,255};
+    DrawDebugQuad(GameState, &Translation,&ColorQuad, &Scale);
+
+    //VECTOR translation = {0, 0, 0, 0};
+    //DrawAsset(GameState, &translation, &tim_smile);
 }
