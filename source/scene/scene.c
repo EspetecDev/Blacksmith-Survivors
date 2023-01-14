@@ -15,7 +15,7 @@ void SceneMap_Init(SceneMap* MapPtr)
             Data.Coordinates.vy = j;
             Data.TopLeft.vx = i * SceneTileDim;
             Data.TopLeft.vy = j * SceneTileDim;
-            Data.Texture = NULL;
+            Data.Texture = &TimTile1;
             MapPtr->MapTiles[i][j] = Data;
         }
     }

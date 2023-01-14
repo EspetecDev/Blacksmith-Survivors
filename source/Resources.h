@@ -2,6 +2,7 @@
 #define _DC_SPRITETEST_GAMESTATE
 
 /*  Texture Animations Resources */
+extern TIM_IMAGE TimTile1;
 void Resources_LoadTextureResources();
 
 /* Sprite Animations Resources */

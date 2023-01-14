@@ -10,6 +10,7 @@ SRCS = main.c \
 		MenuGameState.c \
 		scene/scene.c \
 		textures/fnt.tim \
+		textures/tile1.tim \
 		textures/Hero.tim \
 		textures/Enemy_Blue.tim \
 		textures/HeroIdle.tim \

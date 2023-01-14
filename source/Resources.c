@@ -2,13 +2,12 @@
 
 /*  Texture Animations Resources */
 
-//extern unsigned long _binary_textures_TitleLogo_tim_start[];
-//TIM_IMAGE TimTitleLogo;
+extern unsigned long _binary_textures_tile1_tim_start[];
+TIM_IMAGE TimTile1;
 
 void Resources_LoadTextureResources()
 {
-   //dcRender_LoadTexture(&TimTitleLogo, _binary_textures_TitleLogo_tim_start);
-   //dcRender_LoadTexture(&TimVignetting, _binary_textures_Vignette_tim_start);
+   dcRender_LoadTexture(&TimTile1, _binary_textures_tile1_tim_start);
 }
 
 /* Sprite Animations Header. */
