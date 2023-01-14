@@ -1,5 +1,5 @@
-#include "engine.h"
 #include "MenuGameState.h"
+#include "engine.h"
 // tim files #include ""
 
 void MGS_Init(MenuGameState* MGSPtr)
@@ -13,20 +13,43 @@ void MGS_OnEnter(MenuGameState* MGSPtr)
 
 }
 
-
 void MGS_Update(MenuGameState* MGSPtr)
 {
     printf("MenuGameState::Update");
+    
     int pad = 0;
-    while(GEngineInstance.CurrentGameState != GS_MAIN_MENU) //GEngine->
+    while(GEngineInstance.CurrentGameState == GS_MAIN_MENU) //GEngine->
     {
+        // Input
         pad = PadRead(0);
-
-        if(pad & PADstart)
+        // if(pad & PADstart)
+        if(pad & PADRup)  //△
         {
-            printf("[MenuGameState::Update] Enter game loop");
-            GEngineInstance.CurrentGameState = GS_GAME_LOOP;
+            printf("[MGS_Update::Update] Enter game loop");
+            GEngineInstance.DesiredGameState = GS_CONTRACT;
         }
+
+        // Draw texts
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
+        FntPrint(MGSPtr->PressStartText);
+        FntPrint("\n");
     }
 }
 

@@ -69,12 +69,16 @@ void UpdateGameState(Engine * EnginePtr)
     switch(EnginePtr->CurrentGameState)
     {
         case GS_MAIN_MENU:
+            MGS_Update(EnginePtr->MenuGameState);
         break;
         case GS_CONTRACT:
+            CGS_Update(EnginePtr->ContractGameState);
         break;
         case GS_GAME_LOOP:
+            GLGS_Update(EnginePtr->GameLoopGameState);
         break;
         case GS_GAME_OVER:
+            GOGS_Update(EnginePtr->GameOverGameState);
         break;
         default:
         break;
@@ -92,12 +96,16 @@ void OnChangeGameState(Engine * EnginePtr)
     switch(EnginePtr->CurrentGameState)
     {
         case GS_MAIN_MENU:
+            MGS_Close(EnginePtr->MenuGameState);
         break;
         case GS_CONTRACT:
+            CGS_Close(EnginePtr->ContractGameState);
         break;
         case GS_GAME_LOOP:
+            GLGS_Close(EnginePtr->GameLoopGameState);
         break;
         case GS_GAME_OVER:
+            GOGS_Update(EnginePtr->GameOverGameState);
         break;
         default:
         break;
@@ -109,12 +117,16 @@ void OnChangeGameState(Engine * EnginePtr)
     switch(EnginePtr->CurrentGameState)
     {
         case GS_MAIN_MENU:
+            MGS_Init(EnginePtr->MenuGameState);
         break;
         case GS_CONTRACT:
+            CGS_Init(EnginePtr->ContractGameState);
         break;
         case GS_GAME_LOOP:
+            GLGS_Init(EnginePtr->GameLoopGameState);
         break;
         case GS_GAME_OVER:
+            GOGS_Init(EnginePtr->GameOverGameState);
         break;
         default:
         break;
