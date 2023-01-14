@@ -8,9 +8,9 @@ void GOGS_Init(FGameOverGameState* GameState)
 
 void GOGS_Update(FGameOverGameState* GameState)
 {
-    printf("[GOGS_Update::Update] Enter game over");
+    printf("[GOGS_Update::Update] Enter game over\n");
     int pad = 0;
-    while (GEngineInstance.CurrentGameState == GS_GAME_OVER)
+    if (GEngineInstance.CurrentGameState == GS_GAME_OVER)
     {
         // Input
         pad = PadRead(0);

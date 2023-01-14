@@ -53,6 +53,11 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
     {
         MovemementSide = 32;
     }
+
+    if(padState & PADRdown) // X
+    {
+        GEngineInstance.DesiredGameState = GS_GAME_OVER;
+    }
     
     GameState->PlayerPosition.vz += MovementFront;
     GameState->PlayerPosition.vx += MovemementSide;
@@ -65,6 +70,8 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
 
 void GLGS_Update(FGameLoopGameState* GameState)
 {
+    printf("[GLGS_Update::Update] Enter game loop\n");
+    
     HandlePlayerInput(GameState);
 
     SVECTOR rotation = {0};

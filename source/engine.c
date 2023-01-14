@@ -7,6 +7,8 @@ Engine GEngineInstance;
 
 void UpdateGameState(Engine * EnginePtr);
 void OnChangeGameState(Engine * EnginePtr);
+// Debug
+char* GetCurrentGSString(Engine * EnginePtr);
 
 /* Engine Methods  */
 
@@ -37,7 +39,7 @@ void Init(Engine * EnginePtr)
     MGS_Init(EnginePtr->MenuGameState);
     
     //  Start game state.
-    ChangeGameState(EnginePtr, GS_GAME_LOOP);
+    ChangeGameState(EnginePtr, GS_MAIN_MENU);
 }
 
 void Update(Engine * EnginePtr)
@@ -51,6 +53,10 @@ void Update(Engine * EnginePtr)
 
     // RENDER
     FntPrint("Demo1 - The Game\n");
+    char debugGS[] = "CurrentGS: ";
+    strcat(debugGS, GetCurrentGSString(EnginePtr));
+    strcat(debugGS, "\n");
+    FntPrint(debugGS);
     
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }
@@ -129,4 +135,30 @@ void OnChangeGameState(Engine * EnginePtr)
         default:
         break;
     }
+}
+
+// DEBUG
+char* GetCurrentGSString(Engine * EnginePtr)
+{
+    char* CurrentGSString;
+    switch (EnginePtr->CurrentGameState)
+    {
+        case GS_MAIN_MENU:
+            CurrentGSString = "GS_MAIN_MENU";
+        break;
+        case GS_CONTRACT:
+            CurrentGSString = "GS_CONTRACT";
+        break;
+        case GS_GAME_LOOP:
+            CurrentGSString = "GS_GAME_LOOP";
+        break;
+        case GS_GAME_OVER:
+            CurrentGSString = "GS_GAME_OVER";
+        break;
+        default:
+            CurrentGSString = "";
+        break;
+    }
+    printf("GetCurrentGSString: %s\n", CurrentGSString);
+    return CurrentGSString;
 }
