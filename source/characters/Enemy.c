@@ -14,9 +14,11 @@ void EnemyUpdate(Enemy* Self)
     // Draw quad
     if(GEngineInstance.CurrentGameState == GS_GAME_LOOP)
     {
-        VECTOR Translation = {Self->Position.vx, Self->Position.vy, 0, 0};
-        VECTOR Scale = {ONE, ONE, 0, 0};
-        DrawDebugQuad(GEngineInstance.GameLoopGameState, &Translation,&Self->Color, &Scale);
+        // VECTOR Translation = {Self->Position.vx, Self->Position.vy, 0, 0};
+        // VECTOR Scale = {ONE/2, ONE/2, 0, 0};
+        // CVECTOR test = {255,255,0,0};
+        // // DrawDebugQuad(GEngineInstance.GameLoopGameState, &Translation,&Self->Color, &Scale);
+        // DrawDebugQuad(GEngineInstance.GameLoopGameState, &Translation,&test, &Scale);
     }
 }
 

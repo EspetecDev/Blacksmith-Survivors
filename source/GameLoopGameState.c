@@ -12,6 +12,7 @@
 void InitScene(FGameLoopGameState* GameState);
 void DrawSceneAssets(FGameLoopGameState* GameState);
 void DrawAsset(FGameLoopGameState* GameState, VECTOR * Translation, TIM_IMAGE * AssetTexture);
+void DrawDebugQuad(FGameLoopGameState* GameState, VECTOR * Translation, CVECTOR * ColorQuad, VECTOR * Scale);
 
 void GLGS_Init(FGameLoopGameState* GameState)
 {
@@ -115,6 +116,11 @@ void GLGS_Update(FGameLoopGameState* GameState)
     HandlePlayerInput(GameState);
     EM_Update(&GEenemyManager);
     DrawSceneAssets(GameState);
+
+    VECTOR Translation = {0, 100, 0, 0};
+    VECTOR Scale = {ONE/2, ONE/2, 0, 0};
+    CVECTOR test = {255,255,0,0};
+    DrawDebugQuad(GEngineInstance.GameLoopGameState, &Translation,&test, &Scale);
 
     //dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);
     //dcSprite_Render(GEngineInstance.RenderPtr, &GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite, RENDER_WIDTH/2, RENDER_HEIGHT/2, &ColorSprit);
