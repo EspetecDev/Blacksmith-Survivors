@@ -1,8 +1,7 @@
 #include "GameLoopGameState.h"
 #include "engine.h"
-
-#include "engine.h"
 #include "render.h"
+#include "characters/EnemyManager.h"
 
 
 #include "dcMisc.h"
@@ -28,6 +27,9 @@ void GLGS_Init(FGameLoopGameState* GameState)
     dcCamera_SetScreenResolution(&GameState->PlayerCamera, RENDER_WIDTH, RENDER_HEIGHT);
     dcCamera_SetCameraPosition(&GameState->PlayerCamera, 0, GameState->PlayerPosition.vy, GameState->PlayerPosition.vz);
     dcCamera_LookAt(&GameState->PlayerCamera, &Position);
+
+    // Init enemy manager
+    EM_Init(&GEenemyManager);
 }
 
 void HandlePlayerInput(FGameLoopGameState* GameState)
@@ -57,10 +59,27 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
         MovemementSide = 32;
     }
 
-    if(padState & PADRdown) // X
+    if(padState & PADselect)
     {
         GEngineInstance.DesiredGameState = GS_GAME_OVER;
     }
+    if(padState & PADRdown) // X
+    {
+        EM_SpawnEnemy(&GEenemyManager, ENEMY_BLUE);
+    }
+    if(padState & PADRright) // O
+    {
+        EM_SpawnEnemy(&GEenemyManager, ENEMY_RED);
+    }
+    if(padState & PADRup) // triangle
+    {
+        EM_SpawnEnemy(&GEenemyManager, ENEMY_GREEN);
+    }
+    if(padState & PADRleft) // |_|
+    {
+        EM_SpawnEnemy(&GEenemyManager, ENEMY_YELLOW);
+    }
+    
     
     GameState->PlayerPosition.vy += MovementFront;
     GameState->PlayerPosition.vx += MovemementSide;
@@ -74,6 +93,7 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
 void GLGS_Update(FGameLoopGameState* GameState)
 {
     HandlePlayerInput(GameState);
+    EM_Update(&GEenemyManager);
 
     SVECTOR rotation = {0};
     VECTOR translation = {0, 0, 0, 0};

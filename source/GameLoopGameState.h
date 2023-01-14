@@ -7,9 +7,7 @@
 typedef struct
 {
     SDC_Camera PlayerCamera;
-
     VECTOR PlayerPosition;
-
 
 } FGameLoopGameState;
 
