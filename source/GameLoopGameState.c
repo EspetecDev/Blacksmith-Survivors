@@ -6,17 +6,16 @@
 #include "dcMisc.h"
 
 #define CUBESIZE 100
+#define QUADUVRES 32
 
-CVECTOR Color = {128, 128, 128};
-
-static SDC_Vertex quad_vertices[] = {
-    { -CUBESIZE / 2, -CUBESIZE / 2, 0, 0 },
-    { -CUBESIZE / 2, CUBESIZE / 2, 0, 0  },
-    { CUBESIZE / 2, CUBESIZE / 2, 0, 0  },
-    { CUBESIZE / 2, -CUBESIZE / 2, 0, 0 }
+static SDC_VertexTextured quad_vertices[] = {
+    {{ -CUBESIZE / 2, -CUBESIZE / 2, 0, 0}, 0, QUADUVRES},
+    {{ -CUBESIZE / 2, CUBESIZE / 2, 0, 0}, 0, 0},
+    {{ CUBESIZE / 2, CUBESIZE / 2, 0, 0}, QUADUVRES, 0},
+    {{ CUBESIZE / 2, -CUBESIZE / 2, 0, 0}, QUADUVRES, QUADUVRES}
 };
 static u_short quad_indices[] = { 0, 3, 1, 3, 2, 1 };
-static SDC_Mesh3D cubeMesh = { quad_vertices, quad_indices, NULL, 6, 4, POLIGON_VERTEX };
+static SDC_Mesh3D quadMesh = { quad_vertices, quad_indices, NULL, 6, 4, POLIGON_VERTEX_TEXTURED };
 
 void GLGS_Init(FGameLoopGameState* GameState)
 {
@@ -36,7 +35,6 @@ void HandlePlayerInput(FGameLoopGameState* GameState)
     u_long padState = PadRead(0);
     long MovementFront = 0;
     long MovemementSide = 0;
-
 
     // Y AXIS
     if( _PAD(0,PADLup ) & padState )
@@ -97,10 +95,13 @@ void GLGS_Update(FGameLoopGameState* GameState)
     VECTOR translation = {0, 0, 0, 0};
     MATRIX transform;
 
+    SDC_DrawParams draw_params;
+    draw_params.tim = &tim_smile;
+
     RotMatrix(&rotation, &transform);
     TransMatrix(&transform, &translation);
     dcCamera_ApplyCameraTransform(&GameState->PlayerCamera, &transform, &transform);
-    dcRender_DrawMesh(GEngineInstance.RenderPtr, &cubeMesh, &transform, NULL);
+    dcRender_DrawMesh(GEngineInstance.RenderPtr, &quadMesh, &transform, &draw_params);
 
     dcMisc_DrawAxis(GEngineInstance.RenderPtr, &GameState->PlayerCamera); 
     dcSprite_Update(&GameState->Player->Animations[GameState->Player->CurrentPlayerAction].CurrentSprite);

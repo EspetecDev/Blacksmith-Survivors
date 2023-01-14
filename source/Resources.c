@@ -2,12 +2,12 @@
 
 /*  Texture Animations Resources */
 
-extern unsigned long _binary_smile_tim_start[];
+extern unsigned long _binary_Enemy_Blue_tim_start[];
 TIM_IMAGE tim_smile;
 
 void Resources_LoadTextureResources()
 {
-    dcRender_LoadTexture(&tim_smile, _binary_smile_tim_start);
+    dcRender_LoadTexture(&tim_smile, _binary_Enemy_Blue_tim_start);
 }
 
 /* Sprite Animations Header. */
