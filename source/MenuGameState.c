@@ -10,45 +10,23 @@ void MGS_Init(MenuGameState* MGSPtr)
 
 void MGS_Update(MenuGameState* MGSPtr)
 {
-    printf("MenuGameState::Update");
-    
-    int pad = 0;
-    while(GEngineInstance.CurrentGameState == GS_MAIN_MENU) //GEngine->
+    if(GEngineInstance.CurrentGameState == GS_MAIN_MENU) 
     {
         // Input
+        int pad = 0;
         pad = PadRead(0);
         // if(pad & PADstart)
         if(pad & PADRup)  //△
         {
-            printf("[MGS_Update::Update] Enter game loop");
             GEngineInstance.DesiredGameState = GS_CONTRACT;
         }
 
         // Draw texts
         FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
-        FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
-        FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
-        FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
-        FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
-        FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
-        FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
-        FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
-        FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
-        FntPrint(MGSPtr->PressStartText);
-        FntPrint("\n");
     }
 }
 
 void MGS_Close(MenuGameState* MGSPtr)
 {
-   printf("MenuGameState::OnExit");
+   printf("MenuGameState::OnExit\n");
 }

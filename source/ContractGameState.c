@@ -8,9 +8,9 @@ void CGS_Init(FContractGameState* GameState)
 
 void CGS_Update(FContractGameState* GameState)
 {
-    printf("[CGS_Update::Update] Enter contract");
+    printf("[CGS_Update::Update] Enter contract\n");
     int pad = 0;
-    while (GEngineInstance.CurrentGameState == GS_CONTRACT)
+    if (GEngineInstance.CurrentGameState == GS_CONTRACT)
     {
         // Input
         pad = PadRead(0);

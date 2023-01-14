@@ -41,9 +41,9 @@ void GLGS_Init(FGameLoopGameState* GameState)
 
 void GLGS_Update(FGameLoopGameState* GameState)
 {
-    printf("[GLGS_Update::Update] Enter game loop");
+    printf("[GLGS_Update::Update] Enter game loop\n");
     int pad = 0;
-    while (GEngineInstance.CurrentGameState == GS_GAME_LOOP)
+    if (GEngineInstance.CurrentGameState == GS_GAME_LOOP)
     {
         // Input
         pad = PadRead(0);
