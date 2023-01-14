@@ -1,4 +1,3 @@
-#include "SpriteTestGameState.h"
 #include "engine.h"
 
 /*  Texture Animations Resources */
@@ -14,6 +13,7 @@ void Resources_LoadTextureResources()
 /* Sprite Animations Header. */
 
 //extern unsigned long _binary_hero_tim_start[];
+// TO REMOVE
 
 // Hero Run Animation.
 SDC_SpriteFrame HeroRunFrames[] =
@@ -23,7 +23,24 @@ SDC_SpriteFrame HeroRunFrames[] =
 };
 SDC_SpriteAnimation HeroRunAnimation = {HeroRunFrames, NULL, 3, 7, 0, 0};
 
+SDC_SpriteFrame HeroIdleFrames[] =
+{
+    {29-13,0,28,42}
+};
+SDC_SpriteAnimation HeroIdleAnimation = {HeroIdleFrames, NULL, 3, 1, 0, 0};
+
 void Resources_LoadSpriteResources()
 {
-    //dcSprite_LoadAnimationTex(&HeroRunAnimation, _binary_hero_tim_start);
+    //dcSprite_LoadAnimationTex(&HeroRunAnimation, _binary_sonic_tim_start);
+    //dcSprite_LoadAnimationTex(&HeroIdleAnimation, _binary_sonic_tim_start);
+}
+
+SDC_SpriteAnimation GetHeroRunAnimation()
+{
+    return HeroRunAnimation;
+}
+
+SDC_SpriteAnimation GetHeroIdleAnimation()
+{
+    return HeroIdleAnimation;
 }

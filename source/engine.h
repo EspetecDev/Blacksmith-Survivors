@@ -18,7 +18,6 @@
 #include "dcMemory.h"
 #include "dcMisc.h"
 #include "dcCollision.h"
-#include "render.h"
 #include "dcSprite.h"
 #include "Resources.h"
 #include "GameLoopGameState.h"
