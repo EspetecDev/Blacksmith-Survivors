@@ -1,5 +1,6 @@
 #ifndef _DC_MAINMENUGAMESTATE_
 #define _DC_MAINMENUGAMESTATE_
+#include "dcSprite.h"
 
 typedef struct
 {
@@ -7,6 +8,7 @@ typedef struct
     char TeamName[30];
     char bActivatePressStartEffet;
     char PressAnimationFrames;
+    SDC_Sprite TitleScreenSprite;
 
 } MenuGameState; 
 

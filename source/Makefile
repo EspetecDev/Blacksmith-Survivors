@@ -22,6 +22,7 @@ SRCS = main.c \
 		textures/HeroIdle.tim \
 		textures/HeroWalk.tim \
 		textures/HeroAttack.tim \
+		textures/TitleScreen.tim \
 		characters/Enemy.c\
 		characters/EnemyManager.c\
 		player/player.c\

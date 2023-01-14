@@ -1,14 +1,15 @@
 #include "MenuGameState.h"
 #include "engine.h"
-// tim files #include ""
 
 void MGS_Init(MenuGameState* MGSPtr)
 {
     // strcpy(MGSPtr->PressStartText, "PRESS START");
-    strcpy(MGSPtr->PressStartText, "\n012345678\n\nABCDEFGHIJKLMNOPQRSTUVWXYZ");
-    strcpy(MGSPtr->TeamName, "Demo1 - GameDevChallenge 2023");
+    // strcpy(MGSPtr->PressStartText, "\n012345678\n\nABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    // strcpy(MGSPtr->TeamName, "Demo1 - GameDevChallenge 2023");
     MGSPtr->bActivatePressStartEffet = 0;
     MGSPtr->PressAnimationFrames = 100;
+
+    dcSprite_SetAnimation(&MGSPtr->TitleScreenSprite, &TitleScreenAnimations);
 }
 
 void MGS_Update(MenuGameState* MGSPtr)
@@ -43,6 +44,10 @@ void MGS_Update(MenuGameState* MGSPtr)
         //     }
 
         // }
+        CVECTOR ColorSprit = {128, 128, 128, 128};
+        dcSprite_Render(GEngineInstance.RenderPtr, &MGSPtr->TitleScreenSprite, 0, 0, &ColorSprit);
+
+        // dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 5 * RENDER_FONT_CHAR_SIZE, 
     }
 }
 
