@@ -129,3 +129,11 @@ void Resources_LoadFont()
 {
     dcFont_Load(_binary_textures_fnt_tim_start);
 }
+
+SDC_Sfx SwordAudio;
+
+extern unsigned long _binary_audios_sword_tim_start[];
+void Resources_LoadAudio()
+{
+    dcAudio_SfxLoad(GEngineInstance->AudioPtr, &SwordAudio, (u_char *)_binary_audios_sword_tim_start);
+}
