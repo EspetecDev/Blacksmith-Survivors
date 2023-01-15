@@ -4,11 +4,13 @@
 #include "characters/EnemyManager.h"
 #include "dcMisc.h"
 #include "Contract.h"
+#include <assert.h>
 
 void InitScene(FGameLoopGameState *GameState);
 
 void GLGS_Init(FGameLoopGameState *GameState)
 {
+    GameState->MyEnemyManager = (EnemyManager*)malloc3(sizeof(EnemyManager));
     // Contract setup.
     ContractInit(&GameState->Contract);
 
@@ -19,12 +21,12 @@ void GLGS_Init(FGameLoopGameState *GameState)
     InitScene(GameState);
 
     // Init enemy manager
-    EM_Init(&GameState->MyEnemyManager, &GameState->SceneData, &GameState->PlayerInstance);
+    EM_Init(GameState->MyEnemyManager, &GameState->SceneData, &GameState->PlayerInstance);
 
-    // for (int i = 0; i < MAX_ENEMIES; i++)
-    // {
-    //     EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
-    // }
+    for (int i = 0; i < MAX_ENEMIES; i++)
+    {
+        EM_SpawnEnemy(GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
+    }
 }
 
 void HandlePlayerInput(FGameLoopGameState *GameState)
@@ -37,27 +39,24 @@ void HandlePlayerInput(FGameLoopGameState *GameState)
     }
     if (padState & PADRdown) // X
     {
-        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
+        EM_SpawnEnemy(GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
     }
     if (padState & PADRright) // O
     {
-        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_RED, &GameState->PlayerInstance);
+        EM_SpawnEnemy(GameState->MyEnemyManager, ENEMY_RED, &GameState->PlayerInstance);
     }
     if (padState & PADRup) // triangle
     {
-        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_GREEN, &GameState->PlayerInstance);
+        EM_SpawnEnemy(GameState->MyEnemyManager, ENEMY_GREEN, &GameState->PlayerInstance);
     }
     if (padState & PADRleft) // |_|
     {
-        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_YELLOW, &GameState->PlayerInstance);
+        EM_SpawnEnemy(GameState->MyEnemyManager, ENEMY_YELLOW, &GameState->PlayerInstance);
     }
 }
 
 void GLGS_Update(FGameLoopGameState *GameState)
 {
-    //  Move and update player.
-    HandlePlayerInput(GameState);
-
     //  Player input.
     PlayerInput(&GameState->PlayerInstance, &GameState->SceneData);
 
@@ -65,13 +64,13 @@ void GLGS_Update(FGameLoopGameState *GameState)
     PlayerUpdate(&GameState->PlayerInstance);
 
     //  Update enemy manager.
-    EM_Update(&GameState->MyEnemyManager, &GameState->PlayerInstance);
+    EM_Update(GameState->MyEnemyManager, &GameState->PlayerInstance);
 
     //  Draw hero.
     PlayerDraw(&GameState->PlayerInstance);
-
+    
     //  Draw enemy.
-    EM_Draw(&GameState->MyEnemyManager, &GameState->PlayerInstance);
+    EM_Draw(GameState->MyEnemyManager, &GameState->PlayerInstance);
 
     //  Draw scene.
     SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.CameraPosition);

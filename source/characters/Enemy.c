@@ -1,14 +1,11 @@
 #include "Enemy.h"
 #include "../Resources.h"
 #include "../engine.h"
+#include <assert.h>
 
 void EnemyInit(Enemy* Self)
 {
-    Self->SpriteAnimation.frames = HeroWalkAnimations.frames;
-    Self->SpriteAnimation.nframes = HeroWalkAnimations.nframes;
-    Self->SpriteAnimation.speed = HeroWalkAnimations.speed;
-    Self->SpriteAnimation.timImage = HeroWalkAnimations.timImage;
-    dcSprite_SetAnimation(&Self->CurrentSprite, &Self->SpriteAnimation);   
+    dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);   
 }
 
 void EnemyUpdate(Enemy* Self, Player* ToHunt)

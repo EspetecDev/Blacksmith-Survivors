@@ -14,7 +14,7 @@ typedef struct
     Player PlayerInstance;
     SceneMap SceneData;
     ContractData Contract;
-    EnemyManager MyEnemyManager;
+    EnemyManager* MyEnemyManager;
 } FGameLoopGameState;
 
 void GLGS_Init(FGameLoopGameState* GameState);

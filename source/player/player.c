@@ -47,12 +47,12 @@ void PlayerInput(Player* Self, SceneMap* Map)
     // Y AXIS
     if (_PAD(0, PADLup) & padState)
     {
-        MovementFront = PlayerMovementForward;
+        MovementFront = -PlayerMovementForward;
         PlayerChangeAnim(Self, PLAYER_MOVING);
     }
     if (_PAD(0, PADLdown) & padState)
     {
-        MovementFront = -PlayerMovementForward;
+        MovementFront = PlayerMovementForward;
         PlayerChangeAnim(Self, PLAYER_MOVING);
     }
 
