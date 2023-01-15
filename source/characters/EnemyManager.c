@@ -83,21 +83,69 @@ void EM_Update(EnemyManager* EM, Player* ToHunt)
     for(int i=0;i<EM->NumberRedEnemy;i++)
     {
         EnemyUpdate(&EM->RedEnemies[i], ToHunt);
+        if (EnemyCheckCollision(&EM->RedEnemies[i], ToHunt))
+        {
+            int LastRedEnemyIndex = EM->NumberRedEnemy - 1;
+            if (LastRedEnemyIndex >= 0)
+            {
+                Enemy LastRedEnemy = EM->RedEnemies[LastRedEnemyIndex];
+                EM->RedEnemies[i] = LastRedEnemy;
+                --i;
+            }
+
+            EM->NumberRedEnemy--;
+        }
     }
     
     for(int i=0;i<EM->NumberBlueEnemy;i++)
     {
         EnemyUpdate(&EM->BlueEnemies[i], ToHunt);
+        if (EnemyCheckCollision(&EM->BlueEnemies[i], ToHunt))
+        {
+            int LastBlueEnemyIndex = EM->NumberBlueEnemy - 1;
+            if (LastBlueEnemyIndex >= 0)
+            {
+                Enemy LastBlueEnemy = EM->BlueEnemies[LastBlueEnemyIndex];
+                EM->BlueEnemies[i] = LastBlueEnemy;
+                --i;
+            }
+
+            EM->NumberBlueEnemy--;
+        }
     }
 
     for(int i=0;i<EM->NumberYellowEnemy;i++)
     {
         EnemyUpdate(&EM->YellowEnemies[i], ToHunt);
+        if (EnemyCheckCollision(&EM->YellowEnemies[i], ToHunt))
+        {
+            int LastYellowIndex = EM->NumberYellowEnemy - 1;
+            if (LastYellowIndex >= 0)
+            {
+                Enemy LastYelloyEnemy = EM->YellowEnemies[LastYellowIndex];
+                EM->YellowEnemies[i] = LastYelloyEnemy;
+                --i;
+            }
+
+            EM->NumberYellowEnemy--;
+        }
     }
 
     for(int i=0;i<EM->NumberGreenEnemy;i++)
     {
         EnemyUpdate(&EM->GreenEnemies[i], ToHunt);
+        if (EnemyCheckCollision(&EM->GreenEnemies[i], ToHunt))
+        {
+            int LastGreenIndex = EM->NumberRedEnemy - 1;
+            if (LastGreenIndex >= 0)
+            {
+                Enemy LastGreen = EM->GreenEnemies[LastGreenIndex];
+                EM->GreenEnemies[i] = LastGreen;
+                --i;
+            }
+
+            EM->NumberGreenEnemy--;
+        }
     }
 }
 

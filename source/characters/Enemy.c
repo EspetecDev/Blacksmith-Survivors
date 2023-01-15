@@ -3,10 +3,16 @@
 #include "../engine.h"
 #include <assert.h>
 
+char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius);
+char CharactersCollide(VECTOR PlayerPosition, VECTOR OtherPosition, long OtherRadius);
+long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition);
+
 void EnemyInit(Enemy* Self)
 {
-    dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);   
+    Self->Radius = 32;
+    dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
 }
+
 
 void EnemyUpdate(Enemy* Self, Player* ToHunt)
 {
@@ -40,6 +46,12 @@ void EnemyUpdate(Enemy* Self, Player* ToHunt)
     dcSprite_Update(&Self->CurrentSprite);
 }
 
+char EnemyCheckCollision(Enemy* Self, Player* ToHunt)
+{
+    char Collide = CharactersCollide(ToHunt->PlayerPosition, Self->Position, Self->Radius);
+    return Collide;
+}
+
 void EnemyDraw(Enemy* Self, Player* MainPlayer)
 {
     CVECTOR ColorSprit = {128, 128, 128, 128};
@@ -51,5 +63,40 @@ void EnemyDraw(Enemy* Self, Player* MainPlayer)
 
 void EnemyDie(Enemy* Self)
 {
+    // Quitar el enemigo de la lista en el enemy manager.
 
+}
+
+/**
+ *     long DistX = PlayerPosition.vx - OtherPosition.vx;
+    long DistY = PlayerPosition.vy - OtherPosition.vy;
+    return DistX < OtherRadius || DistY < OtherRadius;
+ * 
+*/
+
+char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius)
+{
+    // Calculate the distance^2 between FirstPosition and SecondPosition
+    long Distance = GetDistanceBetweenTwoPoints(FirstPosition, SecondPosition);
+    long FinalRadius = DC_MUL(Radius, Radius);
+    // Position is in radius if Distance^2 < Radius^2
+    return (Distance < FinalRadius);
+}
+
+char CharactersCollide(VECTOR PlayerPosition, VECTOR OtherPosition, long OtherRadius)
+{
+    long DistX = abs(PlayerPosition.vx - OtherPosition.vx);
+    long DistY = abs(PlayerPosition.vy - OtherPosition.vy);
+    
+    long Distance = SquareRoot0(DistX * DistX + DistY * DistY);
+    return Distance < OtherRadius;
+}
+
+long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition)
+{
+    long XDistance = (FirstPosition.vx - SecondPosition.vx);
+    long YDistance = (FirstPosition.vy - SecondPosition.vy);
+
+    long Distance = DC_MUL(XDistance, XDistance) + DC_MUL(YDistance, YDistance);
+    return Distance;
 }

@@ -161,7 +161,6 @@ void dcRender_DrawSpriteRect(SDC_Render* render, const RealTIMImage* tim, short 
     //SET_UV0_FIX(sprt, uv->vx, uv->vy, tim->prect.x, tim->prect.y);
     setUV0(sprt, 0, 0);
     setClut(sprt, tim->crect.x, tim->crect.y);
-    printf("prect x %d y %d\n", tim->prect.x, tim->prect.y);
 
     addPrim(render->orderingTable[render->doubleBufferIndex], sprt);
 
