@@ -144,7 +144,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
         EnemyUpdate(&EM->GreenEnemies[i], ToHunt);
         if (EnemyCheckCollision(&EM->GreenEnemies[i], ToHunt))
         {
-            int LastGreenIndex = EM->NumberRedEnemy - 1;
+            int LastGreenIndex = EM->NumberGreenEnemy - 1;
             if (LastGreenIndex >= 0)
             {
                 Enemy LastGreen = EM->GreenEnemies[LastGreenIndex];
