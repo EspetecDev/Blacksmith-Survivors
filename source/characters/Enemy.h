@@ -4,17 +4,19 @@
 #include "dcSprite.h"
 #include "../player/player.h"
 
-#define ENEMY_RED_VELOCITY      10
-#define ENEMY_BLUE_VELOCITY     20
-#define ENEMY_YELLOW_VELOCITY   30
-#define ENEMY_GREEN_VELOCITY    40
+#define ENEMY_RED_VELOCITY      2
+#define ENEMY_BLUE_VELOCITY     4
+#define ENEMY_YELLOW_VELOCITY   3
+#define ENEMY_GREEN_VELOCITY    1
 
 typedef enum
 {
     ENEMY_RED,
     ENEMY_BLUE,
     ENEMY_YELLOW,
-    ENEMY_GREEN
+    ENEMY_GREEN,
+
+    TOTAL_ENEMIES
 } EEnemyType;
 
 typedef struct 
@@ -27,6 +29,7 @@ typedef struct
     int Radius;
     // debug
     CVECTOR Color;
+    int FrameSkip;
 } Enemy;
 
 static const CVECTOR EnemyRedColor = {255, 0, 0, 255};

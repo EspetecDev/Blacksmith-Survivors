@@ -22,9 +22,14 @@ void GLGS_Init(FGameLoopGameState *GameState)
     // Init enemy manager
     EM_Init(&GameState->MyEnemyManager, &GameState->SceneData, &GameState->PlayerInstance);
 
-    for (int i = 0; i < MAX_ENEMIES; i++)
+    int InitSpawnAmount = GameState->Contract.InitSpawnEnemies / TOTAL_ENEMIES;
+
+    for (int i = 0; i < InitSpawnAmount; i++)
     {
         EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_RED, &GameState->PlayerInstance);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_YELLOW, &GameState->PlayerInstance);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_GREEN, &GameState->PlayerInstance); 
     }
 }
 
