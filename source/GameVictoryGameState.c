@@ -4,7 +4,7 @@
 void GVGS_Init(FGameVictoryGameState* GameState)
 {
     strcpy(GameState->VictoryText, "VICT'RY");
-    strcpy(GameState->PressStartText, "PRESS START TO RETURN TO MAIN MENU");
+    strcpy(GameState->PressStartText, "PRESS START");
     GameState->bActivatePressStartEffet = 0;
     
     dcSprite_SetAnimation(&GameState->PlayerSprite, &HeroWalkAnimations);
@@ -31,7 +31,7 @@ void GVGS_Update(FGameVictoryGameState* GameState)
 
 
         CVECTOR Color = {255, 255, 255};
-        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 16 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT / 2 + 10 * RENDER_FONT_CHAR_SIZE, &Color, GameState->PressStartText);
+        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 6 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT - 8 * RENDER_FONT_CHAR_SIZE, &ColorSprit, GameState->PressStartText);
         dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 5 * RENDER_FONT_CHAR_SIZE,  7 * RENDER_FONT_CHAR_SIZE, &Color, GameState->VictoryText);
     }
 }
