@@ -8,6 +8,11 @@ void MGS_Init(MenuGameState* MGSPtr)
     MGSPtr->bActivatePressStartEffet = 0;
     MGSPtr->PressAnimationFrames = 0;
     MGSPtr->TotalFrames = 0;
+    
+    if(GEngineInstance.CanPlayAudio)
+    {
+        dcAudio_MusicPlay(GEngineInstance.AudioPtr, 0);
+    }
 }
 
 extern RealTIMImage Tim;

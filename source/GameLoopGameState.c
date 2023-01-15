@@ -22,6 +22,11 @@ void GLGS_Init(FGameLoopGameState *GameState)
     // Init enemy manager
     EM_Init(&GameState->MyEnemyManager, &GameState->SceneData, &GameState->PlayerInstance);
 
+    if(GEngineInstance.CanPlayAudio)
+    {
+        dcAudio_MusicPlay(GEngineInstance.AudioPtr, 1);
+    }
+
     int InitSpawnAmount = GameState->Contract.InitSpawnEnemies / TOTAL_ENEMIES;
 
     for (int i = 0; i < InitSpawnAmount; i++)

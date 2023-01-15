@@ -11,6 +11,11 @@ void GOGS_Init(FGameOverGameState* GameState)
     dcSprite_SetAnimation(&GameState->EnemyBlueSprite, &EnemyBlueAnimations);
     dcSprite_SetAnimation(&GameState->EnemyGreenSprite, &EnemyGreenAnimations);
     dcSprite_SetAnimation(&GameState->EnemyYellowSprite, &EnemyYellowAnimations);
+    
+    if(GEngineInstance.CanPlayAudio)
+    {
+        dcAudio_MusicPlay(GEngineInstance.AudioPtr, 0);
+    }
 }
 
 void GOGS_Update(FGameOverGameState* GameState)

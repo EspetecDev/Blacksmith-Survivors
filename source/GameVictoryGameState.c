@@ -8,6 +8,11 @@ void GVGS_Init(FGameVictoryGameState* GameState)
     GameState->bActivatePressStartEffet = 0;
     
     dcSprite_SetAnimation(&GameState->PlayerSprite, &HeroWalkAnimations);
+    
+    if(GEngineInstance.CanPlayAudio)
+    {
+        dcAudio_MusicPlay(GEngineInstance.AudioPtr, 0);
+    }
 }
 
 void GVGS_Update(FGameVictoryGameState* GameState)
