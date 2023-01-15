@@ -92,8 +92,9 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
                 EM->RedEnemies[i] = LastRedEnemy;
                 --i;
             }
-
             EM->NumberRedEnemy--;
+            int RandomEnemy = rand() % (int)TOTAL_ENEMIES;
+            EM_SpawnEnemy(EM, RandomEnemy, ToHunt);
             ContractPickedRed(Contract);
         }
     }
@@ -112,6 +113,8 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
             }
 
             EM->NumberBlueEnemy--;
+            int RandomEnemy = rand() % (int)TOTAL_ENEMIES;
+            EM_SpawnEnemy(EM, RandomEnemy, ToHunt);
             ContractPickedBlue(Contract);
         }
     }
@@ -130,6 +133,8 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
             }
 
             EM->NumberYellowEnemy--;
+            int RandomEnemy = rand() % (int)TOTAL_ENEMIES;
+            EM_SpawnEnemy(EM, RandomEnemy, ToHunt);
             ContractPickedYellow(Contract);
         }
     }
@@ -139,7 +144,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
         EnemyUpdate(&EM->GreenEnemies[i], ToHunt);
         if (EnemyCheckCollision(&EM->GreenEnemies[i], ToHunt))
         {
-            int LastGreenIndex = EM->NumberRedEnemy - 1;
+            int LastGreenIndex = EM->NumberGreenEnemy - 1;
             if (LastGreenIndex >= 0)
             {
                 Enemy LastGreen = EM->GreenEnemies[LastGreenIndex];
@@ -148,6 +153,8 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
             }
 
             EM->NumberGreenEnemy--;
+            int RandomEnemy = rand() % (int)TOTAL_ENEMIES;
+            EM_SpawnEnemy(EM, RandomEnemy, ToHunt);
             ContractPickedYellow(Contract);
         }
     }
@@ -186,34 +193,35 @@ void EM_GenerateFarFromPlayerLocations(EnemyManager* EM, Player* ToHunt, Enemy* 
     VECTOR PlayerPosition = ToHunt->PlayerPosition;
     int IsPositiveX = rand() % 2;
     int IsPositiveY = rand() % 2;
-    int ModifyX = rand() % 2;
-
-    if (ModifyX)
+    int PosX = rand() % RENDER_WIDTH;
+    
+    if (PosX < RENDER_WIDTH)
     {
-        int PosX = rand() % RENDER_WIDTH;
+        PosX = PosX + RENDER_WIDTH;
+    }
 
-        if (IsPositiveX)
-        {
-            PlayerPosition.vx += PosX;
-        }
-        else
-        {
-            PlayerPosition.vx -= PosX;
-        }
+    if (IsPositiveX)
+    {
+        PlayerPosition.vx += PosX;
     }
     else
     {
-        int PosY = rand() % RENDER_HEIGHT;
-
-        if (IsPositiveY)
-        {
-            PlayerPosition.vy += PosY;
-        }
-        else
-        {
-            PlayerPosition.vy -= PosY;
-        }
+        PlayerPosition.vx -= PosX;
     }
+    int PosY = rand() % RENDER_HEIGHT;
+    if (PosY < RENDER_HEIGHT)
+    {
+        PosY = PosY + RENDER_HEIGHT;
+    }
+    if (IsPositiveY)
+    {
+        PlayerPosition.vy += PosY;
+    }
+    else
+    {
+        PlayerPosition.vy -= PosY;
+    }
+
     ToFill->Position = PlayerPosition;
     
 }

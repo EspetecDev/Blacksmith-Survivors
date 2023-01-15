@@ -18,13 +18,6 @@ RealTIMImage TimTile5;
 RealTIMImage TimTile6;
 RealTIMImage TimTitleScreen;
 
-extern unsigned long _binary_textures_HeroIdle_tim_start[];
-extern unsigned long _binary_textures_HeroWalk_tim_start[];
-extern unsigned long _binary_textures_HeroAttack_tim_start[];
-
-#pragma GCC push_options
-#pragma GCC optimize ("O0")
-
 void Resources_LoadTextureResources()
 {
     TIM_IMAGE Image;
@@ -64,9 +57,6 @@ void Resources_LoadTextureResources()
    TimTitleScreen.prect = *Image.prect;
 }
 
-#pragma GCC pop_options
-
-
 /* Sprite Animations Header. */
 
 // Hero Run Animation.
@@ -77,7 +67,27 @@ SDC_SpriteFrame HeroIdleWalkFrames[] =
 
 SDC_SpriteFrame HeroAttackFrames[] =
 {
-    {5,0,19,64}, {26,0,20,64},  {48,0,29,64}, {79,0,27,64}, {107,0,18,64}
+    {5,64, 19, 64} , {26,64, 20, 64} , {48,64,29,64} , {79,64,27,64} , {107,64,18,64}
+};
+
+SDC_SpriteFrame EnemyBlueFrames[] =
+{
+    {14,0,13,32} , {21,0,14,32} , {37,0, 14,32} , {54,0, 11, 32} , {68,0, 21,32} , {92,0,18,32}
+};
+
+SDC_SpriteFrame EnemyRedFrames[] =
+{
+    {3,0, 11, 32} , {17, 0, 11, 32} , {31, 0, 11, 32} , {45, 0, 11, 32} , {59, 0, 11, 32} , {73, 0, 11, 32}
+};
+
+SDC_SpriteFrame EnemyGreenFrames[] =
+{
+    {3,0,16,32} , {20,0,15,32} , {41,0,15,32} , {60, 0, 14, 32} , {78, 0, 13, 32} , {93,0, 13, 32}
+};
+
+SDC_SpriteFrame EnemyYellowFrames[] =
+{
+    {3,0,22,32}, {28,0,28,32}, {59,0,29,32}, {90,0,30,32}
 };
 
 SDC_SpriteFrame TitleScreenFrames[] =
@@ -85,17 +95,33 @@ SDC_SpriteFrame TitleScreenFrames[] =
     {0,0,256,256}
 };
 
-SDC_SpriteAnimation HeroIdleAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
+//SDC_SpriteAnimation HeroIdleAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
 SDC_SpriteAnimation HeroWalkAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
 SDC_SpriteAnimation HeroAttackAnimations = {HeroAttackFrames, NULL, 3, 5, 0, 0};
+
+SDC_SpriteAnimation EnemyBlueAnimations = {EnemyBlueFrames, NULL, 3, 6, 0, 0};
+SDC_SpriteAnimation EnemyRedAnimations = {EnemyRedFrames, NULL, 3, 6, 0, 0};
+SDC_SpriteAnimation EnemyGreenAnimations = {EnemyGreenFrames, NULL, 3, 6, 0, 0};
+SDC_SpriteAnimation EnemyYellowAnimations = {EnemyYellowFrames, NULL, 2, 4, 0, 0};
 // SDC_SpriteAnimation TitleScreenAnimations = {TitleScreenFrames, NULL, 1, 1, 0, 0};
+
+
+extern unsigned long _binary_textures_HeroWalk_tim_start[];
+extern unsigned long _binary_textures_EnemyBlue_tim_start[];
+extern unsigned long _binary_textures_EnemyRed_tim_start[];
+extern unsigned long _binary_textures_EnemyGreen_tim_start[];
+extern unsigned long _binary_textures_EnemyYellow_tim_start[];
 
 void Resources_LoadSpriteResources()
 {
-    dcSprite_LoadAnimationTex(&HeroIdleAnimations, _binary_textures_HeroIdle_tim_start);
+    //dcSprite_LoadAnimationTex(&HeroIdleAnimations, _binary_textures_HeroIdle_tim_start);
     dcSprite_LoadAnimationTex(&HeroWalkAnimations, _binary_textures_HeroWalk_tim_start);
-    dcSprite_LoadAnimationTex(&HeroAttackAnimations, _binary_textures_HeroAttack_tim_start);
-    // dcSprite_LoadAnimationTex(&TitleScreenAnimations, _binary_textures_TitleScreen_tim_start);
+    dcSprite_LoadAnimationTex(&HeroAttackAnimations, _binary_textures_HeroWalk_tim_start);
+    
+    dcSprite_LoadAnimationTex(&EnemyBlueAnimations, _binary_textures_EnemyBlue_tim_start);
+    dcSprite_LoadAnimationTex(&EnemyRedAnimations, _binary_textures_EnemyRed_tim_start);
+    dcSprite_LoadAnimationTex(&EnemyGreenAnimations, _binary_textures_EnemyGreen_tim_start);
+    dcSprite_LoadAnimationTex(&EnemyYellowAnimations, _binary_textures_EnemyYellow_tim_start);
 }
 
 extern unsigned long _binary_textures_fnt_tim_start[];
