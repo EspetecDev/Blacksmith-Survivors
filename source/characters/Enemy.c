@@ -5,7 +5,7 @@
 
 void EnemyInit(Enemy* Self)
 {
-    dcSprite_SetAnimation(&Self->CurrentSprite, &HeroIdleAnimations);
+    dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);   
 }
 
 void EnemyUpdate(Enemy* Self, Player* ToHunt)

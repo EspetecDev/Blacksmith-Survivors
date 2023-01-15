@@ -8,6 +8,7 @@ extern unsigned long _binary_textures_tile3_tim_start[];
 extern unsigned long _binary_textures_tile4_tim_start[];
 extern unsigned long _binary_textures_tile5_tim_start[];
 extern unsigned long _binary_textures_tile6_tim_start[];
+extern unsigned long _binary_textures_titlescreen_tim_start[];
 
 RealTIMImage TimTile1;
 RealTIMImage TimTile2;
@@ -15,6 +16,8 @@ RealTIMImage TimTile3;
 RealTIMImage TimTile4;
 RealTIMImage TimTile5;
 RealTIMImage TimTile6;
+RealTIMImage TimTitleScreen;
+
 extern unsigned long _binary_textures_HeroIdle_tim_start[];
 extern unsigned long _binary_textures_HeroWalk_tim_start[];
 extern unsigned long _binary_textures_HeroAttack_tim_start[];
@@ -50,21 +53,21 @@ void Resources_LoadTextureResources()
     TimTile5.mode = Image.mode;
     TimTile5.prect = *Image.prect;
 
-    dcRender_LoadTexture(&Image, _binary_textures_tile6_tim_start);
-    TimTile6.crect = *Image.crect;
-    TimTile6.mode = Image.mode;
-    TimTile6.prect = *Image.prect;
+   dcRender_LoadTexture(&Image, _binary_textures_tile6_tim_start);
+   TimTile6.crect = *Image.crect;
+   TimTile6.mode = Image.mode;
+   TimTile6.prect = *Image.prect;
+
+   dcRender_LoadTexture(&Image, _binary_textures_titlescreen_tim_start);
+   TimTitleScreen.crect = *Image.crect;
+   TimTitleScreen.mode = Image.mode;
+   TimTitleScreen.prect = *Image.prect;
 }
 
 #pragma GCC pop_options
 
 
 /* Sprite Animations Header. */
-
-extern unsigned long _binary_textures_HeroIdle_tim_start[];
-extern unsigned long _binary_textures_HeroWalk_tim_start[];
-extern unsigned long _binary_textures_HeroAttack_tim_start[];
-extern unsigned long _binary_textures_TitleScreen_tim_start[];
 
 // Hero Run Animation.
 SDC_SpriteFrame HeroIdleWalkFrames[] =
@@ -85,14 +88,14 @@ SDC_SpriteFrame TitleScreenFrames[] =
 SDC_SpriteAnimation HeroIdleAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
 SDC_SpriteAnimation HeroWalkAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
 SDC_SpriteAnimation HeroAttackAnimations = {HeroAttackFrames, NULL, 3, 5, 0, 0};
-SDC_SpriteAnimation TitleScreenAnimations = {TitleScreenFrames, NULL, 1, 1, 0, 0};
+// SDC_SpriteAnimation TitleScreenAnimations = {TitleScreenFrames, NULL, 1, 1, 0, 0};
 
 void Resources_LoadSpriteResources()
 {
     dcSprite_LoadAnimationTex(&HeroIdleAnimations, _binary_textures_HeroIdle_tim_start);
     dcSprite_LoadAnimationTex(&HeroWalkAnimations, _binary_textures_HeroWalk_tim_start);
     dcSprite_LoadAnimationTex(&HeroAttackAnimations, _binary_textures_HeroAttack_tim_start);
-    dcSprite_LoadAnimationTex(&TitleScreenAnimations, _binary_textures_TitleScreen_tim_start);
+    // dcSprite_LoadAnimationTex(&TitleScreenAnimations, _binary_textures_TitleScreen_tim_start);
 }
 
 extern unsigned long _binary_textures_fnt_tim_start[];
