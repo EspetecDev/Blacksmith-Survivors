@@ -6,10 +6,13 @@
 typedef struct
 {
     char GameOverText[10];
-    char PressStartText[35];
+    char PressStartText[12];
     char bActivatePressStartEffet;
 
     SDC_Sprite EnemyRedSprite;
+    SDC_Sprite EnemyBlueSprite;
+    SDC_Sprite EnemyGreenSprite;
+    SDC_Sprite EnemyYellowSprite;
 
 
 } FGameOverGameState;
