@@ -87,6 +87,11 @@ void EnemyUpdate(Enemy* Self, Player* ToHunt)
 char EnemyCheckCollision(Enemy* Self, Player* ToHunt)
 {
     char Collide = CharactersCollide(ToHunt->PlayerPosition, Self->Position, Self->Radius);
+    if(Collide)
+    {
+        PlayerAttack(ToHunt);
+    }
+
     return Collide;
 }
 

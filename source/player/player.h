@@ -8,10 +8,8 @@
 
 typedef enum
 {
-    PLAYER_UNKNOWN,
     PLAYER_MOVING,
     PLAYER_ATTACKING,
-
     PLAYER_NUM_ANIMATIONS
 } PLAYER_ACTION;
 
@@ -21,6 +19,7 @@ typedef struct
     VECTOR CameraPosition;
     int Speed;
     int RadiusColision;
+    int CountDown;
 
     SDC_Sprite CurrentSprite[PLAYER_NUM_ANIMATIONS];
     SDC_SpriteAnimation Animations[PLAYER_NUM_ANIMATIONS];
@@ -34,6 +33,7 @@ void PlayerInput(Player* Self, SceneMap* Map);
 void PlayerUpdate(Player* Self);
 void PlayerDraw(Player* Self);
 void PlayerDie(Player* Self);
+void PlayerAttack(Player* Self);
 
 char CanMove(Player* Self, SceneMap* Map);
 char LiesOnLeftHand(VECTOR EdgePosition1, VECTOR EdgePosition2, VECTOR PlayerPosition);
