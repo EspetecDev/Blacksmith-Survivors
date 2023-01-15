@@ -15,7 +15,7 @@
 ..\tools\BMP2TIM\BMP2TIM.exe textures\TILE5.bmp textures\tile5.tim 4 -org=448,128 -clut=512,53
 ..\tools\BMP2TIM\BMP2TIM.exe textures\TILE6.bmp textures\tile6.tim 4 -org=448,160 -clut=512,55
 
-..\tools\BMP2TIM\BMP2TIM.exe textures\blue_ball.bmp textures\blue_ball.tim 4 -org=384,256 -clut=512,57 -mpink
-..\tools\BMP2TIM\BMP2TIM.exe textures\red_ball.bmp textures\red_ball.tim 4 -org=384,272 -clut=512,59 -mpink
-..\tools\BMP2TIM\BMP2TIM.exe textures\yellow_ball.bmp textures\yellow_ball.tim 4 -org=384,288 -clut=512,61 -mpink
-..\tools\BMP2TIM\BMP2TIM.exe textures\green_ball.bmp textures\green_ball.tim 4 -org=384,304 -clut=512,63 -mpink
+..\tools\BMP2TIM\BMP2TIM.exe textures\blue_ball.bmp textures\blue_ball.tim 4 -org=320,128 -clut=512,57 -mpink
+..\tools\BMP2TIM\BMP2TIM.exe textures\red_ball.bmp textures\red_ball.tim 4 -org=320,160 -clut=512,59 -mpink
+..\tools\BMP2TIM\BMP2TIM.exe textures\yellow_ball.bmp textures\yellow_ball.tim 4 -org=320,192 -clut=512,61 -mpink
+..\tools\BMP2TIM\BMP2TIM.exe textures\green_ball.bmp textures\green_ball.tim 4 -org=320,224 -clut=512,63 -mpink

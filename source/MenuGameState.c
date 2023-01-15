@@ -61,7 +61,7 @@ void MGS_Update(MenuGameState* MGSPtr)
         // Draw texts
         DVECTOR UV = {0, 0};
         dcFont_Print(GEngineInstance.RenderPtr, (RENDER_WIDTH / 2 - 6 * RENDER_FONT_CHAR_SIZE) + 2, RENDER_HEIGHT - 40, &Color, MGSPtr->PressStartText);
-        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH - 16 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT - 12, &PermColor, MGSPtr->TeamName);            
+        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 4 , RENDER_HEIGHT - 12, &PermColor, MGSPtr->TeamName);            
         dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimTitleScreen, 32, 0, 256, 256, &UV, &PermColor);
     }
 }
