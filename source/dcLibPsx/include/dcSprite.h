@@ -13,7 +13,7 @@ typedef struct {
 
 typedef struct {
     SDC_SpriteFrame* frames;
-    TIM_IMAGE* timImage;
+    RealTIMImage * timImage;
     u_char speed;
     u_char nframes;
     char dummy0, dummy1;
@@ -29,6 +29,5 @@ void dcSprite_LoadAnimationTex(SDC_SpriteAnimation* animation, u_long *image_dat
 void dcSprite_SetAnimation(SDC_Sprite* sprite, SDC_SpriteAnimation* animation);
 void dcSprite_Update(SDC_Sprite* sprite);
 void dcSprite_Render(SDC_Render* render, SDC_Sprite* sprite, u_short x, u_short y, CVECTOR* Color);
-void dcSprite_RenderUI(SDC_Render* render, TIM_IMAGE * timImage, u_short x, u_short y, u_short Width, u_short Height);
 
 #endif
