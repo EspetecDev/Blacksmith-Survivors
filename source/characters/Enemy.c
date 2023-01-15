@@ -19,17 +19,17 @@ void EnemyInit(Enemy* Self)
         break;
         case ENEMY_BLUE:
         {
-            dcSprite_SetAnimation(&Self->CurrentSprite, &EnemyRedAnimations);
+            dcSprite_SetAnimation(&Self->CurrentSprite, &EnemyBlueAnimations);
         }
         break;
         case ENEMY_YELLOW:
         {
-            dcSprite_SetAnimation(&Self->CurrentSprite, &EnemyRedAnimations);
+            dcSprite_SetAnimation(&Self->CurrentSprite, &EnemyYellowAnimations);
         }
         break;
         case ENEMY_GREEN:
         {
-            dcSprite_SetAnimation(&Self->CurrentSprite, &EnemyRedAnimations);
+            dcSprite_SetAnimation(&Self->CurrentSprite, &EnemyGreenAnimations);
         }
         break;
     }
