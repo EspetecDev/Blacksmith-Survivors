@@ -55,21 +55,21 @@ void EM_SpawnEnemy(EnemyManager* EM, EEnemyType EnemyType, Player* ToHunt)
         case ENEMY_BLUE:
             if(EM->NumberBlueEnemy < MAX_ENEMIES)
             {
-                EM_CreateEnemy(EM, &EM->RedEnemies[EM->NumberBlueEnemy], ENEMY_RED, ToHunt);
+                EM_CreateEnemy(EM, &EM->BlueEnemies[EM->NumberBlueEnemy], ENEMY_RED, ToHunt);
                 EM->NumberBlueEnemy++;
             }
         break;
         case ENEMY_YELLOW:
             if(EM->NumberYellowEnemy < MAX_ENEMIES)
             {
-                EM_CreateEnemy(EM, &EM->RedEnemies[EM->NumberYellowEnemy], ENEMY_RED, ToHunt);
+                EM_CreateEnemy(EM, &EM->YellowEnemies[EM->NumberYellowEnemy], ENEMY_RED, ToHunt);
                 EM->NumberYellowEnemy++;
             }
         break;
         case ENEMY_GREEN:
             if(EM->NumberGreenEnemy < MAX_ENEMIES)
             {
-                EM_CreateEnemy(EM, &EM->RedEnemies[EM->NumberGreenEnemy], ENEMY_RED, ToHunt);
+                EM_CreateEnemy(EM, &EM->GreenEnemies[EM->NumberGreenEnemy], ENEMY_RED, ToHunt);
                 EM->NumberGreenEnemy++;
             }
         break;
