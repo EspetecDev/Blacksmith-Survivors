@@ -88,34 +88,3 @@ void InitScene(FGameLoopGameState *GameState)
 {
     SceneMap_Init(&GameState->SceneData);
 }
-
-char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius)
-{
-    // Calculate the distance^2 between FirstPosition and SecondPosition
-    long Distance = GetDistanceBetweenTwoPoints(FirstPosition, SecondPosition);
-    long FinalRadius = DC_MUL(Radius, Radius);
-    // Position is in radius if Distance^2 < Radius^2
-    return (Distance < FinalRadius);
-}
-
-char CharactersCollide(VECTOR PlayerPosition, VECTOR OtherPosition, long PlayerRadius, long OtherRadius)
-{
-    // Two "entities" will collide if their colliders intersect or are inside each other.
-    // The two "colliders" will intersect when ((r1 - r2)^2 < d^2) || ((r1 + r2)^2) > d^2.
-    // The two "colliders" will be conentric if d = 0.
-
-    long SumRadi = DC_MUL((PlayerRadius + OtherRadius), (PlayerRadius + OtherRadius));
-    long DiffRadi = DC_MUL((PlayerRadius - OtherRadius), (PlayerRadius - OtherRadius));
-    long Distance = GetDistanceBetweenTwoPoints(PlayerPosition, OtherPosition);
-
-    return (Distance > DiffRadi) || (Distance < SumRadi) || Distance == 0 || Distance == PlayerRadius || Distance == OtherRadius;
-}
-
-long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition)
-{
-    long XDistance = (FirstPosition.vx - SecondPosition.vx);
-    long YDistance = (FirstPosition.vy - SecondPosition.vy);
-
-    long Distance = DC_MUL(XDistance, XDistance) + DC_MUL(YDistance, YDistance);
-    return Distance;
-}
