@@ -92,8 +92,9 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
                 EM->RedEnemies[i] = LastRedEnemy;
                 --i;
             }
-
             EM->NumberRedEnemy--;
+            int RandomEnemy = rand() % (int)TOTAL_ENEMIES;
+            EM_SpawnEnemy(EM, RandomEnemy, ToHunt);
             ContractPickedRed(Contract);
         }
     }
@@ -112,6 +113,8 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
             }
 
             EM->NumberBlueEnemy--;
+            int RandomEnemy = rand() % (int)TOTAL_ENEMIES;
+            EM_SpawnEnemy(EM, RandomEnemy, ToHunt);
             ContractPickedBlue(Contract);
         }
     }
@@ -130,6 +133,8 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
             }
 
             EM->NumberYellowEnemy--;
+            int RandomEnemy = rand() % (int)TOTAL_ENEMIES;
+            EM_SpawnEnemy(EM, RandomEnemy, ToHunt);
             ContractPickedYellow(Contract);
         }
     }
@@ -148,6 +153,8 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
             }
 
             EM->NumberGreenEnemy--;
+            int RandomEnemy = rand() % (int)TOTAL_ENEMIES;
+            EM_SpawnEnemy(EM, RandomEnemy, ToHunt);
             ContractPickedYellow(Contract);
         }
     }

@@ -12,7 +12,7 @@ void PlayerInit(Player* Self, SceneMap* Map)
     Self->PlayerPosition = StartPos;
     Self->CameraPosition.vx = Self->PlayerPosition.vx - RENDER_WIDTH/2;
     Self->CameraPosition.vy = Self->PlayerPosition.vy - RENDER_HEIGHT/2; 
-    Self->RadiusColision = 32;
+    Self->RadiusColision = 16;
 
     Self->Animations[PLAYER_MOVING] = HeroWalkAnimations;
     Self->Animations[PLAYER_ATTACKING] = HeroAttackAnimations;

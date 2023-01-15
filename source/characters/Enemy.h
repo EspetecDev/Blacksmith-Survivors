@@ -4,9 +4,9 @@
 #include "dcSprite.h"
 #include "../player/player.h"
 
-#define ENEMY_RED_VELOCITY      3
-#define ENEMY_BLUE_VELOCITY     4
-#define ENEMY_YELLOW_VELOCITY   2
+#define ENEMY_RED_VELOCITY      2
+#define ENEMY_BLUE_VELOCITY     5
+#define ENEMY_YELLOW_VELOCITY   3
 #define ENEMY_GREEN_VELOCITY    1
 
 typedef enum
