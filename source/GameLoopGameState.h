@@ -7,12 +7,14 @@
 #include "scene/scene.h"
 #include "player/player.h"
 #include "Contract.h"
+#include "characters/EnemyManager.h"
 
 typedef struct
 {
     Player PlayerInstance;
     SceneMap SceneData;
     ContractData Contract;
+    EnemyManager MyEnemyManager;
 } FGameLoopGameState;
 
 void GLGS_Init(FGameLoopGameState* GameState);

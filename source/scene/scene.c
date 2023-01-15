@@ -26,12 +26,6 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
     const DVECTOR UV = {SceneTileDim, SceneTileDim};
     const CVECTOR Color = {255, 255, 255, 255};
 
-    // Tile * Data = &MapPtr->MapTiles[0][0];
-    // int TopLeftX = Data->TopLeft.vx - CameraPosition->vx;
-    // int TopLefty = Data->TopLeft.vy - CameraPosition->vy;
-    // dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &Data->RealImage, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
-    
-    
     for(int i = 0; i <  SceneTileWidth; i++)
     {
         for(int j = 0; j <  SceneTileHeight; j++)
@@ -39,14 +33,21 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
 
             Tile * Data = &MapPtr->MapTiles[i][j];
             int TopLeftX = Data->TopLeft.vx - CameraPosition->vx;
-            int TopLefty = Data->TopLeft.vy + CameraPosition->vy;
+            int TopLefty = Data->TopLeft.vy - CameraPosition->vy;
             if(abs(TopLeftX) < RENDER_WIDTH && abs(TopLefty) < RENDER_HEIGHT)
             {
                 dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &Data->RealImage, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
             }
         }
     }
-    
+}
+
+VECTOR GetRandomLocation(SceneMap * MapPtr)
+{
+    int i = rand() % SceneTileWidth;
+    int j = rand() % SceneTileHeight;
+
+    return MapPtr->MapTiles[i][j].TopLeft;
 }
 
 VECTOR Scene_GetMapCenter()

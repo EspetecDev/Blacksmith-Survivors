@@ -26,6 +26,7 @@ typedef struct
 
 void SceneMap_Init(SceneMap * MapPtr);
 void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition);
+VECTOR GetRandomLocation(SceneMap * MapPtr);
 VECTOR Scene_GetMapCenter();
 
 int GetGridSize(SceneMap * MapPtr);
