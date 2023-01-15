@@ -85,8 +85,6 @@ void EnemyUpdate(Enemy* Self, Player* ToHunt)
 
         Self->Position.vx += MovementXDirection;
         Self->Position.vy += MovementYDirection;
-
-        dcSprite_Update(&Self->CurrentSprite);
     }
     else
     {
@@ -108,6 +106,8 @@ char EnemyCheckCollision(Enemy* Self, Player* ToHunt)
 void EnemyDraw(Enemy* Self, Player* MainPlayer)
 {
     CVECTOR ColorSprit = {128, 128, 128, 128};
+    
+    dcSprite_Update(&Self->CurrentSprite);
 
     int TopLeftX = Self->Position.vx - MainPlayer->CameraPosition.vx;
     int TopLefty = Self->Position.vy - MainPlayer->CameraPosition.vy;
