@@ -23,7 +23,6 @@ typedef struct
     EEnemyType Type;
     VECTOR Position;
     SDC_Sprite CurrentSprite;
-    SDC_SpriteAnimation SpriteAnimation;
     // debug
     CVECTOR Color;
 } Enemy;
