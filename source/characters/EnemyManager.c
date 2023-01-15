@@ -112,7 +112,9 @@ void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
             }
 
             EM->NumberBlueEnemy--;
+            int RandomEnemy = rand() % ENEMY_GREEN;
             EM_SpawnEnemy(EM, ENEMY_BLUE, ToHunt);
+            EM_SpawnEnemy(EM, RandomEnemy, ToHunt);
             ContractPickedBlue(Contract);
         }
     }
@@ -193,7 +195,7 @@ void EM_GenerateFarFromPlayerLocations(EnemyManager* EM, Player* ToHunt, Enemy* 
     
     if (PosX < RENDER_WIDTH)
     {
-        PosX = PosX + RENDER_WIDTH;
+        PosX = PosX + RENDER_WIDTH / 4;
     }
 
     if (IsPositiveX)
@@ -207,7 +209,7 @@ void EM_GenerateFarFromPlayerLocations(EnemyManager* EM, Player* ToHunt, Enemy* 
     int PosY = rand() % RENDER_HEIGHT;
     if (PosY < RENDER_HEIGHT)
     {
-        PosY = PosY + RENDER_HEIGHT;
+        PosY = PosY + RENDER_HEIGHT / 4;
     }
     if (IsPositiveY)
     {

@@ -8,7 +8,7 @@
 #include "player/player.h"
 #include "characters/EnemyManager.h"
 
-#define GOAL_TIME 360
+#define GOAL_TIME 60
 
 typedef struct
 {

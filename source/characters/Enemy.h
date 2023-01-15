@@ -4,17 +4,17 @@
 #include "dcSprite.h"
 #include "../player/player.h"
 
-#define ENEMY_RED_VELOCITY      2
-#define ENEMY_BLUE_VELOCITY     4
-#define ENEMY_YELLOW_VELOCITY   3
-#define ENEMY_GREEN_VELOCITY    1
+#define ENEMY_RED_VELOCITY 2
+#define ENEMY_BLUE_VELOCITY 1     
+#define ENEMY_YELLOW_VELOCITY 3   
+#define ENEMY_GREEN_VELOCITY 3 
 
 typedef enum
 {
     ENEMY_RED,
-    ENEMY_BLUE,
     ENEMY_YELLOW,
     ENEMY_GREEN,
+    ENEMY_BLUE,
 
     TOTAL_ENEMIES
 } EEnemyType;

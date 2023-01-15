@@ -92,7 +92,6 @@ void GLGS_Update(FGameLoopGameState *GameState)
         dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimYellowBall, 97, 20, 16, 16, &UV, &Color);
         dcFont_Print(GEngineInstance.RenderPtr, 115, 25, &Color, EnemiesToLoseStr);
         
-
         //  Draw hero.
         PlayerDraw(&GameState->PlayerInstance);
         

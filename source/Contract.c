@@ -3,13 +3,13 @@
 void ContractInit(ContractData* Data)
 {
     //  Constants.
-    Data->BlueEnemiesToPick  = 25;
+    Data->BlueEnemiesToPick  = 15;
     Data->CurrentPickedBlues = 0;
 
-    Data->RedEnemiesToEvade = 25;
-    Data->GreenEnemiesToEvade = 25;
-    Data->YellowEnemiesToEvade  = 25;
-    Data->EnemiesToLose = 25;
+    Data->RedEnemiesToEvade = 15;
+    Data->GreenEnemiesToEvade = 15;
+    Data->YellowEnemiesToEvade  = 15;
+    Data->EnemiesToLose = 15;
     Data->InitSpawnEnemies = 36;
 }
 
