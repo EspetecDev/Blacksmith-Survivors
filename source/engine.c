@@ -29,6 +29,7 @@ void Init(Engine * EnginePtr)
     
     //  Init Audio.
     EnginePtr->AudioPtr = (SDC_Audio*)malloc3(sizeof(SDC_Audio));
+    EnginePtr->CanPlayAudio = 0;
     dcAudio_Init(EnginePtr->AudioPtr, 16);
 
     dcAudio_MusicPlay(EnginePtr->AudioPtr, 0);
@@ -51,6 +52,8 @@ void Init(Engine * EnginePtr)
     GOGS_Init(EnginePtr->GameOverGameState);
     MGS_Init(EnginePtr->MenuGameState);
     GVGS_Init(EnginePtr->VictoryGameState);
+
+    EnginePtr->CanPlayAudio = 1;
     
     //  Start game state.
     ChangeGameState(EnginePtr, GS_MAIN_MENU);

@@ -43,6 +43,7 @@ typedef struct
 {
     SDC_Render * RenderPtr;
     SDC_Audio * AudioPtr;
+    int CanPlayAudio;
 
     EGameState CurrentGameState;
     EGameState DesiredGameState;
