@@ -3,14 +3,16 @@
 #include "render.h"
 #include "characters/EnemyManager.h"
 #include "dcMisc.h"
+#include "Contract.h"
+#include <assert.h>
 
 void InitScene(FGameLoopGameState *GameState);
-void DrawSceneAssets(FGameLoopGameState *GameState);
-void DrawAsset(FGameLoopGameState *GameState, VECTOR *Translation, TIM_IMAGE *AssetTexture);
-void DrawUI(FGameLoopGameState *GameState);
 
 void GLGS_Init(FGameLoopGameState *GameState)
 {
+    // Contract setup.
+    ContractInit(&GameState->Contract);
+
     //  Setup player data.
     InitPlayer(GameState);
 
@@ -18,7 +20,12 @@ void GLGS_Init(FGameLoopGameState *GameState)
     InitScene(GameState);
 
     // Init enemy manager
-    EM_Init(&GEnemyManager);
+    EM_Init(&GameState->MyEnemyManager, &GameState->SceneData, &GameState->PlayerInstance);
+
+    for (int i = 0; i < MAX_ENEMIES; i++)
+    {
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
+    }
 }
 
 void HandlePlayerInput(FGameLoopGameState *GameState)
@@ -31,27 +38,24 @@ void HandlePlayerInput(FGameLoopGameState *GameState)
     }
     if (padState & PADRdown) // X
     {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_BLUE);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
     }
     if (padState & PADRright) // O
     {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_RED);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_RED, &GameState->PlayerInstance);
     }
     if (padState & PADRup) // triangle
     {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_GREEN);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_GREEN, &GameState->PlayerInstance);
     }
     if (padState & PADRleft) // |_|
     {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_YELLOW);
+        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_YELLOW, &GameState->PlayerInstance);
     }
 }
 
 void GLGS_Update(FGameLoopGameState *GameState)
 {
-    //  Move and update player.
-    HandlePlayerInput(GameState);
-
     //  Player input.
     PlayerInput(&GameState->PlayerInstance, &GameState->SceneData);
 
@@ -59,19 +63,16 @@ void GLGS_Update(FGameLoopGameState *GameState)
     PlayerUpdate(&GameState->PlayerInstance);
 
     //  Update enemy manager.
-    EM_Update(&GEnemyManager);
+    EM_Update(&GameState->MyEnemyManager, &GameState->PlayerInstance);
 
     //  Draw hero.
     PlayerDraw(&GameState->PlayerInstance);
-
+    
     //  Draw enemy.
-    EM_Draw(&GEnemyManager);
+    EM_Draw(&GameState->MyEnemyManager, &GameState->PlayerInstance);
 
-    //  Draw scene assets.
-    DrawSceneAssets(GameState);
-
-    // Draw UI.
-    //DrawUI(GameState);
+    //  Draw scene.
+    SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.CameraPosition);
 }
 
 void GLGS_Close(FGameLoopGameState *GameState)
@@ -86,53 +87,4 @@ void InitPlayer(FGameLoopGameState *GameState)
 void InitScene(FGameLoopGameState *GameState)
 {
     SceneMap_Init(&GameState->SceneData);
-}
-
-void DrawSceneAssets(FGameLoopGameState *GameState)
-{
-    //Scene
-    SceneMap* MyScene = &GameState->SceneData;
-    //long CellSize = DEBUG_QUAD_SIZE * 2;
-    
-    if (MyScene)
-    {
-        SceneMap_Draw(MyScene);
-        for(int Index = 0; Index < GetGridSize(MyScene); Index++)
-        {
-            //CVECTOR ColorQuad = {RENDER_BG_COLOR_R, RENDER_BG_COLOR_G,RENDER_BG_COLOR_B,255};
-            //VECTOR Translation = {(MyScene->MapCellSizes[Index].vx * CellSize + CellSize / 2), (MyScene->MapCellSizes[Index].vy * CellSize + CellSize / 2), 0, 0};
-            //VECTOR Scale = {ONE * 2, ONE * 2, 0, 0};
-        }
-    }
-}
-
-char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius)
-{
-    // Calculate the distance^2 between FirstPosition and SecondPosition
-    long Distance = GetDistanceBetweenTwoPoints(FirstPosition, SecondPosition);
-    long FinalRadius = DC_MUL(Radius, Radius);
-    // Position is in radius if Distance^2 < Radius^2
-    return (Distance < FinalRadius);
-}
-
-char CharactersCollide(VECTOR PlayerPosition, VECTOR OtherPosition, long PlayerRadius, long OtherRadius)
-{
-    // Two "entities" will collide if their colliders intersect or are inside each other.
-    // The two "colliders" will intersect when ((r1 - r2)^2 < d^2) || ((r1 + r2)^2) > d^2.
-    // The two "colliders" will be conentric if d = 0.
-
-    long SumRadi = DC_MUL((PlayerRadius + OtherRadius), (PlayerRadius + OtherRadius));
-    long DiffRadi = DC_MUL((PlayerRadius - OtherRadius), (PlayerRadius - OtherRadius));
-    long Distance = GetDistanceBetweenTwoPoints(PlayerPosition, OtherPosition);
-
-    return (Distance > DiffRadi) || (Distance < SumRadi) || Distance == 0 || Distance == PlayerRadius || Distance == OtherRadius;
-}
-
-long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition)
-{
-    long XDistance = (FirstPosition.vx - SecondPosition.vx);
-    long YDistance = (FirstPosition.vy - SecondPosition.vy);
-
-    long Distance = DC_MUL(XDistance, XDistance) + DC_MUL(YDistance, YDistance);
-    return Distance;
 }

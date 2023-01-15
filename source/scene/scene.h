@@ -2,6 +2,7 @@
 #define _DC_SCENEMAP_
 
 #include "dcMath.h"
+#include "dcRender.h"
 #include "dcSprite.h"
 
 #define SceneTileWidth 20
@@ -12,7 +13,7 @@ typedef struct
 {
     VECTOR Coordinates;
     VECTOR TopLeft;
-    TIM_IMAGE * Texture;
+    RealTIMImage RealImage;
 } Tile;
 
 typedef struct
@@ -24,9 +25,10 @@ typedef struct
 /* Scena Map Methods  */
 
 void SceneMap_Init(SceneMap * MapPtr);
-void SceneMap_Draw(SceneMap * MapPtr);
-
+void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition);
+VECTOR GetRandomLocation(SceneMap * MapPtr);
+VECTOR Scene_GetMapCenter();
+char Scene_IsInsidedBounds(VECTOR * PointToCheck);
 int GetGridSize(SceneMap * MapPtr);
-VECTOR GetGridCenter(SceneMap * MapPtr, long QuadSize);
 
 #endif

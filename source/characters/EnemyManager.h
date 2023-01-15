@@ -19,15 +19,15 @@ typedef struct
     Enemy GreenEnemies[MAX_ENEMIES];
     u_short NumberGreenEnemy;
 
+    VECTOR FarFromPlayerLocations[MAX_ENEMIES];
+
 } EnemyManager;
 
-// Global var.
-extern EnemyManager GEnemyManager;
-
-void EM_Init(EnemyManager* EM);
-void EM_SpawnEnemy(EnemyManager* EM, EEnemyType EnemyType);
-void EM_Update(EnemyManager* EM);
-void EM_Draw(EnemyManager* EM);
+void EM_Init(EnemyManager* EM, SceneMap* Map, Player* ToHunt);
+void EM_SpawnEnemy(EnemyManager* EM, EEnemyType EnemyType, Player* ToHunt);
+void EM_Update(EnemyManager* EM, Player* ToHunt);
+void EM_Draw(EnemyManager* EM, Player* MainPlayer);
 void EM_ClearEnemies(EnemyManager* EM);
+void EM_GenerateFarFromPlayerLocations(EnemyManager* EM, Player* ToHunt, Enemy* ToFill);
 
 #endif

@@ -25,7 +25,7 @@ void Init(Engine * EnginePtr)
     
     EnginePtr->RenderPtr = (SDC_Render*)malloc3(sizeof(SDC_Render));
     CVECTOR BackgroundColor = {0, 0, 0};
-    dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, 8192, RENDER_MODE_PAL);
+    dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, RENDER_PRIMITIVES_LIST_SIZE, RENDER_MODE_PAL);
     
     //  Resources.
     Resources_LoadFont();
@@ -56,7 +56,6 @@ void Update(Engine * EnginePtr)
 
      // RENDER
     CVECTOR FontDefaultColor = {255, 255, 255}; 
-    dcFont_Print(EnginePtr->RenderPtr, 10, 10, &FontDefaultColor, "DEMO 1 - THE GAME");
     char debugGS[50] = "CURRENT GS: ";
     char currentGS[15] = "";
     strcpy(currentGS, GetCurrentGSString(EnginePtr));
@@ -64,8 +63,6 @@ void Update(Engine * EnginePtr)
     dcFont_Print(EnginePtr->RenderPtr, 10, 20, &FontDefaultColor, debugGS);
 
     UpdateGameState(EnginePtr);
-
-   
     
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }
@@ -125,25 +122,6 @@ void OnChangeGameState(Engine * EnginePtr)
     }
 
     EnginePtr->CurrentGameState = EnginePtr->DesiredGameState;
-
-    // Enter game state
-    switch(EnginePtr->CurrentGameState)
-    {
-        case GS_MAIN_MENU:
-            MGS_Init(EnginePtr->MenuGameState);
-        break;
-        case GS_CONTRACT:
-            CGS_Init(EnginePtr->ContractGameState);
-        break;
-        case GS_GAME_LOOP:
-            GLGS_Init(EnginePtr->GameLoopGameState);
-        break;
-        case GS_GAME_OVER:
-            GOGS_Init(EnginePtr->GameOverGameState);
-        break;
-        default:
-        break;
-    }
 }
 
 // DEBUG

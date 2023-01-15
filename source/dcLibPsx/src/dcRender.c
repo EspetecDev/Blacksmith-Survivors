@@ -7,6 +7,12 @@
 
 int totalPrimitives = 0;
 
+#define FIX_TEXCOORD_U(u, rectX) (u+(rectX%64)) 
+#define FIX_TEXCOORD_V(v, rectY) (v+(rectY%256))
+
+#define SET_UV3_FIX(poly, u0,v0,u1,v1,u2,v2,rectX,rectY) setUV3(poly, FIX_TEXCOORD_U(u0, rectX), FIX_TEXCOORD_V(v0, rectY), FIX_TEXCOORD_U(u1, rectX), FIX_TEXCOORD_V(v1, rectY), FIX_TEXCOORD_U(u2, rectX), FIX_TEXCOORD_V(v2, rectY));
+#define SET_UV0_FIX(sprite, u0,v0,rectX,rectY) setUV0(sprite, FIX_TEXCOORD_U(u0, rectX), FIX_TEXCOORD_V(v0, rectY));
+
 void _dcRender_IncPrimitive(SDC_Render* render, size_t offset)
 {
     u_char* base_ptr = render->primitives[render->doubleBufferIndex];
@@ -145,9 +151,32 @@ void dcRender_LoadTexture(TIM_IMAGE* tim, u_long* texture) {
     DrawSync(0);                                // Wait for drawing to end
 }
 
-void dcRender_DrawSpriteRect(SDC_Render* render, const TIM_IMAGE *tim, short x, short y, short w, short h, const DVECTOR *uv, const CVECTOR *color) {
+void dcRender_DrawSpriteRect(SDC_Render* render, const RealTIMImage* tim, short x, short y, short w, short h, const DVECTOR *uv, const CVECTOR *color) {
     SPRT *sprt = (SPRT*)render->nextPrimitive;
 
+    setSprt(sprt);
+    setXY0(sprt, x, y);
+    setWH(sprt, w, h);
+    setRGB0(sprt, color->r, color->g, color->b);
+    //SET_UV0_FIX(sprt, uv->vx, uv->vy, tim->prect.x, tim->prect.y);
+    setUV0(sprt, 0, 0);
+    setClut(sprt, tim->crect.x, tim->crect.y);
+
+    addPrim(render->orderingTable[render->doubleBufferIndex], sprt);
+
+    _dcRender_IncPrimitive(render, sizeof(SPRT));
+
+    DR_TPAGE *tpri = (DR_TPAGE*)render->nextPrimitive;
+    u_short tpage = getTPage(tim->mode, 0, tim->prect.x, tim->prect.y);
+    setDrawTPage(tpri, 0, 0, tpage);
+    addPrim(render->orderingTable[render->doubleBufferIndex], tpri);
+    _dcRender_IncPrimitive(render, sizeof(DR_TPAGE));
+}
+
+void dcRender_DrawSpriteRectNotReal(SDC_Render* render, const TIM_IMAGE *tim, short x, short y, short w, short h, const DVECTOR *uv, const CVECTOR *color)
+{
+    SPRT *sprt = (SPRT*)render->nextPrimitive;
+    
     setSprt(sprt);
     setXY0(sprt, x, y);
     setWH(sprt, w, h);
@@ -165,7 +194,6 @@ void dcRender_DrawSpriteRect(SDC_Render* render, const TIM_IMAGE *tim, short x, 
     addPrim(render->orderingTable[render->doubleBufferIndex], tpri);
     _dcRender_IncPrimitive(render, sizeof(DR_TPAGE));
 }
-
 // #pragma GCC push_options
 // #pragma GCC optimize ("O0")
 

@@ -19,6 +19,7 @@ typedef enum
 typedef struct 
 {
     VECTOR PlayerPosition;
+    VECTOR CameraPosition;
     int Speed;
     int RadiusColision;
 

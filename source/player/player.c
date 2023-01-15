@@ -8,10 +8,10 @@ void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction);
 
 void PlayerInit(Player* Self, SceneMap* Map)
 {
-    // We want the player to start at the center of the grid.
-    VECTOR GridC = {0,0,0,0};
-    VECTOR StartPos = {GridC.vx, GridC.vy, 0};
+    VECTOR StartPos = {0,0,0,0};//Scene_GetMapCenter();
     Self->PlayerPosition = StartPos;
+    Self->CameraPosition.vx = Self->PlayerPosition.vx - RENDER_WIDTH/2;
+    Self->CameraPosition.vy = Self->PlayerPosition.vy - RENDER_HEIGHT/2; 
     Self->RadiusColision = 32;
 
     Self->Animations[PLAYER_IDLE] = HeroIdleAnimations;
@@ -35,8 +35,8 @@ void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction)
 void PlayerInput(Player* Self, SceneMap* Map)
 {
     // Constants player speed.
-    const int PlayerMovementForward = 25;
-    const int PlayerMovementSide = 25;
+    const int PlayerMovementForward = 8;
+    const int PlayerMovementSide = 8;
 
     u_long padState = PadRead(0);
     long MovementFront = 0;
@@ -47,12 +47,12 @@ void PlayerInput(Player* Self, SceneMap* Map)
     // Y AXIS
     if (_PAD(0, PADLup) & padState)
     {
-        MovementFront = PlayerMovementForward;
+        MovementFront = -PlayerMovementForward;
         PlayerChangeAnim(Self, PLAYER_MOVING);
     }
     if (_PAD(0, PADLdown) & padState)
     {
-        MovementFront = -PlayerMovementForward;
+        MovementFront = PlayerMovementForward;
         PlayerChangeAnim(Self, PLAYER_MOVING);
     }
 
@@ -68,10 +68,13 @@ void PlayerInput(Player* Self, SceneMap* Map)
         PlayerChangeAnim(Self, PLAYER_MOVING);
     }
 
-    if (CanMove(Self, Map))
+    VECTOR ExpectedPos = {Self->PlayerPosition.vx + MovemementSide, Self->PlayerPosition.vy + MovementFront, 0, 0};
+    if (Scene_IsInsidedBounds(&ExpectedPos))
     {
         Self->PlayerPosition.vy += MovementFront;
         Self->PlayerPosition.vx += MovemementSide;
+        Self->CameraPosition.vx = Self->PlayerPosition.vx - RENDER_WIDTH/2;
+        Self->CameraPosition.vy = Self->PlayerPosition.vy - RENDER_HEIGHT/2; 
     }
 }
 

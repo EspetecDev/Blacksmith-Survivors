@@ -6,6 +6,13 @@
 #include <libgpu.h>
 #include <libgs.h>
 
+typedef struct 
+{
+    u_long  mode;		/* pixel mode */
+	RECT	crect;		/* CLUT rectangle on frame buffer */
+	RECT	prect;		/* texture image rectangle on frame buffer */
+} RealTIMImage;
+
 typedef struct {
 
     int       width;
@@ -111,7 +118,8 @@ void dcRender_Init(SDC_Render* render, int width, int height, CVECTOR bgColor, i
 void dcRender_SwapBuffers(SDC_Render* render);
 
 void dcRender_LoadTexture(TIM_IMAGE* tim, u_long* texture);
-void dcRender_DrawSpriteRect(SDC_Render* render, const TIM_IMAGE *tim, short x, short y, short w, short h, const DVECTOR *uv, const CVECTOR *color);
+void dcRender_DrawSpriteRect(SDC_Render* render, const RealTIMImage *tim, short x, short y, short w, short h, const DVECTOR *uv, const CVECTOR *color);
+void dcRender_DrawSpriteRectNotReal(SDC_Render* render, const TIM_IMAGE *tim, short x, short y, short w, short h, const DVECTOR *uv, const CVECTOR *color);
 void dcRender_DrawMesh(SDC_Render* render,  SDC_Mesh3D* mesh, MATRIX* transform, SDC_DrawParams* drawParams );
 void dcRender_DrawLine(SDC_Render* render, SVECTOR* v0, SVECTOR* v1, MATRIX* transform, CVECTOR* color, u_short segments);
 

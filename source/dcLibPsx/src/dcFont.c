@@ -24,7 +24,7 @@ void dcFont_Print(SDC_Render* render, int x, int y, CVECTOR *color, const char *
         int idxFont = text[idx] - GMainFont.firstChar;
         uv.vx = (idxFont * GMainFont.charWidth) % (GMainFont.lineWidth);
         uv.vy = (idxFont/GMainFont.charsPerLine) * GMainFont.charHeight;
-        dcRender_DrawSpriteRect(render, &GMainFont.tim, x, y, GMainFont.charWidth, GMainFont.charHeight, &uv, color);
+        dcRender_DrawSpriteRectNotReal(render, &GMainFont.tim, x, y, GMainFont.charWidth, GMainFont.charHeight, &uv, color);
         ++idx;
         x += GMainFont.charWidth;
     }

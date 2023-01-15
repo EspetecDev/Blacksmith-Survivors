@@ -15,13 +15,13 @@ void SceneMap_Init(SceneMap* MapPtr)
             Data.Coordinates.vy = j;
             Data.TopLeft.vx = i * SceneTileDim;
             Data.TopLeft.vy = j * SceneTileDim;
-            Data.Texture = &TimTile1;
+            Data.RealImage = TimTile5;
             MapPtr->MapTiles[i][j] = Data;
         }
     }
 }
 
-void SceneMap_Draw(SceneMap * MapPtr)
+void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
 {
     const DVECTOR UV = {SceneTileDim, SceneTileDim};
     const CVECTOR Color = {255, 255, 255, 255};
@@ -30,10 +30,35 @@ void SceneMap_Draw(SceneMap * MapPtr)
     {
         for(int j = 0; j <  SceneTileHeight; j++)
         {
+
             Tile * Data = &MapPtr->MapTiles[i][j];
-            dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, Data->Texture, Data->TopLeft.vx, Data->TopLeft.vy, SceneTileDim, SceneTileDim, &UV, &Color);
+            int TopLeftX = Data->TopLeft.vx - CameraPosition->vx;
+            int TopLefty = Data->TopLeft.vy - CameraPosition->vy;
+            if(abs(TopLeftX) < RENDER_WIDTH && abs(TopLefty) < RENDER_HEIGHT)
+            {
+                dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &Data->RealImage, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
+            }
         }
     }
+}
+
+char Scene_IsInsidedBounds(VECTOR * PointToCheck)
+{
+    return (PointToCheck->vx > 0) && (PointToCheck->vx < (SceneTileWidth * SceneTileDim)) && (PointToCheck->vy > -SceneTileDim) && (PointToCheck->vy < (SceneTileHeight * SceneTileDim - SceneTileDim));
+}
+
+VECTOR GetRandomLocation(SceneMap * MapPtr)
+{
+    int i = rand() % SceneTileWidth;
+    int j = rand() % SceneTileHeight;
+
+    return MapPtr->MapTiles[i][j].TopLeft;
+}
+
+VECTOR Scene_GetMapCenter()
+{
+    VECTOR Result = { (SceneTileWidth * SceneTileDim)/2, (SceneTileWidth * SceneTileDim)/2, 0, 0};
+    return Result;
 }
 
 int GetGridSize(SceneMap * MapPtr)
