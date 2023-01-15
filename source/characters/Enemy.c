@@ -46,7 +46,7 @@ void EnemyUpdate(Enemy* Self, Player* ToHunt)
     if (Self->FrameSkip == 0)
     {
         // Move to player
-        Self->FrameSkip = 3;
+        Self->FrameSkip = 2;
         int MovementXDirection = 0;
         int MovementYDirection = 0;
 
@@ -97,6 +97,11 @@ void EnemyUpdate(Enemy* Self, Player* ToHunt)
 char EnemyCheckCollision(Enemy* Self, Player* ToHunt)
 {
     char Collide = CharactersCollide(ToHunt->PlayerPosition, Self->Position, Self->Radius);
+    if(Collide)
+    {
+        PlayerAttack(ToHunt);
+    }
+
     return Collide;
 }
 

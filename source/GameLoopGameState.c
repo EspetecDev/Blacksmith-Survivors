@@ -50,9 +50,13 @@ void GLGS_Update(FGameLoopGameState *GameState)
         GameState->CurrentTicks = 0;
     }
     
-    if (ContractCheckWon(&GameState->Contract) || ContractCheckDefeat(&GameState->Contract) || GOAL_TIME - GameState->CurrentSeconds == 0)
+    if (ContractCheckWon(&GameState->Contract))
     {
-        ChangeGameState(&GEngineInstance, GS_MAIN_MENU);
+        ChangeGameState(&GEngineInstance, GS_GAME_VICTORY);
+    }
+    else if(ContractCheckDefeat(&GameState->Contract) || (GOAL_TIME - GameState->CurrentSeconds == 0))
+    {
+        ChangeGameState(&GEngineInstance, GS_GAME_OVER);
     }
     else
     {

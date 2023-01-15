@@ -36,12 +36,14 @@ void Init(Engine * EnginePtr)
     EnginePtr->GameLoopGameState = (FGameLoopGameState*)malloc3(sizeof(FGameLoopGameState));
     EnginePtr->ContractGameState = (FContractGameState*)malloc3(sizeof(FContractGameState));
     EnginePtr->GameOverGameState = (FGameOverGameState*)malloc3(sizeof(FGameOverGameState));
+    EnginePtr->VictoryGameState = (FGameVictoryGameState*)malloc3(sizeof(FGameVictoryGameState));
     EnginePtr->MenuGameState = (MenuGameState*)malloc3(sizeof(MenuGameState));
 
     GLGS_Init(EnginePtr->GameLoopGameState);
     CGS_Init(EnginePtr->ContractGameState);
     GOGS_Init(EnginePtr->GameOverGameState);
     MGS_Init(EnginePtr->MenuGameState);
+    GVGS_Init(EnginePtr->VictoryGameState);
     
     //  Start game state.
     ChangeGameState(EnginePtr, GS_GAME_LOOP);
@@ -90,6 +92,9 @@ void UpdateGameState(Engine * EnginePtr)
         case GS_GAME_OVER:
             GOGS_Update(EnginePtr->GameOverGameState);
         break;
+        case GS_GAME_VICTORY:
+            GVGS_Update(EnginePtr->VictoryGameState);
+        break;
         default:
         break;
     }
@@ -116,6 +121,9 @@ void OnChangeGameState(Engine * EnginePtr)
         break;
         case GS_GAME_OVER:
             GOGS_Update(EnginePtr->GameOverGameState);
+        break;
+        case GS_GAME_VICTORY:
+            GVGS_Update(EnginePtr->VictoryGameState);
         break;
         default:
         break;

@@ -40,30 +40,24 @@ void PlayerInput(Player* Self, SceneMap* Map)
     long MovementFront = 0;
     long MovemementSide = 0;
     
-    PlayerChangeAnim(Self, PLAYER_MOVING);
-    
     // Y AXIS
     if (_PAD(0, PADLup) & padState)
     {
         MovementFront = -PlayerMovementForward;
-        PlayerChangeAnim(Self, PLAYER_MOVING);
     }
     if (_PAD(0, PADLdown) & padState)
     {
         MovementFront = PlayerMovementForward;
-        PlayerChangeAnim(Self, PLAYER_MOVING);
     }
 
     // X AXIS
     if (_PAD(0, PADLright) & padState)
     {
         MovemementSide = PlayerMovementSide;
-        PlayerChangeAnim(Self, PLAYER_MOVING);
     }
     if (_PAD(0, PADLleft) & padState)
     {
         MovemementSide = -PlayerMovementSide;
-        PlayerChangeAnim(Self, PLAYER_MOVING);
     }
 
     VECTOR ExpectedPos = {Self->PlayerPosition.vx + MovemementSide, Self->PlayerPosition.vy + MovementFront, 0, 0};
@@ -78,6 +72,16 @@ void PlayerInput(Player* Self, SceneMap* Map)
 
 void PlayerUpdate(Player* Self)
 {
+   if(Self->CurrentPlayerAction == PLAYER_ATTACKING)
+    {
+        Self->CountDown--;
+        if(Self->CountDown == 0)
+        {
+            Self->CurrentPlayerAction = PLAYER_MOVING;
+            dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_ATTACKING], &HeroAttackAnimations);
+        }
+    }
+
     //  Check which animation to play.
     dcSprite_Update(&Self->CurrentSprite[Self->CurrentPlayerAction]);
 }
@@ -96,6 +100,15 @@ void PlayerDraw(Player* Self)
 void PlayerDie(Player* Self)
 {
 
+}
+
+void PlayerAttack(Player* Self)
+{
+    if(Self->CurrentPlayerAction != PLAYER_ATTACKING)
+    {
+        Self->CurrentPlayerAction = PLAYER_ATTACKING;
+        Self->CountDown = 15;
+    }
 }
 
 char CanMove(Player* Self, SceneMap* Map)
