@@ -12,6 +12,7 @@
         "rendermeshes.h": "c",
         "player.h": "c",
         "dcfont.h": "c",
-        "scene.h": "c"
+        "scene.h": "c",
+        "gameloopgamestate.h": "c"
     }
 }

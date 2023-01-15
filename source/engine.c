@@ -44,7 +44,7 @@ void Init(Engine * EnginePtr)
     MGS_Init(EnginePtr->MenuGameState);
     
     //  Start game state.
-    ChangeGameState(EnginePtr, GS_GAME_LOOP);
+    ChangeGameState(EnginePtr, GS_MAIN_MENU);
 }
 
 void Update(Engine * EnginePtr)

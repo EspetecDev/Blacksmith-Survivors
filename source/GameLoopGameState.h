@@ -8,12 +8,16 @@
 #include "player/player.h"
 #include "characters/EnemyManager.h"
 
+#define GOAL_TIME 5
+
 typedef struct
 {
     Player PlayerInstance;
     SceneMap SceneData;
     ContractData Contract;
     EnemyManager MyEnemyManager;
+    int CurrentTicks;
+    long CurrentSeconds;
 } FGameLoopGameState;
 
 void GLGS_Init(FGameLoopGameState* GameState);

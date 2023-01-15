@@ -26,6 +26,9 @@ void GLGS_Init(FGameLoopGameState *GameState)
     {
         EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
     }
+
+    GameState->CurrentTicks = 0;
+    GameState->CurrentSeconds = 0;
 }
 
 void HandlePlayerInput(FGameLoopGameState *GameState)
@@ -34,12 +37,27 @@ void HandlePlayerInput(FGameLoopGameState *GameState)
 
 void GLGS_Update(FGameLoopGameState *GameState)
 {
-    if (ContractCheckWon(&GameState->Contract) || ContractCheckDefeat(&GameState->Contract))
+    int currentTicksDebug = ++GameState->CurrentTicks;
+    if(currentTicksDebug == 50)
     {
-        ChangeGameState(&GEngineInstance, GS_MAIN_MENU);
+        ++GameState->CurrentSeconds;
+        GameState->CurrentTicks = 0;
+    }
+    
+    char TimeStr[4];
+    sprintf( TimeStr, "%d", GOAL_TIME - GameState->CurrentSeconds );
+    CVECTOR Color = {128, 128, 128};
+    dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH - 4 * RENDER_FONT_CHAR_SIZE, 20, &Color, TimeStr);
+    if(GameState->CurrentSeconds >= GOAL_TIME)
+    {
+        if (ContractCheckWon(&GameState->Contract) || ContractCheckDefeat(&GameState->Contract))
+        {
+            ChangeGameState(&GEngineInstance, GS_MAIN_MENU);
+        }
     }
     else
     {
+
         //  Player input.
         PlayerInput(&GameState->PlayerInstance, &GameState->SceneData);
 
@@ -62,6 +80,8 @@ void GLGS_Update(FGameLoopGameState *GameState)
 
 void GLGS_Close(FGameLoopGameState *GameState)
 {
+    GameState->CurrentTicks = 0;
+    GameState->CurrentSeconds = 0;
 }
 
 void InitPlayer(FGameLoopGameState *GameState)

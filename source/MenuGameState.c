@@ -4,12 +4,9 @@
 void MGS_Init(MenuGameState* MGSPtr)
 {
     strcpy(MGSPtr->PressStartText, "PRESS START");
-    // strcpy(MGSPtr->PressStartText, "\n012345678\n\nABCDEFGHIJKLMNOPQRSTUVWXYZ");
-    strcpy(MGSPtr->TeamName, "Demo1 - GameDevChallenge 2023");
+    strcpy(MGSPtr->TeamName, "DEMO1 - GAMEDEVCHALLENGE 2023");
     MGSPtr->bActivatePressStartEffet = 0;
     MGSPtr->PressAnimationFrames = 100;
-
-    // dcSprite_SetAnimation(&MGSPtr->TitleScreenSprite, &TitleScreenAnimations);
 }
 
 extern RealTIMImage Tim;
@@ -46,7 +43,7 @@ void MGS_Update(MenuGameState* MGSPtr)
 
         // }
         DVECTOR UV = {0, 0};
-        CVECTOR Color = {255, 255, 255};
+        CVECTOR Color = {128, 128, 128};
         dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimTitleScreen, 0, 0, 256, 256, &UV, &Color);
         dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 5 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT / 2 + 5 * RENDER_FONT_CHAR_SIZE, &Color, MGSPtr->PressStartText);
         dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH - 15 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT - 5 * RENDER_FONT_CHAR_SIZE, &Color, MGSPtr->TeamName);
