@@ -39,9 +39,9 @@ void HandlePlayerInput(FGameLoopGameState *GameState)
 
 void GLGS_Update(FGameLoopGameState *GameState)
 {
-    if (ContractCheckWon(&GameState->Contract) || ContractCheckDefeat(&GameState->Contract))
+    if (!ContractCheckWon(&GameState->Contract) || ContractCheckDefeat(&GameState->Contract))
     {
-        ChangeGameState(&GEngineInstance, GS_MAIN_MENU);
+        ChangeGameState(&GEngineInstance, GS_GAME_OVER);
     }
     else
     {
