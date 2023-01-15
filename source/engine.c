@@ -27,10 +27,17 @@ void Init(Engine * EnginePtr)
     CVECTOR BackgroundColor = {0, 0, 0};
     dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, RENDER_PRIMITIVES_LIST_SIZE, RENDER_MODE_PAL);
     
+    //  Init Audio.
+    EnginePtr->AudioPtr = (SDC_Audio*)malloc3(sizeof(SDC_Audio));
+    dcAudio_Init(EnginePtr->AudioPtr, 16);
+
+    dcAudio_MusicPlay(EnginePtr->AudioPtr, 0);
+
     //  Resources.
     Resources_LoadFont();
     Resources_LoadTextureResources();
     Resources_LoadSpriteResources();
+    Resources_LoadAudio();
 
     //  Init game state.
     EnginePtr->GameLoopGameState = (FGameLoopGameState*)malloc3(sizeof(FGameLoopGameState));
@@ -56,16 +63,17 @@ void Update(Engine * EnginePtr)
         OnChangeGameState(EnginePtr);
     }
 
-     // RENDER
-    CVECTOR FontDefaultColor = {255, 255, 255}; 
-    char debugGS[50] = "CURRENT GS: ";
-    char currentGS[15] = "";
-    strcpy(currentGS, GetCurrentGSString(EnginePtr));
-    strcat(debugGS, currentGS);
-    dcFont_Print(EnginePtr->RenderPtr, 10, 220, &FontDefaultColor, debugGS);
+    // RENDER DEBUG
+    // CVECTOR FontDefaultColor = {255, 255, 255}; 
+    // char debugGS[50] = "CURRENT GS: ";
+    // char currentGS[15] = "";
+    // strcpy(currentGS, GetCurrentGSString(EnginePtr));
+    // strcat(debugGS, currentGS);
+    // dcFont_Print(EnginePtr->RenderPtr, 10, 220, &FontDefaultColor, debugGS);
 
     UpdateGameState(EnginePtr);
     
+    dcAudio_Update(EnginePtr->AudioPtr);
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }
 

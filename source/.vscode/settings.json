@@ -13,6 +13,7 @@
         "player.h": "c",
         "dcfont.h": "c",
         "scene.h": "c",
-        "gameloopgamestate.h": "c"
+        "gameloopgamestate.h": "c",
+        "dcaudio.h": "c"
     }
 }

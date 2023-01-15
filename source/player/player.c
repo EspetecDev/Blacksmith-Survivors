@@ -108,6 +108,7 @@ void PlayerAttack(Player* Self)
     {
         Self->CurrentPlayerAction = PLAYER_ATTACKING;
         Self->CountDown = 15;
+        dcAudio_SfxPlay(&SwordAudio);
     }
 }
 

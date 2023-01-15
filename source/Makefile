@@ -28,6 +28,7 @@ SRCS = main.c \
 		textures/yellow_ball.tim \
 		textures/green_ball.tim \
 		textures/titlescreen.tim \
+		audios/sword.vag \
 		characters/Enemy.c\
 		characters/EnemyManager.c\
 		player/player.c\
@@ -42,6 +43,7 @@ SRCS = main.c \
 		dcLibPsx/src/dcCollision.c\
 		dcLibPsx/src/dcMisc.c\
 		dcLibPsx/src/dcSprite.c\
+		dcLibPsx/src/dcAudio.c\
 		
 CPPFLAGS += -I../third_party/common
 CPPFLAGS += -I../third_party/psyq/include
@@ -50,6 +52,7 @@ LDFLAGS += -L../third_party/psyq/lib
 LDFLAGS += -Wl,--start-group
 LDFLAGS += -lapi
 LDFLAGS += -lc
+LDFLAGS += -lcd
 LDFLAGS += -lc2
 LDFLAGS += -lcard
 LDFLAGS += -lcomb
