@@ -42,6 +42,11 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
     }
 }
 
+char Scene_IsInsidedBounds(VECTOR * PointToCheck)
+{
+    return (PointToCheck->vx > 0) && (PointToCheck->vx < (SceneTileWidth * SceneTileDim)) && (PointToCheck->vy > -SceneTileDim) && (PointToCheck->vy < (SceneTileHeight * SceneTileDim - SceneTileDim));
+}
+
 VECTOR GetRandomLocation(SceneMap * MapPtr)
 {
     int i = rand() % SceneTileWidth;

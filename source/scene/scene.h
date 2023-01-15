@@ -28,7 +28,7 @@ void SceneMap_Init(SceneMap * MapPtr);
 void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition);
 VECTOR GetRandomLocation(SceneMap * MapPtr);
 VECTOR Scene_GetMapCenter();
-
+char Scene_IsInsidedBounds(VECTOR * PointToCheck);
 int GetGridSize(SceneMap * MapPtr);
 
 #endif
