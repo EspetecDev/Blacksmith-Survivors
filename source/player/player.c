@@ -14,7 +14,7 @@ void PlayerInit(Player* Self, SceneMap* Map)
     Self->CameraPosition.vy = Self->PlayerPosition.vy - RENDER_HEIGHT/2; 
     Self->RadiusColision = 32;
 
-    Self->Animations[PLAYER_MOVING] = EnemyYellowAnimations;
+    Self->Animations[PLAYER_MOVING] = HeroWalkAnimations;
     Self->Animations[PLAYER_ATTACKING] = HeroAttackAnimations;
     Self->CurrentPlayerAction = PLAYER_MOVING;
 
