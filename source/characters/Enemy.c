@@ -10,7 +10,29 @@ long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition);
 void EnemyInit(Enemy* Self)
 {
     Self->Radius = 32;
-    dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
+    switch (Self->Type)
+    {
+        case ENEMY_RED:
+        {
+            dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
+        }
+        break;
+        case ENEMY_BLUE:
+        {
+            dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
+        }
+        break;
+        case ENEMY_YELLOW:
+        {
+            dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
+        }
+        break;
+        case ENEMY_GREEN:
+        {
+            dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
+        }
+        break;
+    }
 }
 
 
