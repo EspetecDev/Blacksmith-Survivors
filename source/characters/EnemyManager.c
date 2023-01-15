@@ -186,34 +186,35 @@ void EM_GenerateFarFromPlayerLocations(EnemyManager* EM, Player* ToHunt, Enemy* 
     VECTOR PlayerPosition = ToHunt->PlayerPosition;
     int IsPositiveX = rand() % 2;
     int IsPositiveY = rand() % 2;
-    int ModifyX = rand() % 2;
-
-    if (ModifyX)
+    int PosX = rand() % RENDER_WIDTH;
+    
+    if (PosX < RENDER_WIDTH)
     {
-        int PosX = rand() % RENDER_WIDTH;
+        PosX = PosX + RENDER_WIDTH;
+    }
 
-        if (IsPositiveX)
-        {
-            PlayerPosition.vx += PosX;
-        }
-        else
-        {
-            PlayerPosition.vx -= PosX;
-        }
+    if (IsPositiveX)
+    {
+        PlayerPosition.vx += PosX;
     }
     else
     {
-        int PosY = rand() % RENDER_HEIGHT;
-
-        if (IsPositiveY)
-        {
-            PlayerPosition.vy += PosY;
-        }
-        else
-        {
-            PlayerPosition.vy -= PosY;
-        }
+        PlayerPosition.vx -= PosX;
     }
+    int PosY = rand() % RENDER_HEIGHT;
+    if (PosY < RENDER_HEIGHT)
+    {
+        PosY = PosY + RENDER_HEIGHT;
+    }
+    if (IsPositiveY)
+    {
+        PlayerPosition.vy += PosY;
+    }
+    else
+    {
+        PlayerPosition.vy -= PosY;
+    }
+
     ToFill->Position = PlayerPosition;
     
 }
