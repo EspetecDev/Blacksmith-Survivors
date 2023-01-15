@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include "configuration/GlobalVars.h"
+#include "dcAudio.h"
 #include "dcMath.h"
 #include "dcCamera.h"
 #include "dcFont.h"
@@ -41,6 +42,7 @@ typedef enum
 typedef struct
 {
     SDC_Render * RenderPtr;
+    SDC_Audio * AudioPtr;
 
     EGameState CurrentGameState;
     EGameState DesiredGameState;

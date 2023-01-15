@@ -27,6 +27,12 @@ void Init(Engine * EnginePtr)
     CVECTOR BackgroundColor = {0, 0, 0};
     dcRender_Init( EnginePtr->RenderPtr, RENDER_WIDTH, RENDER_HEIGHT, BackgroundColor, 4096, RENDER_PRIMITIVES_LIST_SIZE, RENDER_MODE_PAL);
     
+    //  Init Audio.
+    EnginePtr->AudioPtr = (SDC_Audio*)malloc3(sizeof(SDC_Audio));
+    dcAudio_Init(&EnginePtr->AudioPtr, 16);
+
+    dcAudio_MusicPlay(EnginePtr->AudioPtr, 0);
+
     //  Resources.
     Resources_LoadFont();
     Resources_LoadTextureResources();
@@ -66,6 +72,7 @@ void Update(Engine * EnginePtr)
 
     UpdateGameState(EnginePtr);
     
+    dc_Audio_Update(EnginePtr->AudioPtr);
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }
 
