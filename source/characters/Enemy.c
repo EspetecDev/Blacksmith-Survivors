@@ -3,10 +3,38 @@
 #include "../engine.h"
 #include <assert.h>
 
+char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius);
+char CharactersCollide(VECTOR PlayerPosition, VECTOR OtherPosition, long OtherRadius);
+long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition);
+
 void EnemyInit(Enemy* Self)
 {
-    dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);   
+    Self->Radius = 32;
+    switch (Self->Type)
+    {
+        case ENEMY_RED:
+        {
+            dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
+        }
+        break;
+        case ENEMY_BLUE:
+        {
+            dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
+        }
+        break;
+        case ENEMY_YELLOW:
+        {
+            dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
+        }
+        break;
+        case ENEMY_GREEN:
+        {
+            dcSprite_SetAnimation(&Self->CurrentSprite, &HeroWalkAnimations);
+        }
+        break;
+    }
 }
+
 
 void EnemyUpdate(Enemy* Self, Player* ToHunt)
 {
@@ -16,28 +44,50 @@ void EnemyUpdate(Enemy* Self, Player* ToHunt)
     int MovementXDirection = 0;
     int MovementYDirection = 0;
 
-    if (Self->Position.vy < ToHunt->PlayerPosition.vy)
-    {
-        MovementYDirection = EnemySpeed;
-    }
-    else if (Self->Position.vy > ToHunt->PlayerPosition.vy)
-    {
-        MovementYDirection = -EnemySpeed;
-    }
 
-    if (Self->Position.vx < ToHunt->PlayerPosition.vx)
+    const int CheckUpSide = rand() % 200;
+    if(CheckUpSide > 120)
     {
-        MovementXDirection = EnemySpeed;
+        if (Self->Position.vy < ToHunt->PlayerPosition.vy)
+        {
+            MovementYDirection = EnemySpeed;
+        }
+        else if (Self->Position.vy > ToHunt->PlayerPosition.vy)
+        {
+            MovementYDirection = -EnemySpeed;
+        }    
     }
-    else if (Self->Position.vx > ToHunt->PlayerPosition.vx)
+    else{
+        
+        if (Self->Position.vx < ToHunt->PlayerPosition.vx)
+        {
+            MovementXDirection = EnemySpeed;
+        }
+        else if (Self->Position.vx > ToHunt->PlayerPosition.vx)
+        {
+            MovementXDirection = -EnemySpeed;
+        }
+    }
+    
+    /*
+    VECTOR ExpectedPos = {Self->PlayerPosition.vx + MovemementSide, Self->PlayerPosition.vy + MovementFront, 0, 0};
+    if (Scene_IsInsidedBounds(&ExpectedPos))
     {
-        MovementXDirection = -EnemySpeed;
+        Self->Position.vx += MovementXDirection;
+        Self->Position.vy += MovementYDirection;
     }
+    */
 
     Self->Position.vx += MovementXDirection;
     Self->Position.vy += MovementYDirection;
 
     dcSprite_Update(&Self->CurrentSprite);
+}
+
+char EnemyCheckCollision(Enemy* Self, Player* ToHunt)
+{
+    char Collide = CharactersCollide(ToHunt->PlayerPosition, Self->Position, Self->Radius);
+    return Collide;
 }
 
 void EnemyDraw(Enemy* Self, Player* MainPlayer)
@@ -51,5 +101,40 @@ void EnemyDraw(Enemy* Self, Player* MainPlayer)
 
 void EnemyDie(Enemy* Self)
 {
+    // Quitar el enemigo de la lista en el enemy manager.
 
+}
+
+/**
+ *     long DistX = PlayerPosition.vx - OtherPosition.vx;
+    long DistY = PlayerPosition.vy - OtherPosition.vy;
+    return DistX < OtherRadius || DistY < OtherRadius;
+ * 
+*/
+
+char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius)
+{
+    // Calculate the distance^2 between FirstPosition and SecondPosition
+    long Distance = GetDistanceBetweenTwoPoints(FirstPosition, SecondPosition);
+    long FinalRadius = DC_MUL(Radius, Radius);
+    // Position is in radius if Distance^2 < Radius^2
+    return (Distance < FinalRadius);
+}
+
+char CharactersCollide(VECTOR PlayerPosition, VECTOR OtherPosition, long OtherRadius)
+{
+    long DistX = abs(PlayerPosition.vx - OtherPosition.vx);
+    long DistY = abs(PlayerPosition.vy - OtherPosition.vy);
+    
+    long Distance = SquareRoot0(DistX * DistX + DistY * DistY);
+    return Distance < OtherRadius;
+}
+
+long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition)
+{
+    long XDistance = (FirstPosition.vx - SecondPosition.vx);
+    long YDistance = (FirstPosition.vy - SecondPosition.vy);
+
+    long Distance = DC_MUL(XDistance, XDistance) + DC_MUL(YDistance, YDistance);
+    return Distance;
 }

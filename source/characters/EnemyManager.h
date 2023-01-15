@@ -2,7 +2,7 @@
 #define _DC_ENEMY_MANAGER_
 #include "Enemy.h"
 
-#define MAX_ENEMIES 20
+#define MAX_ENEMIES 60
 #define NUM_TYPE_ENEMIES 4
 
 typedef struct 

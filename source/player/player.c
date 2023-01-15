@@ -68,18 +68,14 @@ void PlayerInput(Player* Self, SceneMap* Map)
         PlayerChangeAnim(Self, PLAYER_MOVING);
     }
 
+    VECTOR ExpectedPos = {Self->PlayerPosition.vx + MovemementSide, Self->PlayerPosition.vy + MovementFront, 0, 0};
+    if (Scene_IsInsidedBounds(&ExpectedPos))
+    {
         Self->PlayerPosition.vy += MovementFront;
         Self->PlayerPosition.vx += MovemementSide;
         Self->CameraPosition.vx = Self->PlayerPosition.vx - RENDER_WIDTH/2;
         Self->CameraPosition.vy = Self->PlayerPosition.vy - RENDER_HEIGHT/2; 
-
-        /*
-    if (CanMove(Self, Map))
-    {
-        Self->PlayerPosition.vy += MovementFront;
-        Self->PlayerPosition.vx += MovemementSide;
     }
-    */
 }
 
 void PlayerUpdate(Player* Self)

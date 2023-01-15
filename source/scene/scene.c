@@ -83,6 +83,11 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
     // dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimTile4, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
 }
 
+char Scene_IsInsidedBounds(VECTOR * PointToCheck)
+{
+    return (PointToCheck->vx > 0) && (PointToCheck->vx < (SceneTileWidth * SceneTileDim)) && (PointToCheck->vy > -SceneTileDim) && (PointToCheck->vy < (SceneTileHeight * SceneTileDim - SceneTileDim));
+}
+
 VECTOR GetRandomLocation(SceneMap * MapPtr)
 {
     int i = rand() % SceneTileWidth;

@@ -23,6 +23,8 @@ typedef struct
     EEnemyType Type;
     VECTOR Position;
     SDC_Sprite CurrentSprite;
+    SDC_SpriteAnimation SpriteAnimation;
+    int Radius;
     // debug
     CVECTOR Color;
 } Enemy;
@@ -34,6 +36,7 @@ static const CVECTOR EnemyGreenColor = {0, 255, 0, 255};
 
 void EnemyInit(Enemy* Self);
 void EnemyUpdate(Enemy* Self, Player* ToHunt);
+char EnemyCheckCollision(Enemy* Self, Player* ToHunt);
 void EnemyDraw(Enemy* Self,Player* MainPlayer);
 void EnemyDie(Enemy* Self);
 
