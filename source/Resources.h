@@ -13,9 +13,15 @@ void Resources_LoadTextureResources();
 
 /* Sprite Animations Resources */
 
-extern SDC_SpriteAnimation HeroIdleAnimations;
+//extern SDC_SpriteAnimation HeroIdleAnimations;
 extern SDC_SpriteAnimation HeroWalkAnimations;
 extern SDC_SpriteAnimation HeroAttackAnimations;
+
+extern SDC_SpriteAnimation EnemyBlueAnimations;
+extern SDC_SpriteAnimation EnemyRedAnimations;
+extern SDC_SpriteAnimation EnemyGreenAnimations;
+extern SDC_SpriteAnimation EnemyYellowAnimations;
+
 extern SDC_SpriteAnimation TitleScreenAnimations;
 void Resources_LoadSpriteResources();
 

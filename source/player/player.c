@@ -14,12 +14,10 @@ void PlayerInit(Player* Self, SceneMap* Map)
     Self->CameraPosition.vy = Self->PlayerPosition.vy - RENDER_HEIGHT/2; 
     Self->RadiusColision = 32;
 
-    Self->Animations[PLAYER_IDLE] = HeroIdleAnimations;
-    Self->Animations[PLAYER_MOVING] = HeroWalkAnimations;
+    Self->Animations[PLAYER_MOVING] = EnemyYellowAnimations;
     Self->Animations[PLAYER_ATTACKING] = HeroAttackAnimations;
-    Self->CurrentPlayerAction = PLAYER_IDLE;
+    Self->CurrentPlayerAction = PLAYER_MOVING;
 
-    dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_IDLE], &Self->Animations[PLAYER_IDLE]);
     dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_MOVING], &Self->Animations[PLAYER_MOVING]);
     dcSprite_SetAnimation(&Self->CurrentSprite[PLAYER_ATTACKING], &Self->Animations[PLAYER_ATTACKING]);
 }
@@ -42,7 +40,7 @@ void PlayerInput(Player* Self, SceneMap* Map)
     long MovementFront = 0;
     long MovemementSide = 0;
     
-    PlayerChangeAnim(Self, PLAYER_IDLE);
+    PlayerChangeAnim(Self, PLAYER_MOVING);
     
     // Y AXIS
     if (_PAD(0, PADLup) & padState)

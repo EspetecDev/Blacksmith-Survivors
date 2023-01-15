@@ -9,7 +9,6 @@
 typedef enum
 {
     PLAYER_UNKNOWN,
-    PLAYER_IDLE,
     PLAYER_MOVING,
     PLAYER_ATTACKING,
 
