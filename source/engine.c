@@ -56,13 +56,13 @@ void Update(Engine * EnginePtr)
         OnChangeGameState(EnginePtr);
     }
 
-     // RENDER
-    CVECTOR FontDefaultColor = {255, 255, 255}; 
-    char debugGS[50] = "CURRENT GS: ";
-    char currentGS[15] = "";
-    strcpy(currentGS, GetCurrentGSString(EnginePtr));
-    strcat(debugGS, currentGS);
-    dcFont_Print(EnginePtr->RenderPtr, 10, 220, &FontDefaultColor, debugGS);
+    // RENDER DEBUG
+    // CVECTOR FontDefaultColor = {255, 255, 255}; 
+    // char debugGS[50] = "CURRENT GS: ";
+    // char currentGS[15] = "";
+    // strcpy(currentGS, GetCurrentGSString(EnginePtr));
+    // strcat(debugGS, currentGS);
+    // dcFont_Print(EnginePtr->RenderPtr, 10, 220, &FontDefaultColor, debugGS);
 
     UpdateGameState(EnginePtr);
     
