@@ -26,6 +26,7 @@
 #include "ContractGameState.h"
 #include "GameOverGameState.h"
 #include "MenuGameState.h"
+#include "GameVictoryGameState.h"
 
 typedef enum
 {
@@ -34,6 +35,7 @@ typedef enum
     GS_CONTRACT,
     GS_GAME_LOOP,
     GS_GAME_OVER,
+    GS_GAME_VICTORY
 } EGameState;
 
 typedef struct
@@ -45,6 +47,7 @@ typedef struct
     FGameLoopGameState* GameLoopGameState;
     FContractGameState* ContractGameState;
     FGameOverGameState* GameOverGameState;
+    FGameVictoryGameState* VictoryGameState;
     MenuGameState* MenuGameState;
     
 } Engine;
