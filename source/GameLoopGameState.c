@@ -4,6 +4,7 @@
 #include "characters/EnemyManager.h"
 #include "dcMisc.h"
 #include "Contract.h"
+#include <assert.h>
 
 void InitScene(FGameLoopGameState *GameState);
 
@@ -19,40 +20,14 @@ void GLGS_Init(FGameLoopGameState *GameState)
     InitScene(GameState);
 
     // Init enemy manager
-    EM_Init(&GEnemyManager);
-}
-
-void HandlePlayerInput(FGameLoopGameState *GameState)
-{
-    u_long padState = PadRead(0);
-
-    if (padState & PADselect) // X
-    {
-        GEngineInstance.DesiredGameState = GS_GAME_OVER;
-    }
-    if (padState & PADRdown) // X
-    {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_BLUE);
-    }
-    if (padState & PADRright) // O
-    {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_RED);
-    }
-    if (padState & PADRup) // triangle
-    {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_GREEN);
-    }
-    if (padState & PADRleft) // |_|
-    {
-        EM_SpawnEnemy(&GEnemyManager, ENEMY_YELLOW);
-    }
+    EM_Init(&GameState->MyEnemyManager, &GameState->SceneData, &GameState->PlayerInstance);
+    
+    
+    EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
 }
 
 void GLGS_Update(FGameLoopGameState *GameState)
 {
-    //  Move and update player.
-    HandlePlayerInput(GameState);
-
     //  Player input.
     PlayerInput(&GameState->PlayerInstance, &GameState->SceneData);
 
@@ -60,13 +35,19 @@ void GLGS_Update(FGameLoopGameState *GameState)
     PlayerUpdate(&GameState->PlayerInstance);
 
     //  Update enemy manager.
-    EM_Update(&GEnemyManager);
+    //EM_Update(&GameState->MyEnemyManager, &GameState->PlayerInstance);
 
     //  Draw hero.
     PlayerDraw(&GameState->PlayerInstance);
+    
 
     //  Draw enemy.
-    EM_Draw(&GEnemyManager);
+    for(int i=0;i<GameState->MyEnemyManager.NumberBlueEnemy;i++)
+    {
+        EnemyDraw(&GameState->MyEnemyManager.BlueEnemies[i], &GameState->PlayerInstance);
+    }
+
+    //EM_Draw(&GameState->MyEnemyManager, &GameState->PlayerInstance);
 
     //  Draw scene.
     SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.CameraPosition);

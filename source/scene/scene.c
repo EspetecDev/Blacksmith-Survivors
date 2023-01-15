@@ -42,6 +42,14 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
     }
 }
 
+VECTOR GetRandomLocation(SceneMap * MapPtr)
+{
+    int i = rand() % SceneTileWidth;
+    int j = rand() % SceneTileHeight;
+
+    return MapPtr->MapTiles[i][j].TopLeft;
+}
+
 VECTOR Scene_GetMapCenter()
 {
     VECTOR Result = { (SceneTileWidth * SceneTileDim)/2, (SceneTileWidth * SceneTileDim)/2, 0, 0};

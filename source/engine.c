@@ -64,8 +64,6 @@ void Update(Engine * EnginePtr)
     dcFont_Print(EnginePtr->RenderPtr, 10, 20, &FontDefaultColor, debugGS);
 
     UpdateGameState(EnginePtr);
-
-   
     
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }
@@ -125,25 +123,6 @@ void OnChangeGameState(Engine * EnginePtr)
     }
 
     EnginePtr->CurrentGameState = EnginePtr->DesiredGameState;
-
-    // Enter game state
-    switch(EnginePtr->CurrentGameState)
-    {
-        case GS_MAIN_MENU:
-            MGS_Init(EnginePtr->MenuGameState);
-        break;
-        case GS_CONTRACT:
-            CGS_Init(EnginePtr->ContractGameState);
-        break;
-        case GS_GAME_LOOP:
-            GLGS_Init(EnginePtr->GameLoopGameState);
-        break;
-        case GS_GAME_OVER:
-            GOGS_Init(EnginePtr->GameOverGameState);
-        break;
-        default:
-        break;
-    }
 }
 
 // DEBUG
