@@ -67,7 +67,7 @@ SDC_SpriteFrame HeroIdleWalkFrames[] =
 
 SDC_SpriteFrame HeroAttackFrames[] =
 {
-    {5,64, 19, 64} , {26,64, 20, 64} , {48,64,29,64} , {79,64,27,64} , {107,64,18,64}
+    {26,64, 20, 64} , {48,64,29,64} , {79,64,27,64} , {107,64,18,64}
 };
 
 SDC_SpriteFrame EnemyBlueFrames[] =
@@ -97,7 +97,7 @@ SDC_SpriteFrame TitleScreenFrames[] =
 
 //SDC_SpriteAnimation HeroIdleAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
 SDC_SpriteAnimation HeroWalkAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
-SDC_SpriteAnimation HeroAttackAnimations = {HeroAttackFrames, NULL, 3, 5, 0, 0};
+SDC_SpriteAnimation HeroAttackAnimations = {HeroAttackFrames, NULL, 1, 4, 0, 0};
 
 SDC_SpriteAnimation EnemyBlueAnimations = {EnemyBlueFrames, NULL, 3, 6, 0, 0};
 SDC_SpriteAnimation EnemyRedAnimations = {EnemyRedFrames, NULL, 3, 6, 0, 0};
