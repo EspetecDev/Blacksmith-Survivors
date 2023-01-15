@@ -9,7 +9,7 @@ void ContractInit(ContractData* Data)
     Data->RedEnemiesToEvade = 25;
     Data->GreenEnemiesToEvade = 25;
     Data->YellowEnemiesToEvade  = 25;
-
+    Data->EnemiesToLose = 25;
     Data->InitSpawnEnemies = 28;
 }
 
@@ -21,16 +21,19 @@ void ContractPickedBlue(ContractData* Data)
 void ContractPickedRed(ContractData* Data)
 {
     Data->RedEnemiesToEvade--;
+    Data->EnemiesToLose--;
 }
 
 void ContractPickedGreen(ContractData* Data)
 {
    Data->GreenEnemiesToEvade--;
+   Data->EnemiesToLose--;
 }
 
 void ContractPickedYellow(ContractData* Data)
 {
    Data->YellowEnemiesToEvade--;
+   Data->EnemiesToLose--;
 }
 
 int ContractCheckWon(ContractData* Data)
@@ -40,5 +43,5 @@ int ContractCheckWon(ContractData* Data)
 
 int ContractCheckDefeat(ContractData* Data)
 {
-    return Data->RedEnemiesToEvade < 1 || Data->GreenEnemiesToEvade < 1 || Data->YellowEnemiesToEvade < 1;
+    return Data->EnemiesToLose < 1;
 }

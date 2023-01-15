@@ -9,7 +9,7 @@ typedef struct
     int RedEnemiesToEvade;
     int GreenEnemiesToEvade;
     int YellowEnemiesToEvade;
-
+    int EnemiesToLose;
     int InitSpawnEnemies;
 } ContractData;
 

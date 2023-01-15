@@ -10,6 +10,7 @@ long GetDistanceBetweenTwoPoints(VECTOR FirstPosition, VECTOR SecondPosition);
 void EnemyInit(Enemy* Self)
 {
     Self->Radius = 32;
+    Self->FrameSkip = 0;
     switch (Self->Type)
     {
         case ENEMY_RED:
@@ -42,48 +43,55 @@ void EnemyInit(Enemy* Self)
 
 void EnemyUpdate(Enemy* Self, Player* ToHunt)
 {
-    // Move to player
-    int MovementXDirection = 0;
-    int MovementYDirection = 0;
-
-
-    const int CheckUpSide = rand() % 10;
-    if(CheckUpSide > 5)
+    if (Self->FrameSkip == 0)
     {
-        if (Self->Position.vy < ToHunt->PlayerPosition.vy)
+        // Move to player
+        Self->FrameSkip = 3;
+        int MovementXDirection = 0;
+        int MovementYDirection = 0;
+
+        const int CheckUpSide = rand() % 10;
+        if(CheckUpSide > 5)
         {
-            MovementYDirection = Self->Velocity;
+            if (Self->Position.vy < ToHunt->PlayerPosition.vy)
+            {
+                MovementYDirection = Self->Velocity;
+            }
+            else if (Self->Position.vy > ToHunt->PlayerPosition.vy)
+            {
+                MovementYDirection = -Self->Velocity;
+            }    
         }
-        else if (Self->Position.vy > ToHunt->PlayerPosition.vy)
-        {
-            MovementYDirection = -Self->Velocity;
-        }    
-    }
-    else{
+        else{
+            
+            if (Self->Position.vx < ToHunt->PlayerPosition.vx)
+            {
+                MovementXDirection = Self->Velocity;
+            }
+            else if (Self->Position.vx > ToHunt->PlayerPosition.vx)
+            {
+                MovementXDirection = -Self->Velocity;
+            }
+        }
         
-        if (Self->Position.vx < ToHunt->PlayerPosition.vx)
+        /*
+        VECTOR ExpectedPos = {Self->PlayerPosition.vx + MovemementSide, Self->PlayerPosition.vy + MovementFront, 0, 0};
+        if (Scene_IsInsidedBounds(&ExpectedPos))
         {
-            MovementXDirection = Self->Velocity;
+            Self->Position.vx += MovementXDirection;
+            Self->Position.vy += MovementYDirection;
         }
-        else if (Self->Position.vx > ToHunt->PlayerPosition.vx)
-        {
-            MovementXDirection = -Self->Velocity;
-        }
-    }
-    
-    /*
-    VECTOR ExpectedPos = {Self->PlayerPosition.vx + MovemementSide, Self->PlayerPosition.vy + MovementFront, 0, 0};
-    if (Scene_IsInsidedBounds(&ExpectedPos))
-    {
+        */
+
         Self->Position.vx += MovementXDirection;
         Self->Position.vy += MovementYDirection;
+
+        dcSprite_Update(&Self->CurrentSprite);
     }
-    */
-
-    Self->Position.vx += MovementXDirection;
-    Self->Position.vy += MovementYDirection;
-
-    dcSprite_Update(&Self->CurrentSprite);
+    else
+    {
+        --Self->FrameSkip;
+    }
 }
 
 char EnemyCheckCollision(Enemy* Self, Player* ToHunt)
