@@ -9,6 +9,10 @@ extern RealTIMImage TimTile4;
 extern RealTIMImage TimTile5;
 extern RealTIMImage TimTile6;
 extern RealTIMImage TimTitleScreen;
+extern RealTIMImage TimBlueBall;
+extern RealTIMImage TimRedBall;
+extern RealTIMImage TimYellowBall;
+extern RealTIMImage TimGreenBall;
 void Resources_LoadTextureResources();
 
 /* Sprite Animations Resources */
@@ -23,8 +27,13 @@ extern SDC_SpriteAnimation EnemyGreenAnimations;
 extern SDC_SpriteAnimation EnemyYellowAnimations;
 
 extern SDC_SpriteAnimation TitleScreenAnimations;
-void Resources_LoadSpriteResources();
 
+/* Audio */
+
+extern SDC_Sfx SwordAudio;
+
+void Resources_LoadSpriteResources();
+void Resources_LoadAudio();
 void Resources_LoadFont();
 
 #endif

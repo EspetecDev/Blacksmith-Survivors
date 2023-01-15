@@ -25,21 +25,20 @@ void GOGS_Update(FGameOverGameState* GameState)
 
         // Input
         pad = PadRead(0);
-        if(pad & PADRleft)
+        if(pad & PADstart)
         {
             GEngineInstance.DesiredGameState = GS_MAIN_MENU;
             GameState->bActivatePressStartEffet = 1;
         }
 
-        CVECTOR ColorSprit = {128, 128, 128, 128};
+        CVECTOR ColorSprit = {128, 128, 128};
         dcSprite_Render(GEngineInstance.RenderPtr, &GameState->EnemyRedSprite, RENDER_WIDTH / 2 - 80, RENDER_HEIGHT / 2 - 16, &ColorSprit);
         dcSprite_Render(GEngineInstance.RenderPtr, &GameState->EnemyBlueSprite, RENDER_WIDTH / 2 - 30, RENDER_HEIGHT / 2 - 16, &ColorSprit);
         dcSprite_Render(GEngineInstance.RenderPtr, &GameState->EnemyYellowSprite, RENDER_WIDTH / 2 + 20, RENDER_HEIGHT / 2 - 16, &ColorSprit);
         dcSprite_Render(GEngineInstance.RenderPtr, &GameState->EnemyGreenSprite, RENDER_WIDTH / 2 + 70, RENDER_HEIGHT / 2 - 16, &ColorSprit);
         
-        CVECTOR Color = {255, 255, 255};
-        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 5 * RENDER_FONT_CHAR_SIZE,  7 * RENDER_FONT_CHAR_SIZE, &Color, GameState->GameOverText);
-        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 6 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT - 8 * RENDER_FONT_CHAR_SIZE, &Color, GameState->PressStartText);
+        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 5 * RENDER_FONT_CHAR_SIZE,  7 * RENDER_FONT_CHAR_SIZE, &ColorSprit, GameState->GameOverText);
+        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 6 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT - 8 * RENDER_FONT_CHAR_SIZE, &ColorSprit, GameState->PressStartText);
     }
 }
 

@@ -31,6 +31,9 @@ void GLGS_Init(FGameLoopGameState *GameState)
         EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_YELLOW, &GameState->PlayerInstance);
         EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_GREEN, &GameState->PlayerInstance); 
     }
+
+    GameState->CurrentTicks = 0;
+    GameState->CurrentSeconds = 0;
 }
 
 void HandlePlayerInput(FGameLoopGameState *GameState)
@@ -39,16 +42,25 @@ void HandlePlayerInput(FGameLoopGameState *GameState)
 
 void GLGS_Update(FGameLoopGameState *GameState)
 {
+    // Calc time
+    int currentTicksDebug = ++GameState->CurrentTicks;
+    if(currentTicksDebug == RENDER_FRAMERATE)
+    {
+        ++GameState->CurrentSeconds;
+        GameState->CurrentTicks = 0;
+    }
+    
     if (ContractCheckWon(&GameState->Contract))
     {
         ChangeGameState(&GEngineInstance, GS_GAME_VICTORY);
     }
-    else if(ContractCheckDefeat(&GameState->Contract))
+    else if(ContractCheckDefeat(&GameState->Contract) || (GOAL_TIME - GameState->CurrentSeconds == 0))
     {
         ChangeGameState(&GEngineInstance, GS_GAME_OVER);
     }
     else
     {
+
         //  Player input.
         PlayerInput(&GameState->PlayerInstance, &GameState->SceneData);
 
@@ -57,6 +69,29 @@ void GLGS_Update(FGameLoopGameState *GameState)
 
         //  Update enemy manager.
         EM_Update(&GameState->MyEnemyManager, &GameState->PlayerInstance, &GameState->Contract);
+
+        // Draw UI 
+        // draw balls and score first
+        DVECTOR UV = {0, 0};
+        CVECTOR Color = {128, 128, 128};
+        char TimeStr[4] = "";
+        char CurrentBlueEnemiesStr[3] = "";
+        char EnemiesToLoseStr[3] = "";
+        sprintf( TimeStr, "%d", GOAL_TIME - GameState->CurrentSeconds );
+        sprintf( CurrentBlueEnemiesStr, "%d", GameState->Contract.BlueEnemiesToPick - GameState->Contract.CurrentPickedBlues);
+        sprintf( EnemiesToLoseStr, "%d", GameState->Contract.EnemiesToLose);
+        dcFont_Print(GEngineInstance.RenderPtr, 15, 10, &Color, "KILL");
+        dcFont_Print(GEngineInstance.RenderPtr, 70, 10, &Color, "AVOID");
+        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH - 4 * RENDER_FONT_CHAR_SIZE, 10, &Color, TimeStr);
+        
+        dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimBlueBall, 15, 20, 16, 16, &UV, &Color);
+        dcFont_Print(GEngineInstance.RenderPtr, 35, 25, &Color, CurrentBlueEnemiesStr);
+        
+        dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimRedBall, 65, 20, 16, 16, &UV, &Color);
+        dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimGreenBall, 81, 20, 16, 16, &UV, &Color);
+        dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimYellowBall, 97, 20, 16, 16, &UV, &Color);
+        dcFont_Print(GEngineInstance.RenderPtr, 115, 25, &Color, EnemiesToLoseStr);
+        
 
         //  Draw hero.
         PlayerDraw(&GameState->PlayerInstance);
@@ -71,6 +106,8 @@ void GLGS_Update(FGameLoopGameState *GameState)
 
 void GLGS_Close(FGameLoopGameState *GameState)
 {
+    GameState->CurrentTicks = 0;
+    GameState->CurrentSeconds = 0;
 }
 
 void InitPlayer(FGameLoopGameState *GameState)
