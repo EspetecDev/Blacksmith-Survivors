@@ -45,8 +45,8 @@ void EnemyUpdate(Enemy* Self, Player* ToHunt)
     int MovementYDirection = 0;
 
 
-    const int CheckUpSide = rand() % 200;
-    if(CheckUpSide > 120)
+    const int CheckUpSide = rand() % 10;
+    if(CheckUpSide > 5)
     {
         if (Self->Position.vy < ToHunt->PlayerPosition.vy)
         {

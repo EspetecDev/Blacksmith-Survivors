@@ -1,5 +1,4 @@
 #include "Contract.h"
-#include "engine.h"
 
 void ContractInit(ContractData* Data)
 {
@@ -32,12 +31,12 @@ void ContractPickedYellow(ContractData* Data)
    Data->YellowEnemiesToEvade--;
 }
 
-int CheckWonContract(ContractData* Data)
+int ContractCheckWon(ContractData* Data)
 {
     return Data->BlueEnemiesToPick <= Data->CurrentPickedBlues;
 }
 
-int CheckDefeatContract(ContractData* Data)
+int ContractCheckDefeat(ContractData* Data)
 {
     return Data->RedEnemiesToEvade < 1 || Data->GreenEnemiesToEvade < 1 || Data->YellowEnemiesToEvade < 1;
 }

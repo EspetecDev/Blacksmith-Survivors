@@ -78,7 +78,7 @@ void EM_SpawnEnemy(EnemyManager* EM, EEnemyType EnemyType, Player* ToHunt)
     }
 }
 
-void EM_Update(EnemyManager* EM, Player* ToHunt)
+void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
 {
     for(int i=0;i<EM->NumberRedEnemy;i++)
     {
@@ -94,6 +94,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt)
             }
 
             EM->NumberRedEnemy--;
+            ContractPickedRed(Contract);
         }
     }
     
@@ -111,6 +112,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt)
             }
 
             EM->NumberBlueEnemy--;
+            ContractPickedBlue(Contract);
         }
     }
 
@@ -128,6 +130,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt)
             }
 
             EM->NumberYellowEnemy--;
+            ContractPickedYellow(Contract);
         }
     }
 
@@ -145,6 +148,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt)
             }
 
             EM->NumberGreenEnemy--;
+            ContractPickedYellow(Contract);
         }
     }
 }
@@ -182,34 +186,35 @@ void EM_GenerateFarFromPlayerLocations(EnemyManager* EM, Player* ToHunt, Enemy* 
     VECTOR PlayerPosition = ToHunt->PlayerPosition;
     int IsPositiveX = rand() % 2;
     int IsPositiveY = rand() % 2;
-    int ModifyX = rand() % 2;
-
-    if (ModifyX)
+    int PosX = rand() % RENDER_WIDTH;
+    
+    if (PosX < RENDER_WIDTH)
     {
-        int PosX = rand() % RENDER_WIDTH;
+        PosX = PosX + RENDER_WIDTH;
+    }
 
-        if (IsPositiveX)
-        {
-            PlayerPosition.vx += PosX;
-        }
-        else
-        {
-            PlayerPosition.vx -= PosX;
-        }
+    if (IsPositiveX)
+    {
+        PlayerPosition.vx += PosX;
     }
     else
     {
-        int PosY = rand() % RENDER_HEIGHT;
-
-        if (IsPositiveY)
-        {
-            PlayerPosition.vy += PosY;
-        }
-        else
-        {
-            PlayerPosition.vy -= PosY;
-        }
+        PlayerPosition.vx -= PosX;
     }
+    int PosY = rand() % RENDER_HEIGHT;
+    if (PosY < RENDER_HEIGHT)
+    {
+        PosY = PosY + RENDER_HEIGHT;
+    }
+    if (IsPositiveY)
+    {
+        PlayerPosition.vy += PosY;
+    }
+    else
+    {
+        PlayerPosition.vy -= PosY;
+    }
+
     ToFill->Position = PlayerPosition;
     
 }

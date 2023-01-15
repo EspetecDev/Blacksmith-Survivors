@@ -8,7 +8,7 @@ void PlayerChangeAnim(Player* Self, PLAYER_ACTION NewAction);
 
 void PlayerInit(Player* Self, SceneMap* Map)
 {
-    VECTOR StartPos = {0,0,0,0};//Scene_GetMapCenter();
+    VECTOR StartPos = Scene_GetMapCenter();
     Self->PlayerPosition = StartPos;
     Self->CameraPosition.vx = Self->PlayerPosition.vx - RENDER_WIDTH/2;
     Self->CameraPosition.vy = Self->PlayerPosition.vy - RENDER_HEIGHT/2; 
