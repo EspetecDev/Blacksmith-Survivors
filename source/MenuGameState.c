@@ -26,6 +26,7 @@ void MGS_Update(MenuGameState* MGSPtr)
         if(pad & PADstart)
         {
             MGSPtr->bActivatePressStartEffet = 1;
+            dcAudio_SfxPlay(&SwordAudio);
             // GEngineInstance.DesiredGameState = GS_GAME_LOOP;
         }
         if(MGSPtr->bActivatePressStartEffet)

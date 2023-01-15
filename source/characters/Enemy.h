@@ -28,6 +28,8 @@ typedef struct
     SDC_Sprite CurrentSprite;
     SDC_SpriteAnimation SpriteAnimation;
     int Radius;
+    
+    int AudioFrameSkip;
     // debug
     CVECTOR Color;
     int FrameSkip;

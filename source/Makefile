@@ -29,6 +29,7 @@ SRCS = main.c \
 		textures/green_ball.tim \
 		textures/titlescreen.tim \
 		audios/sword.vag \
+		audios/monster.vag \
 		characters/Enemy.c\
 		characters/EnemyManager.c\
 		player/player.c\

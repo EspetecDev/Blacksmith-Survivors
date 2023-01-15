@@ -106,6 +106,15 @@ char EnemyCheckCollision(Enemy* Self, Player* ToHunt)
 void EnemyDraw(Enemy* Self, Player* MainPlayer)
 {
     CVECTOR ColorSprit = {128, 128, 128, 128};
+
+    if(Self->AudioFrameSkip > 0)
+    {
+        Self->AudioFrameSkip--;
+        if(Self->AudioFrameSkip == 0)
+        {
+            dcAudio_SfxPlay(&MonsterAudio);
+        }
+    }
     
     dcSprite_Update(&Self->CurrentSprite);
 
@@ -117,7 +126,7 @@ void EnemyDraw(Enemy* Self, Player* MainPlayer)
 void EnemyDie(Enemy* Self)
 {
     // Quitar el enemigo de la lista en el enemy manager.
-
+    Self->AudioFrameSkip = 4;
 }
 
 /**

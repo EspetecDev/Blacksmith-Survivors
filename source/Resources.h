@@ -31,6 +31,7 @@ extern SDC_SpriteAnimation TitleScreenAnimations;
 /* Audio */
 
 extern SDC_Sfx SwordAudio;
+extern SDC_Sfx MonsterAudio;
 
 void Resources_LoadSpriteResources();
 void Resources_LoadAudio();

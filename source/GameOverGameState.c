@@ -29,6 +29,7 @@ void GOGS_Update(FGameOverGameState* GameState)
         {
             GEngineInstance.DesiredGameState = GS_MAIN_MENU;
             GameState->bActivatePressStartEffet = 1;
+            dcAudio_SfxPlay(&SwordAudio);
         }
 
         CVECTOR ColorSprit = {128, 128, 128};
