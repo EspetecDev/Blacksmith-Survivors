@@ -1,6 +1,7 @@
 #ifndef _DC_ENEMY_
 #define _DC_ENEMY_
 
+#include "dcAudio.h"
 #include "dcSprite.h"
 #include "../player/player.h"
 

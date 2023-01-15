@@ -161,8 +161,8 @@ void Resources_LoadFont()
 
 SDC_Sfx SwordAudio;
 
-extern unsigned long _binary_audios_sword_tim_start[];
+extern unsigned long _binary_audios_sword_vag_start[];
 void Resources_LoadAudio()
 {
-    dcAudio_SfxLoad(GEngineInstance->AudioPtr, &SwordAudio, (u_char *)_binary_audios_sword_tim_start);
+    dcAudio_SfxLoad(GEngineInstance.AudioPtr, &SwordAudio, (u_char *)_binary_audios_sword_vag_start);
 }

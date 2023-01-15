@@ -1,6 +1,7 @@
 #ifndef _DC_PLAYERINSTANCE_
 #define _DC_PLAYERINSTANCE_
 
+#include "dcAudio.h"
 #include "dcMath.h"
 #include "dcCamera.h"
 #include "dcSprite.h"

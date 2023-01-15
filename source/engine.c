@@ -29,7 +29,7 @@ void Init(Engine * EnginePtr)
     
     //  Init Audio.
     EnginePtr->AudioPtr = (SDC_Audio*)malloc3(sizeof(SDC_Audio));
-    dcAudio_Init(&EnginePtr->AudioPtr, 16);
+    dcAudio_Init(EnginePtr->AudioPtr, 16);
 
     dcAudio_MusicPlay(EnginePtr->AudioPtr, 0);
 
@@ -37,6 +37,7 @@ void Init(Engine * EnginePtr)
     Resources_LoadFont();
     Resources_LoadTextureResources();
     Resources_LoadSpriteResources();
+    Resources_LoadAudio();
 
     //  Init game state.
     EnginePtr->GameLoopGameState = (FGameLoopGameState*)malloc3(sizeof(FGameLoopGameState));
@@ -72,7 +73,7 @@ void Update(Engine * EnginePtr)
 
     UpdateGameState(EnginePtr);
     
-    dc_Audio_Update(EnginePtr->AudioPtr);
+    dcAudio_Update(EnginePtr->AudioPtr);
     dcRender_SwapBuffers(EnginePtr->RenderPtr);
 }
 
