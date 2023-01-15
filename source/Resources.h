@@ -8,7 +8,7 @@ extern RealTIMImage TimTile3;
 extern RealTIMImage TimTile4;
 extern RealTIMImage TimTile5;
 extern RealTIMImage TimTile6;
-
+extern RealTIMImage TimTitleScreen;
 void Resources_LoadTextureResources();
 
 /* Sprite Animations Resources */
