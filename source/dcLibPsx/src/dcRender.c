@@ -158,9 +158,9 @@ void dcRender_DrawSpriteRect(SDC_Render* render, const RealTIMImage* tim, short 
     setXY0(sprt, x, y);
     setWH(sprt, w, h);
     setRGB0(sprt, color->r, color->g, color->b);
-    //SET_UV0_FIX(sprt, uv->vx, uv->vy, tim->prect.x, tim->prect.y);
-    setUV0(sprt, 0, 0);
+    SET_UV0_FIX(sprt, uv->vx, uv->vy, tim->prect.x, tim->prect.y);
     setClut(sprt, tim->crect.x, tim->crect.y);
+    // printf("prect x %d y %d\n", tim->prect.x, tim->prect.y);
 
     addPrim(render->orderingTable[render->doubleBufferIndex], sprt);
 

@@ -17,8 +17,6 @@ SRCS = main.c \
 		textures/tile4.tim \
 		textures/tile5.tim \
 		textures/tile6.tim \
-		textures/Hero.tim \
-		textures/Enemy_Blue.tim \
 		textures/HeroIdle.tim \
 		textures/HeroWalk.tim \
 		textures/HeroAttack.tim \
