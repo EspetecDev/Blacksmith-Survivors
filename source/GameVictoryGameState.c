@@ -19,7 +19,7 @@ void GVGS_Update(FGameVictoryGameState* GameState)
 
         // Input
         pad = PadRead(0);
-        if(pad & PADRleft)
+        if(pad & PADstart)
         {
             GEngineInstance.DesiredGameState = GS_MAIN_MENU;
             GameState->bActivatePressStartEffet = 1;
