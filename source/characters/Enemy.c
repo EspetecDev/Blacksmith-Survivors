@@ -32,6 +32,10 @@ void EnemyInit(Enemy* Self)
             dcSprite_SetAnimation(&Self->CurrentSprite, &EnemyGreenAnimations);
         }
         break;
+        case TOTAL_ENEMIES:
+        {
+            break;
+        }
     }
 }
 
@@ -39,8 +43,6 @@ void EnemyInit(Enemy* Self)
 void EnemyUpdate(Enemy* Self, Player* ToHunt)
 {
     // Move to player
-    const int EnemySpeed = 1;
-
     int MovementXDirection = 0;
     int MovementYDirection = 0;
 
@@ -50,22 +52,22 @@ void EnemyUpdate(Enemy* Self, Player* ToHunt)
     {
         if (Self->Position.vy < ToHunt->PlayerPosition.vy)
         {
-            MovementYDirection = EnemySpeed;
+            MovementYDirection = Self->Velocity;
         }
         else if (Self->Position.vy > ToHunt->PlayerPosition.vy)
         {
-            MovementYDirection = -EnemySpeed;
+            MovementYDirection = -Self->Velocity;
         }    
     }
     else{
         
         if (Self->Position.vx < ToHunt->PlayerPosition.vx)
         {
-            MovementXDirection = EnemySpeed;
+            MovementXDirection = Self->Velocity;
         }
         else if (Self->Position.vx > ToHunt->PlayerPosition.vx)
         {
-            MovementXDirection = -EnemySpeed;
+            MovementXDirection = -Self->Velocity;
         }
     }
     

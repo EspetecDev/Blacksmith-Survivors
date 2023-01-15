@@ -9,6 +9,8 @@ void ContractInit(ContractData* Data)
     Data->RedEnemiesToEvade = 25;
     Data->GreenEnemiesToEvade = 25;
     Data->YellowEnemiesToEvade  = 25;
+
+    Data->InitSpawnEnemies = 28;
 }
 
 void ContractPickedBlue(ContractData* Data)

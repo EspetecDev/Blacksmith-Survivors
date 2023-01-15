@@ -9,6 +9,8 @@ typedef struct
     int RedEnemiesToEvade;
     int GreenEnemiesToEvade;
     int YellowEnemiesToEvade;
+
+    int InitSpawnEnemies;
 } ContractData;
 
 void ContractInit(ContractData* Data);
