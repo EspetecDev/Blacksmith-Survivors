@@ -138,8 +138,11 @@ char PositionIsInRadius(VECTOR FirstPosition, VECTOR SecondPosition, long Radius
 
 char CharactersCollide(VECTOR PlayerPosition, VECTOR OtherPosition, long OtherRadius)
 {
-    long DistX = abs(PlayerPosition.vx - OtherPosition.vx);
-    long DistY = abs(PlayerPosition.vy - OtherPosition.vy);
+    VECTOR PlayerCenter;
+    PlayerCenter.vx = PlayerPosition.vx + 8; 
+    PlayerCenter.vy = PlayerPosition.vy + 18; 
+    long DistX = abs(PlayerCenter.vx - OtherPosition.vx);
+    long DistY = abs(PlayerCenter.vy - OtherPosition.vy);
     
     long Distance = SquareRoot0(DistX * DistX + DistY * DistY);
     return Distance < OtherRadius;

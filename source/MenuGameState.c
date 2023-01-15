@@ -15,6 +15,8 @@ void MGS_Update(MenuGameState* MGSPtr)
 {
     if(GEngineInstance.CurrentGameState == GS_MAIN_MENU) 
     {
+        CVECTOR Color = {128, 128, 128};
+        CVECTOR PermColor = {128, 128, 128};
         // Input
         int pad = 0;
         pad = PadRead(0);
@@ -22,31 +24,40 @@ void MGS_Update(MenuGameState* MGSPtr)
         if(pad & PADstart)
         {
             MGSPtr->bActivatePressStartEffet = 1;
-            GEngineInstance.DesiredGameState = GS_CONTRACT;
+            // GEngineInstance.DesiredGameState = GS_GAME_LOOP;
         }
-        // if(MGSPtr->bActivatePressStartEffet && MGSPtr->PressAnimationFrames > 0)
-        // {
-        //     // Set text
-        //     if(MGSPtr->PressAnimationFrames % 15 == 0)
-        //         strcpy(MGSPtr->PressStartText, "PRESS START");
-        //     else
-        //         strcpy(MGSPtr->PressStartText, "");
-        //     // Draw texts
-        //     FntLoad(960, 256);                // Load font to vram at FONTX,FONTY
-        //     FntOpen(RENDER_WIDTH/2 - RENDER_WIDTH/4, RENDER_HEIGHT/2 - RENDER_HEIGHT/4, RENDER_WIDTH, RENDER_HEIGHT, 0, 512 );    // FntOpen(x, y, width, height,  black_bg, max. nbr. chars)
-        //     FntPrint(MGSPtr->PressStartText);
-        //     if(--MGSPtr->PressAnimationFrames <= 0)
-        //     {
-        //         MGSPtr->bActivatePressStartEffet = 0;
-        //         GEngineInstance.DesiredGameState = GS_CONTRACT;
-        //     }    
+        if(MGSPtr->bActivatePressStartEffet && MGSPtr->PressAnimationFrames > 0)
+        {
+            // Set text
+            if(MGSPtr->PressAnimationFrames >= FRAMES_PER_STATE_ANIM)
+            {
+                if(Color.r == 128)
+                {
+                    Color.r = 128;
+                    Color.g = 128;
+                    Color.b = 128;
+                }
+                else
+                {
+                    Color.r = 0;
+                    Color.g = 0;
+                    Color.b = 0;
+                }
+                MGSPtr->PressAnimationFrames = 0;
+            }
+            
+            if(--MGSPtr->PressAnimationFrames <= 0)
+            {
+                MGSPtr->bActivatePressStartEffet = 0;
+                GEngineInstance.DesiredGameState = GS_GAME_LOOP;
+            }    
 
-        // }
+        }
+        // Draw texts
         DVECTOR UV = {0, 0};
-        CVECTOR Color = {128, 128, 128};
-        dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimTitleScreen, 0, 0, 256, 256, &UV, &Color);
         dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH / 2 - 5 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT / 2 + 5 * RENDER_FONT_CHAR_SIZE, &Color, MGSPtr->PressStartText);
-        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH - 15 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT - 5 * RENDER_FONT_CHAR_SIZE, &Color, MGSPtr->TeamName);
+        dcFont_Print(GEngineInstance.RenderPtr, RENDER_WIDTH - 15 * RENDER_FONT_CHAR_SIZE, RENDER_HEIGHT - 5 * RENDER_FONT_CHAR_SIZE, &PermColor, MGSPtr->TeamName);            
+        dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimTitleScreen, 0, 0, 256, 256, &UV, &PermColor);
     }
 }
 

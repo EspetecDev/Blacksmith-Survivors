@@ -78,7 +78,7 @@ void GLGS_Update(FGameLoopGameState *GameState)
         char CurrentBlueEnemiesStr[3] = "";
         char EnemiesToLoseStr[3] = "";
         sprintf( TimeStr, "%d", GOAL_TIME - GameState->CurrentSeconds );
-        sprintf( CurrentBlueEnemiesStr, "%d", GameState->Contract.CurrentPickedBlues);
+        sprintf( CurrentBlueEnemiesStr, "%d", GameState->Contract.BlueEnemiesToPick - GameState->Contract.CurrentPickedBlues);
         sprintf( EnemiesToLoseStr, "%d", GameState->Contract.EnemiesToLose);
         dcFont_Print(GEngineInstance.RenderPtr, 15, 10, &Color, "KILL");
         dcFont_Print(GEngineInstance.RenderPtr, 70, 10, &Color, "AVOID");

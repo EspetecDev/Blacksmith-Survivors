@@ -2,6 +2,8 @@
 #define _DC_MAINMENUGAMESTATE_
 #include "dcSprite.h"
 
+#define FRAMES_PER_STATE_ANIM 10
+
 typedef struct
 {
     char PressStartText[12];
