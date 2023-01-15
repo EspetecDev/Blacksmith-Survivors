@@ -22,6 +22,10 @@ SRCS = main.c \
 		textures/EnemyGreen.tim \
 		textures/EnemyYellow.tim \
 		textures/EnemyRed.tim \
+		textures/blue_ball.tim \
+		textures/red_ball.tim \
+		textures/yellow_ball.tim \
+		textures/green_ball.tim \
 		textures/titlescreen.tim \
 		characters/Enemy.c\
 		characters/EnemyManager.c\

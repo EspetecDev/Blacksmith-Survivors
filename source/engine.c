@@ -44,7 +44,7 @@ void Init(Engine * EnginePtr)
     MGS_Init(EnginePtr->MenuGameState);
     
     //  Start game state.
-    ChangeGameState(EnginePtr, GS_MAIN_MENU);
+    ChangeGameState(EnginePtr, GS_GAME_LOOP);
 }
 
 void Update(Engine * EnginePtr)
@@ -60,7 +60,7 @@ void Update(Engine * EnginePtr)
     char currentGS[15] = "";
     strcpy(currentGS, GetCurrentGSString(EnginePtr));
     strcat(debugGS, currentGS);
-    dcFont_Print(EnginePtr->RenderPtr, 10, 20, &FontDefaultColor, debugGS);
+    dcFont_Print(EnginePtr->RenderPtr, 10, 220, &FontDefaultColor, debugGS);
 
     UpdateGameState(EnginePtr);
     
