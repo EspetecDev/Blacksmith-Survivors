@@ -23,10 +23,10 @@ void GLGS_Init(FGameLoopGameState *GameState)
     // Init enemy manager
     EM_Init(GameState->MyEnemyManager, &GameState->SceneData, &GameState->PlayerInstance);
 
-    for (int i = 0; i < MAX_ENEMIES; i++)
-    {
-        EM_SpawnEnemy(GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
-    }
+    // for (int i = 0; i < MAX_ENEMIES; i++)
+    // {
+    //     EM_SpawnEnemy(GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
+    // }
 }
 
 void HandlePlayerInput(FGameLoopGameState *GameState)
