@@ -72,7 +72,7 @@ SDC_SpriteFrame HeroAttackFrames[] =
 
 SDC_SpriteFrame EnemyBlueFrames[] =
 {
-    {14,0,13,32} , {21,0,14,32} , {37,0, 14,32} , {54,0, 11, 32} , {68,0, 21,32} , {92,0,18,32}
+    {2,0,16,32} , {21,0,14,32} , {37,0, 14,32} , {54,0, 11, 32} , {68,0, 21,32} , {92,0,18,32}
 };
 
 SDC_SpriteFrame EnemyRedFrames[] =
@@ -99,9 +99,9 @@ SDC_SpriteFrame TitleScreenFrames[] =
 SDC_SpriteAnimation HeroWalkAnimations = {HeroIdleWalkFrames, NULL, 3, 6, 0, 0};
 SDC_SpriteAnimation HeroAttackAnimations = {HeroAttackFrames, NULL, 1, 4, 0, 0};
 
-SDC_SpriteAnimation EnemyBlueAnimations = {EnemyBlueFrames, NULL, 3, 6, 0, 0};
-SDC_SpriteAnimation EnemyRedAnimations = {EnemyRedFrames, NULL, 3, 6, 0, 0};
-SDC_SpriteAnimation EnemyGreenAnimations = {EnemyGreenFrames, NULL, 3, 6, 0, 0};
+SDC_SpriteAnimation EnemyBlueAnimations = {EnemyBlueFrames, NULL, 2, 6, 0, 0};
+SDC_SpriteAnimation EnemyRedAnimations = {EnemyRedFrames, NULL, 2, 6, 0, 0};
+SDC_SpriteAnimation EnemyGreenAnimations = {EnemyGreenFrames, NULL, 2, 6, 0, 0};
 SDC_SpriteAnimation EnemyYellowAnimations = {EnemyYellowFrames, NULL, 2, 4, 0, 0};
 // SDC_SpriteAnimation TitleScreenAnimations = {TitleScreenFrames, NULL, 1, 1, 0, 0};
 
