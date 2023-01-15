@@ -10,40 +10,31 @@ void SceneMap_Init(SceneMap* MapPtr)
     {
         for(int j = 0; j <  SceneTileHeight; j++)
         {
-            // // int RandTile = 0
-            // // if(rand() % 75 != 0)
-            // int TileType = 0;
             Tile Data;
             Data.Coordinates.vx = i;
             Data.Coordinates.vy = j;
             Data.TopLeft.vx = i * SceneTileDim;
             Data.TopLeft.vy = j * SceneTileDim;
 
-            int randChoose = rand() % 5;
-            printf("tile[%d][%d] - type: %d", i, j, randChoose);
-            switch (randChoose)
+            int randChoose = rand() % 1000;
+            if(randChoose > 0 && randChoose < 900 )
             {
-                case 0:
-                Data.RealImage = TimTile1;
-                break;
-                case 1:
-                Data.RealImage = TimTile2;
-                break;
-                case 2:
-                Data.RealImage = TimTile3;
-                break;
-                case 3:
-                Data.RealImage = TimTile4;
-                break;
-                case 4:
-                Data.RealImage = TimTile5;
-                break;
-                case 5:
-                Data.RealImage = TimTile6;
-                break;
-            
-            default:
-                break;
+                randChoose = rand() % 100;
+                if(randChoose >= 0 && randChoose < 25)
+                    Data.RealImage = TimTile1;
+                else if(randChoose >= 25 && randChoose < 50)
+                    Data.RealImage = TimTile3;
+                else if(randChoose >= 50 && randChoose < 75)
+                    Data.RealImage = TimTile4;
+                else if(randChoose >= 75 && randChoose <= 100)
+                    Data.RealImage = TimTile5;
+            }
+            else
+            {
+                if(rand() % 2 == 0)
+                    Data.RealImage = TimTile2;
+                else
+                    Data.RealImage = TimTile6;
             }
             MapPtr->MapTiles[i][j] = Data;
         }
