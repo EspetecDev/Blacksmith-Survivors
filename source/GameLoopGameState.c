@@ -41,7 +41,7 @@ void GLGS_Update(FGameLoopGameState *GameState)
 {
     if (ContractCheckWon(&GameState->Contract))
     {
-        ChangeGameState(&GEngineInstance, GS_GAME_OVER);
+        ChangeGameState(&GEngineInstance, GS_GAME_VICTORY);
     }
     else if(ContractCheckDefeat(&GameState->Contract))
     {
