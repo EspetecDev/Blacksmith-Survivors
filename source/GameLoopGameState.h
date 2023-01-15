@@ -6,7 +6,6 @@
 #include "dcSprite.h"
 #include "scene/scene.h"
 #include "player/player.h"
-#include "Contract.h"
 #include "characters/EnemyManager.h"
 
 typedef struct

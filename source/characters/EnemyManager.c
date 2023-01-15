@@ -78,7 +78,7 @@ void EM_SpawnEnemy(EnemyManager* EM, EEnemyType EnemyType, Player* ToHunt)
     }
 }
 
-void EM_Update(EnemyManager* EM, Player* ToHunt)
+void EM_Update(EnemyManager* EM, Player* ToHunt, ContractData* Contract)
 {
     for(int i=0;i<EM->NumberRedEnemy;i++)
     {
@@ -94,6 +94,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt)
             }
 
             EM->NumberRedEnemy--;
+            ContractPickedRed(Contract);
         }
     }
     
@@ -111,6 +112,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt)
             }
 
             EM->NumberBlueEnemy--;
+            ContractPickedBlue(Contract);
         }
     }
 
@@ -128,6 +130,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt)
             }
 
             EM->NumberYellowEnemy--;
+            ContractPickedYellow(Contract);
         }
     }
 
@@ -145,6 +148,7 @@ void EM_Update(EnemyManager* EM, Player* ToHunt)
             }
 
             EM->NumberGreenEnemy--;
+            ContractPickedYellow(Contract);
         }
     }
 }

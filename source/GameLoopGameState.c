@@ -2,8 +2,8 @@
 #include "engine.h"
 #include "render.h"
 #include "characters/EnemyManager.h"
-#include "dcMisc.h"
 #include "Contract.h"
+#include "dcMisc.h"
 #include <assert.h>
 
 void InitScene(FGameLoopGameState *GameState);
@@ -30,49 +30,34 @@ void GLGS_Init(FGameLoopGameState *GameState)
 
 void HandlePlayerInput(FGameLoopGameState *GameState)
 {
-    u_long padState = PadRead(0);
-
-    if (padState & PADselect) // X
-    {
-        GEngineInstance.DesiredGameState = GS_GAME_OVER;
-    }
-    if (padState & PADRdown) // X
-    {
-        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_BLUE, &GameState->PlayerInstance);
-    }
-    if (padState & PADRright) // O
-    {
-        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_RED, &GameState->PlayerInstance);
-    }
-    if (padState & PADRup) // triangle
-    {
-        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_GREEN, &GameState->PlayerInstance);
-    }
-    if (padState & PADRleft) // |_|
-    {
-        EM_SpawnEnemy(&GameState->MyEnemyManager, ENEMY_YELLOW, &GameState->PlayerInstance);
-    }
 }
 
 void GLGS_Update(FGameLoopGameState *GameState)
 {
-    //  Player input.
-    PlayerInput(&GameState->PlayerInstance, &GameState->SceneData);
+    if (ContractCheckWon(&GameState->Contract) || ContractCheckDefeat(&GameState->Contract))
+    {
+        ChangeGameState(&GEngineInstance, GS_MAIN_MENU);
+    }
+    else
+    {
+        //  Player input.
+        PlayerInput(&GameState->PlayerInstance, &GameState->SceneData);
 
-    //  Update player logic.
-    PlayerUpdate(&GameState->PlayerInstance);
+        //  Update player logic.
+        PlayerUpdate(&GameState->PlayerInstance);
 
-    //  Update enemy manager.
-    EM_Update(&GameState->MyEnemyManager, &GameState->PlayerInstance);
+        //  Update enemy manager.
+        EM_Update(&GameState->MyEnemyManager, &GameState->PlayerInstance, &GameState->Contract);
 
-    //  Draw hero.
-    PlayerDraw(&GameState->PlayerInstance);
-    
-    //  Draw enemy.
-    EM_Draw(&GameState->MyEnemyManager, &GameState->PlayerInstance);
+        //  Draw hero.
+        PlayerDraw(&GameState->PlayerInstance);
+        
+        //  Draw enemy.
+        EM_Draw(&GameState->MyEnemyManager, &GameState->PlayerInstance);
 
-    //  Draw scene.
-    SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.CameraPosition);
+        //  Draw scene.
+        SceneMap_Draw(&GameState->SceneData, &GameState->PlayerInstance.CameraPosition);
+    }
 }
 
 void GLGS_Close(FGameLoopGameState *GameState)
