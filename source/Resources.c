@@ -9,6 +9,10 @@ extern unsigned long _binary_textures_tile4_tim_start[];
 extern unsigned long _binary_textures_tile5_tim_start[];
 extern unsigned long _binary_textures_tile6_tim_start[];
 extern unsigned long _binary_textures_titlescreen_tim_start[];
+extern unsigned long _binary_textures_blue_ball_tim_start[];
+extern unsigned long _binary_textures_red_ball_tim_start[];
+extern unsigned long _binary_textures_yellow_ball_tim_start[];
+extern unsigned long _binary_textures_green_ball_tim_start[];
 
 RealTIMImage TimTile1;
 RealTIMImage TimTile2;
@@ -17,6 +21,11 @@ RealTIMImage TimTile4;
 RealTIMImage TimTile5;
 RealTIMImage TimTile6;
 RealTIMImage TimTitleScreen;
+RealTIMImage TimVignette;
+RealTIMImage TimBlueBall;
+RealTIMImage TimRedBall;
+RealTIMImage TimYellowBall;
+RealTIMImage TimGreenBall;
 
 void Resources_LoadTextureResources()
 {
@@ -55,6 +64,26 @@ void Resources_LoadTextureResources()
    TimTitleScreen.crect = *Image.crect;
    TimTitleScreen.mode = Image.mode;
    TimTitleScreen.prect = *Image.prect;
+
+   dcRender_LoadTexture(&Image, _binary_textures_blue_ball_tim_start);
+   TimBlueBall.crect = *Image.crect;
+   TimBlueBall.mode = Image.mode;
+   TimBlueBall.prect = *Image.prect;
+
+   dcRender_LoadTexture(&Image, _binary_textures_red_ball_tim_start);
+   TimRedBall.crect = *Image.crect;
+   TimRedBall.mode = Image.mode;
+   TimRedBall.prect = *Image.prect;
+
+   dcRender_LoadTexture(&Image, _binary_textures_yellow_ball_tim_start);
+   TimYellowBall.crect = *Image.crect;
+   TimYellowBall.mode = Image.mode;
+   TimYellowBall.prect = *Image.prect;
+
+   dcRender_LoadTexture(&Image, _binary_textures_green_ball_tim_start);
+   TimGreenBall.crect = *Image.crect;
+   TimGreenBall.mode = Image.mode;
+   TimGreenBall.prect = *Image.prect;
 }
 
 /* Sprite Animations Header. */

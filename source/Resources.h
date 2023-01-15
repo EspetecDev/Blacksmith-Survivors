@@ -9,6 +9,10 @@ extern RealTIMImage TimTile4;
 extern RealTIMImage TimTile5;
 extern RealTIMImage TimTile6;
 extern RealTIMImage TimTitleScreen;
+extern RealTIMImage TimBlueBall;
+extern RealTIMImage TimRedBall;
+extern RealTIMImage TimYellowBall;
+extern RealTIMImage TimGreenBall;
 void Resources_LoadTextureResources();
 
 /* Sprite Animations Resources */

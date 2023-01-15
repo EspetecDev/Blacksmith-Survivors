@@ -60,18 +60,7 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
             }
         }
     }
-    // Tile * Data = &MapPtr->MapTiles[0][0];
-    // Tile * Data2 = &MapPtr->MapTiles[1][1];
-    // Tile * Data3 = &MapPtr->MapTiles[2][2];
-    // int TopLeftX = Data->TopLeft.vx - CameraPosition->vx;
-    // int TopLefty = Data->TopLeft.vy - CameraPosition->vy;
-    // dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimTile2, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
-    // TopLeftX = Data2->TopLeft.vx - CameraPosition->vx;
-    // TopLefty = Data2->TopLeft.vy - CameraPosition->vy;
-    // dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimTile3, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
-    // TopLeftX = Data3->TopLeft.vx - CameraPosition->vx;
-    // TopLefty = Data3->TopLeft.vy - CameraPosition->vy;
-    // dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &TimTile4, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
+
 }
 
 char Scene_IsInsidedBounds(VECTOR * PointToCheck)

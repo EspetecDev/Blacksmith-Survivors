@@ -52,7 +52,7 @@ void Init(Engine * EnginePtr)
     GVGS_Init(EnginePtr->VictoryGameState);
     
     //  Start game state.
-    ChangeGameState(EnginePtr, GS_GAME_LOOP);
+    ChangeGameState(EnginePtr, GS_MAIN_MENU);
 }
 
 void Update(Engine * EnginePtr)
@@ -68,7 +68,7 @@ void Update(Engine * EnginePtr)
     char currentGS[15] = "";
     strcpy(currentGS, GetCurrentGSString(EnginePtr));
     strcat(debugGS, currentGS);
-    dcFont_Print(EnginePtr->RenderPtr, 10, 20, &FontDefaultColor, debugGS);
+    dcFont_Print(EnginePtr->RenderPtr, 10, 220, &FontDefaultColor, debugGS);
 
     UpdateGameState(EnginePtr);
     
@@ -136,7 +136,28 @@ void OnChangeGameState(Engine * EnginePtr)
         break;
     }
 
-    EnginePtr->CurrentGameState = EnginePtr->DesiredGameState;
+    EnginePtr->CurrentGameState = EnginePtr->DesiredGameState;\
+
+    switch(EnginePtr->CurrentGameState)
+    {
+        case GS_MAIN_MENU:
+            MGS_Init(EnginePtr->MenuGameState);
+        break;
+        case GS_CONTRACT:
+            CGS_Init(EnginePtr->ContractGameState);
+        break;
+        case GS_GAME_LOOP:
+            GLGS_Init(EnginePtr->GameLoopGameState);
+        break;
+        case GS_GAME_OVER:
+            GOGS_Init(EnginePtr->GameOverGameState);
+        break;
+        case GS_GAME_VICTORY:
+            GVGS_Init(EnginePtr->VictoryGameState);
+        break;
+        default:
+        break;
+    }
 }
 
 // DEBUG
