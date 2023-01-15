@@ -15,7 +15,7 @@ void SceneMap_Init(SceneMap* MapPtr)
             Data.Coordinates.vy = j;
             Data.TopLeft.vx = i * SceneTileDim;
             Data.TopLeft.vy = j * SceneTileDim;
-            Data.RealImage = TimTile4;
+            Data.RealImage = TimTile5;
             MapPtr->MapTiles[i][j] = Data;
         }
     }
@@ -26,12 +26,12 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
     const DVECTOR UV = {SceneTileDim, SceneTileDim};
     const CVECTOR Color = {255, 255, 255, 255};
 
-    Tile * Data = &MapPtr->MapTiles[0][0];
-    int TopLeftX = Data->TopLeft.vx - CameraPosition->vx;
-    int TopLefty = Data->TopLeft.vy - CameraPosition->vy;
-    dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &Data->RealImage, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
+    // Tile * Data = &MapPtr->MapTiles[0][0];
+    // int TopLeftX = Data->TopLeft.vx - CameraPosition->vx;
+    // int TopLefty = Data->TopLeft.vy - CameraPosition->vy;
+    // dcRender_DrawSpriteRect(GEngineInstance.RenderPtr, &Data->RealImage, TopLeftX, TopLefty, SceneTileDim, SceneTileDim, &UV, &Color);
     
-    /*
+    
     for(int i = 0; i <  SceneTileWidth; i++)
     {
         for(int j = 0; j <  SceneTileHeight; j++)
@@ -46,7 +46,7 @@ void SceneMap_Draw(SceneMap * MapPtr, VECTOR * CameraPosition)
             }
         }
     }
-    */
+    
 }
 
 VECTOR Scene_GetMapCenter()

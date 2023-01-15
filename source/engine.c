@@ -56,7 +56,6 @@ void Update(Engine * EnginePtr)
 
      // RENDER
     CVECTOR FontDefaultColor = {255, 255, 255}; 
-    dcFont_Print(EnginePtr->RenderPtr, 10, 10, &FontDefaultColor, "DEMO 1 - THE GAME");
     char debugGS[50] = "CURRENT GS: ";
     char currentGS[15] = "";
     strcpy(currentGS, GetCurrentGSString(EnginePtr));
