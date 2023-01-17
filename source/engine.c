@@ -19,6 +19,7 @@ void Init(Engine * EnginePtr)
     EnginePtr->DesiredGameState = GS_UNDEFINED;
 
     // Start PSX systems.
+    SetVideoMode(MODE_PAL);
     dcMemory_Init();
     PadInit(0);
     InitGeom();

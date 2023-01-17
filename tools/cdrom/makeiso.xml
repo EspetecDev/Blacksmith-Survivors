@@ -15,7 +15,7 @@
 					  if you don't use CD audio in your project).
 		no_xa		- If non zero, creates the image without CD-XA file attributes.
 -->
-<iso_project image_name="myimage.bin" cue_sheet="myimage.cue" no_xa="0">
+<iso_project image_name="Blacksmith.bin" cue_sheet="Blacksmith.cue" no_xa="0">
 
 	<!-- <track>
 		Specifies a track to the ISO project. This example element creates a data
@@ -158,10 +158,7 @@
 	</track>
 
 	-->
-	<!-- <track type="audio" source="audio/track01.wav"/>
+	<track type="audio" source="audio/track01.wav"/>
     <track type="audio" source="audio/track02.wav"/>
-    <track type="audio" source="audio/track03.wav"/>
-    <track type="audio" source="audio/track04.wav"/>
-    <track type="audio" source="audio/track05.wav"/> -->
 	
 </iso_project>
